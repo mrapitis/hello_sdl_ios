@@ -11,19 +11,23 @@
 #import <SmartDeviceLink.h>
 
 
+// App configuration
+// TODO: Change these to match your app's settings!!
 static NSString *const kAppName = @"HelloSDL";
 static NSString *const kAppId = @"8675309";
 static const BOOL kAppIsMediaApp = NO;
 static NSString *const kShortAppName = @"Hello";
 static NSString *const kIconFile = @"sdl_icon.png";
 
+// Welcome message
 static NSString *const kWelcomeShow = @"Welcome to HelloSDL";
 static NSString *const kWelcomeSpeak = @"Welcome to Hello S D L";
 
+// Sample AddCommand
 static NSString *const kTestCommandName = @"Test Command";
 static const NSUInteger kTestCommandID = 1;
 
-
+// Notifications used to show/hide lockscreen in AppDelegate
 NSString *const SDLDisconnectNotification = @"com.sdl.notification.disconnect";
 NSString *const SDLLockScreenStatusNotification = @"com.sdl.notification.changeLockScreenStatus";
 NSString *const SDLNotificationUserInfoObject = @"com.sdl.notification.keys.notificationObject";
@@ -33,12 +37,12 @@ NSString *const SDLNotificationUserInfoObject = @"com.sdl.notification.keys.noti
 
 @property (nonatomic, strong) SDLProxy *proxy;
 @property (nonatomic, assign) NSUInteger correlationID;
-@property (nonatomic, assign) BOOL graphics;
 @property (nonatomic, strong) NSNumber *appIconId;
-@property (nonatomic, assign) BOOL firstHmiFull;
-@property (nonatomic, assign) BOOL firstHmiNotNone;
 @property (nonatomic, strong) NSMutableSet *remoteImages;
-@property (nonatomic, assign) BOOL vehicleDataSubscribed;
+@property (nonatomic, assign, getter=isGraphics) BOOL graphics;
+@property (nonatomic, assign, getter=isFirstHmiFull) BOOL firstHmiFull;
+@property (nonatomic, assign, getter=isFirstHmiNotNone) BOOL firstHmiNotNone;
+@property (nonatomic, assign, getter=isVehicleDataSubscribed) BOOL vehicleDataSubscribed;
 
 @end
 
@@ -47,7 +51,9 @@ NSString *const SDLNotificationUserInfoObject = @"com.sdl.notification.keys.noti
 
 #pragma mark Lifecycle
 
-// Singleton method
+/**
+ *  Singleton method.
+ */
 + (instancetype)manager {
     static FMCProxyManager *proxyManager = nil;
     static dispatch_once_t onceToken;
@@ -71,6 +77,12 @@ NSString *const SDLNotificationUserInfoObject = @"com.sdl.notification.keys.noti
     return self;
 }
 
+/**
+ *  Posts SDL notifications.
+ *
+ *  @param name The name of the SDL notification
+ *  @param info The data associated with the notification
+ */
 - (void)postNotification:(NSString *)name info:(id)info {
     NSDictionary *userInfo = nil;
     if (info != nil) {
@@ -84,20 +96,28 @@ NSString *const SDLNotificationUserInfoObject = @"com.sdl.notification.keys.noti
 
 #pragma mark Proxy Lifecycle
 
+/**
+ *  Start listening for SDL connections.
+ */
 - (void)startProxy {
-    [SDLDebugTool logInfo:@"startProxy"];
+    NSLog(@"startProxy");
     self.proxy = [SDLProxyFactory buildSDLProxyWithListener:self];
 }
 
+/**
+ *  Disconnect and destroy the current proxy.
+ */
 - (void)disposeProxy {
-    [SDLDebugTool logInfo:@"disposeProxy"];
+    NSLog(@"disposeProxy");
     [self.proxy dispose];
     self.proxy = nil;
 }
 
+/**
+ *  Delegate method that runs on SDL connect.
+ */
 - (void)onProxyOpened {
-    // Delegate method that occurs on connect (but not registered) with SDL
-    [SDLDebugTool logInfo:@"SDL Connect"];
+    NSLog(@"SDL Connect");
 
     // Build and send RegisterAppInterface request
     SDLRegisterAppInterface *raiRequest = [SDLRPCRequestFactory buildRegisterAppInterfaceWithAppName:kAppName languageDesired:[SDLLanguage EN_US] appID:kAppId];
@@ -109,9 +129,11 @@ NSString *const SDLNotificationUserInfoObject = @"com.sdl.notification.keys.noti
     [self.proxy sendRPC:raiRequest];
 }
 
+/**
+ *  Delegate method that runs on disconnect from SDL.
+ */
 - (void)onProxyClosed {
-    // Delegate method that occurs on disconnect from SDL
-    [SDLDebugTool logInfo:@"SDL Disconnect"];
+    NSLog(@"SDL Disconnect");
 
     // Reset state variables
     self.firstHmiFull = YES;
@@ -121,6 +143,7 @@ NSString *const SDLNotificationUserInfoObject = @"com.sdl.notification.keys.noti
     self.vehicleDataSubscribed = NO;
     self.appIconId = nil;
 
+    // Notify the app delegate to clear the lockscreen
     [self postNotification:SDLDisconnectNotification info:nil];
 
     // Cycle the proxy
@@ -128,12 +151,14 @@ NSString *const SDLNotificationUserInfoObject = @"com.sdl.notification.keys.noti
     [self startProxy];
 }
 
+/**
+ *  Delegate method that runs when the registration response is received from SDL.
+ */
 - (void)onRegisterAppInterfaceResponse:(SDLRegisterAppInterfaceResponse *)response {
-    // Delegate method that occurs when the registration response is received from SDL
-    [SDLDebugTool logInfo:@"RegisterAppInterface response from SDL"];
+    NSLog(@"RegisterAppInterface response from SDL");
 
     if (!response || [response.success isEqual:@0]) {
-        [SDLDebugTool logInfo:[NSString stringWithFormat:@"Failed to register with SDL: %@", response]];
+        NSLog(@"Failed to register with SDL: %@", response);
         return;
     }
 
@@ -143,11 +168,16 @@ NSString *const SDLNotificationUserInfoObject = @"com.sdl.notification.keys.noti
             self.graphics = [response.displayCapabilities.graphicSupported boolValue];
         }
     }
-    if (self.graphics) {
+    if (self.isGraphics) {
         [self uploadImages];
     }
 }
 
+/**
+ *  Auto-increment and return the next correlation ID for an RPC.
+ *
+ *  @return The next correlation ID as an NSNumber.
+ */
 - (NSNumber *)getNextCorrelationId {
     self.correlationID++;
     return [NSNumber numberWithUnsignedInteger:self.correlationID];
@@ -156,29 +186,38 @@ NSString *const SDLNotificationUserInfoObject = @"com.sdl.notification.keys.noti
 
 #pragma mark HMI
 
+/**
+ *  Delegate method that runs when the app's HMI state on SDL changes.
+ */
 - (void)onOnHMIStatus:(SDLOnHMIStatus *)notification {
-    [SDLDebugTool logInfo:@"HMIStatus notification from SDL"];
+    NSLog(@"HMIStatus notification from SDL");
 
     // Send welcome message on first HMI FULL
     if ([[SDLHMILevel FULL] isEqualToEnum:notification.hmiLevel]) {
-        if (self.firstHmiFull) {
+        if (self.isFirstHmiFull) {
             self.firstHmiFull = NO;
             [self performWelcomeMessage];
         }
+
+        // Other HMI (Show, PerformInteraction, etc.) would go here
     }
 
     // Send AddCommands in first non-HMI NONE state (i.e., FULL, LIMITED, BACKGROUND)
     if (![[SDLHMILevel NONE] isEqualToEnum:notification.hmiLevel]) {
-        if (self.firstHmiNotNone) {
+        if (self.isFirstHmiNotNone) {
             self.firstHmiNotNone = NO;
             [self addCommands];
+
+            // Other app setup (SubMenu, CreateChoiceSet, etc.) would go here
         }
     }
 }
 
+/**
+ *  Send welcome message (Speak and Show).
+ */
 - (void)performWelcomeMessage {
-    // Send welcome message (Speak and Show)
-    [SDLDebugTool logInfo:@"Send welcome message"];
+    NSLog(@"Send welcome message");
     SDLShow *show = [[SDLShow alloc] init];
     show.mainField1 = kWelcomeShow;
     show.alignment = [SDLTextAlignment CENTERED];
@@ -189,17 +228,23 @@ NSString *const SDLNotificationUserInfoObject = @"com.sdl.notification.keys.noti
     [self.proxy sendRPC:speak];
 }
 
+/**
+ *  Delegate method that runs when driver distraction mode changes.
+ */
 - (void)onOnDriverDistraction:(SDLOnDriverDistraction *)notification {
+    // Some RPCs (depending on region) cannot be sent when driver distraction is active.
 }
 
 
 #pragma mark AppIcon
 
+/**
+ *  Requests list of images to SDL, and uploads images that are missing.
+ *      Called automatically by the onRegisterAppInterfaceResponse method.
+ *      Note: Don't need to check for graphics support here; it is checked by the caller.
+ */
 - (void)uploadImages {
-    // Uploads images to SDL
-    // Called automatically by the onRegisterAppInterfaceResponse method
-    // Note: Don't need to check for graphics support here; it is checked by the caller
-    [SDLDebugTool logInfo:@"uploadImages"];
+    NSLog(@"uploadImages");
     [self.remoteImages removeAllObjects];
 
     // Perform a ListFiles RPC to check which files are already present on SDL
@@ -208,8 +253,11 @@ NSString *const SDLNotificationUserInfoObject = @"com.sdl.notification.keys.noti
     [self.proxy sendRPC:list];
 }
 
+/**
+ *  Delegate method that runs when the list files response is received from SDL.
+ */
 - (void)onListFilesResponse:(SDLListFilesResponse *)response {
-    [SDLDebugTool logInfo:@"ListFiles response from SDL"];
+    NSLog(@"ListFiles response from SDL");
 
     // If the ListFiles was successful, store the list in a mutable array
     if (response.success) {
@@ -228,12 +276,20 @@ NSString *const SDLNotificationUserInfoObject = @"com.sdl.notification.keys.noti
     else {
         [self setAppIcon];
     }
+
+    // Other images (for Show, etc.) could be added here
 }
 
+/**
+ *  Upload a persistent PNG image to SDL.
+ *      The correlation ID can be used in the onPutFileResponse delegate method
+ *      to determine when the upload is complete.
+ *
+ *  @param imageName The name of the image in the Assets catalog.
+ *  @param corrId    The correlation ID used in the request.
+ */
 - (void)uploadImage:(NSString *)imageName withCorrelationID:(NSNumber *)corrId {
-    // Upload an image from the App's Assets with the specified name
-    // Note: Assumes a PNG image type, and persistent storage!!
-    [SDLDebugTool logInfo:[NSString stringWithFormat:@"uploadImage: %@", imageName]];
+    NSLog(@"uploadImage: %@", imageName);
     if (imageName) {
         UIImage *pngImage = [UIImage imageNamed:kIconFile];
         if (pngImage) {
@@ -254,18 +310,24 @@ NSString *const SDLNotificationUserInfoObject = @"com.sdl.notification.keys.noti
     }
 }
 
+/**
+ *  Delegate method that runs when a PutFile is complete.
+ */
 - (void)onPutFileResponse:(SDLPutFileResponse *)response {
-    [SDLDebugTool logInfo:@"PutFile response from SDL"];
-    // On success and matching correlation ID, send a SetAppIcon request
+    NSLog(@"PutFile response from SDL");
+
+    // On success and matching app icon correlation ID, send a SetAppIcon request
     if (response.success && [response.correlationID isEqual:self.appIconId]) {
         [self setAppIcon];
     }
 }
 
+/**
+ *  Send the SetAppIcon request to SDL.
+ *      Called automatically in the OnPutFileResponse method.
+ */
 - (void)setAppIcon {
-    // Sends the SetAppIcon RPC with the image name uploaded via uploadImages
-    // Called automatically in the OnPutFileResponse method
-    [SDLDebugTool logInfo:@"setAppIcon"];
+    NSLog(@"setAppIcon");
     SDLSetAppIcon *setIcon = [[SDLSetAppIcon alloc] init];
     setIcon.syncFileName = kIconFile;
     setIcon.correlationID = [self getNextCorrelationId];
@@ -275,18 +337,24 @@ NSString *const SDLNotificationUserInfoObject = @"com.sdl.notification.keys.noti
 
 #pragma mark Lockscreen
 
+/**
+ *  Delegate method that runs when lockscreen status changes.
+ */
 - (void)onOnLockScreenNotification:(SDLLockScreenStatus *)notification {
-    // Delegate method that occurs when lockscreen status changes
-    [SDLDebugTool logInfo:@"OnLockScreen notification from SDL"];
+    NSLog(@"OnLockScreen notification from SDL");
+
+    // Notify the app delegate
     [self postNotification:SDLLockScreenStatusNotification info:notification];
 }
 
 
 #pragma mark Commands
 
+/**
+ *  Add commands for the app on SDL.
+ */
 - (void)addCommands {
-    [SDLDebugTool logInfo:@"addCommands"];
-    // Create and send AddCommand
+    NSLog(@"addCommands");
     SDLAddCommand *command = nil;
     SDLMenuParams *menuParams = nil;
     command = [[SDLAddCommand alloc] init];
@@ -298,14 +366,20 @@ NSString *const SDLNotificationUserInfoObject = @"com.sdl.notification.keys.noti
     [self.proxy sendRPC:command];
 }
 
+/**
+ *  Delegate method that runs when the add command response is received from SDL.
+ */
 - (void)onAddCommandResponse:(SDLAddCommandResponse *)response {
-    [SDLDebugTool logInfo:[NSString stringWithFormat:@"AddCommand response from SDL: %@", response]];
+    NSLog(@"AddCommand response from SDL: %@", response);
 }
 
+/**
+ *  Delegate method that runs when a command is triggered on SDL.
+ */
 - (void)onOnCommand:(SDLOnCommand *)notification {
-    [SDLDebugTool logInfo:@"OnCommand notification from SDL"];
+    NSLog(@"OnCommand notification from SDL");
 
-    // Handle command when triggered
+    // Handle sample command when triggered
     if ([notification.cmdID isEqual:@(kTestCommandID)]) {
         SDLShow *show = [[SDLShow alloc] init];
         show.mainField1 = @"Test Command";
@@ -321,8 +395,12 @@ NSString *const SDLNotificationUserInfoObject = @"com.sdl.notification.keys.noti
 
 #pragma mark VehicleData
 
+/**
+ *  Delegate method that runs when the app's permissions change on SDL.
+ */
 - (void)onOnPermissionsChange:(SDLOnPermissionsChange *)notification {
-    [SDLDebugTool logInfo:@"OnPermissionsChange notification from SDL"];
+    NSLog(@"OnPermissionsChange notification from SDL");
+
     // Check for permission to subscribe to vehicle data before sending the request
     NSMutableArray *permissionArray = notification.permissionItem;
     for (SDLPermissionItem *item in permissionArray) {
@@ -334,35 +412,48 @@ NSString *const SDLNotificationUserInfoObject = @"com.sdl.notification.keys.noti
     }
 }
 
+/**
+ *  Subscribe to (periodic) vehicle data updates from SDL.
+ */
 - (void)subscribeVehicleData {
-    // Subscribe to vehicle data updates from SDL
-    [SDLDebugTool logInfo:@"subscribeVehicleData"];
-    if (!self.vehicleDataSubscribed) {
+    NSLog(@"subscribeVehicleData");
+    if (!self.isVehicleDataSubscribed) {
         SDLSubscribeVehicleData *subscribe = [[SDLSubscribeVehicleData alloc] init];
         subscribe.correlationID = [self getNextCorrelationId];
 
+        // Specify which items to subscribe to
         subscribe.speed = @YES;
 
         [self.proxy sendRPC:subscribe];
     }
 }
 
+/**
+ *  Delegate method that runs when the subscribe vehicle data response is received from SDL.
+ */
 - (void)onSubscribeVehicleDataResponse:(SDLSubscribeVehicleDataResponse *)response {
-    [SDLDebugTool logInfo:@"SubscribeVehicleData response from SDL"];
+    NSLog(@"SubscribeVehicleData response from SDL");
+
     if (response && [[SDLResult SUCCESS] isEqualToEnum:response.resultCode]) {
-        [SDLDebugTool logInfo:@"Vehicle data subscribed!"];
+        NSLog(@"Vehicle data subscribed!");
         self.vehicleDataSubscribed = YES;
     }
 }
 
+/**
+ *  Delegate method that runs when new vehicle data is received from SDL.
+ */
 - (void)onOnVehicleData:(SDLOnVehicleData *)notification {
-    [SDLDebugTool logInfo:@"OnVehicleData notification from SDL"];
+    NSLog(@"OnVehicleData notification from SDL");
+
     // TODO: Put your vehicle data code here!
-    [SDLDebugTool logInfo:[NSString stringWithFormat:@"Speed: %@", notification.speed]];
+    NSLog(@"Speed: %@", notification.speed);
 }
 
 
 /*
+ 
+// Notifications
 - (void)onOnAppInterfaceUnregistered:(SDLOnAppInterfaceUnregistered *)notification;
 - (void)onOnAudioPassThru:(SDLOnAudioPassThru *)notification;
 - (void)onOnButtonEvent:(SDLOnButtonEvent *)notification;
@@ -375,6 +466,7 @@ NSString *const SDLNotificationUserInfoObject = @"com.sdl.notification.keys.noti
 - (void)onOnTBTClientState:(SDLOnTBTClientState *)notification;
 - (void)onOnTouchEvent:(SDLOnTouchEvent *)notification;
  
+// Responses
 - (void)onAddSubMenuResponse:(SDLAddSubMenuResponse *)response;
 - (void)onAlertManeuverResponse:(SDLAlertManeuverResponse *)request;
 - (void)onAlertResponse:(SDLAlertResponse *)response;
