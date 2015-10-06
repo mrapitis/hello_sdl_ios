@@ -9,9 +9,15 @@
 #ifndef FMCProxyManager_h
 #define FMCProxyManager_h
 
+extern NSString *const SDLDisconnectNotification;
+extern NSString *const SDLLockScreenStatusNotification;
+extern NSString *const SDLNotificationUserInfoObject;
+
 @interface FMCProxyManager : NSObject
 
 + (instancetype)manager;
+- (void)startProxy;
+- (void)disposeProxy;
 
 @end
 
