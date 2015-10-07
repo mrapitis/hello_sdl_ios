@@ -10,6 +10,5 @@
 
 @interface LockScreenViewController : UIViewController
 
-
 @end
 

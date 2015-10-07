@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "FMCProxyManager.h"
+#import "HSDLProxyManager.h"
 #import <SmartDeviceLink.h>
 
 @interface AppDelegate ()
@@ -25,14 +25,13 @@
     // Store references to the 2 view controllers
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     UIViewController *lockvc = [sb instantiateViewControllerWithIdentifier:@"LockScreenViewController"];
-    [self setLockScreenViewController:lockvc];
-    [self setMainViewController:[[self window] rootViewController]];
+    self.lockScreenViewController = lockvc;
+    self.mainViewController = self.window.rootViewController;
 
-    [self registerForLockScreenNotifications];
+    [self hsdl_registerForLockScreenNotifications];
 
     // Start the proxy
-    FMCProxyManager *manager = [FMCProxyManager manager];
-    [manager startProxy];
+    [[HSDLProxyManager manager] startProxy];
 
     return YES;
 }
@@ -59,29 +58,29 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-- (void)lockScreen {
+- (void)hsdl_lockScreen {
     @synchronized(self) {
         // Display the lock screen if it is not presented already.
-        if ([[[self window] rootViewController] isEqual:[self lockScreenViewController]] == NO) {
-            [[self window] setRootViewController:[self lockScreenViewController]];
+        if ([self.window.rootViewController isEqual:self.lockScreenViewController] == NO) {
+            [self.window setRootViewController:self.lockScreenViewController];
         }
     }
 }
 
-- (void)unlockScreen {
+- (void)hsdl_unlockScreen {
     @synchronized(self) {
         // Display the regular screen if it is not presented already.
-        if ([[[self window] rootViewController] isEqual:[self mainViewController]] == NO) {
-            [[self window] setRootViewController:[self mainViewController]];
+        if ([self.window.rootViewController isEqual:self.mainViewController] == NO) {
+            [self.window setRootViewController:self.mainViewController];
         }
     }
 }
 
-- (void)registerForLockScreenNotifications {
+- (void)hsdl_registerForLockScreenNotifications {
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
 
-    [center addObserver:self selector:@selector(didChangeLockScreenStatus:) name:SDLLockScreenStatusNotification object:nil];
-    [center addObserver:self selector:@selector(didDisconnect:) name:SDLDisconnectNotification object:nil];
+    [center addObserver:self selector:@selector(didChangeLockScreenStatus:) name:HSDLLockScreenStatusNotification object:nil];
+    [center addObserver:self selector:@selector(proxyDidDisconnect:) name:HSDLDisconnectNotification object:nil];
 }
 
 - (void)dealloc {
@@ -96,23 +95,23 @@
 
     SDLOnLockScreenStatus *lockScreenStatus = nil;
     if (notification && notification.userInfo) {
-        lockScreenStatus = notification.userInfo[SDLNotificationUserInfoObject];
+        lockScreenStatus = notification.userInfo[HSDLNotificationUserInfoObject];
     }
 
     dispatch_async(dispatch_get_main_queue(), ^{
-      if (lockScreenStatus && ![[SDLLockScreenStatus OFF] isEqualToEnum:lockScreenStatus.lockScreenStatus]) {
-          [self lockScreen];
-      } else {
-          [self unlockScreen];
-      }
+        if (lockScreenStatus && ![lockScreenStatus.lockScreenStatus isEqualToEnum:[SDLLockScreenStatus OFF]]) {
+            [self hsdl_lockScreen];
+        } else {
+            [self hsdl_unlockScreen];
+        }
     });
 }
 
-- (void)didDisconnect:(NSNotification *)notification {
+- (void)proxyDidDisconnect:(NSNotification *)notification {
     // Delegate method to perform actions on disconnect from SYNC
     // Clear the lockscreen
     dispatch_async(dispatch_get_main_queue(), ^{
-      [self unlockScreen];
+        [self hsdl_unlockScreen];
     });
 }
 
