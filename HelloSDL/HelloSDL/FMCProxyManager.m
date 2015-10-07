@@ -11,26 +11,25 @@
 #import <SmartDeviceLink.h>
 
 
+#warning TODO: Change these to match your app settings!!
 // App configuration
-// TODO: Change these to match your app's settings!!
 static NSString *const kAppName = @"HelloSDL";
 static NSString *const kAppId = @"8675309";
 static const BOOL kAppIsMediaApp = NO;
 static NSString *const kShortAppName = @"Hello";
 static NSString *const kIconFile = @"sdl_icon.png";
-
 // Welcome message
 static NSString *const kWelcomeShow = @"Welcome to HelloSDL";
 static NSString *const kWelcomeSpeak = @"Welcome to Hello S D L";
-
 // Sample AddCommand
 static NSString *const kTestCommandName = @"Test Command";
 static const NSUInteger kTestCommandID = 1;
 
-// Notifications used to show/hide lockscreen in AppDelegate
-NSString *const SDLDisconnectNotification = @"com.sdl.notification.disconnect";
-NSString *const SDLLockScreenStatusNotification = @"com.sdl.notification.changeLockScreenStatus";
-NSString *const SDLNotificationUserInfoObject = @"com.sdl.notification.keys.notificationObject";
+
+// Notifications used to show/hide lockscreen in the AppDelegate
+NSString *const SDLDisconnectNotification = @"com.sdl.notification.sdldisconnect";
+NSString *const SDLLockScreenStatusNotification = @"com.sdl.notification.sdlchangeLockScreenStatus";
+NSString *const SDLNotificationUserInfoObject = @"com.sdl.notification.keys.sdlnotificationObject";
 
 
 @interface FMCProxyManager () <SDLProxyListener>
@@ -59,7 +58,7 @@ NSString *const SDLNotificationUserInfoObject = @"com.sdl.notification.keys.noti
     static dispatch_once_t onceToken;
 
     dispatch_once(&onceToken, ^{
-      proxyManager = [[self alloc] init];
+        proxyManager = [[self alloc] init];
     });
 
     return proxyManager;
@@ -395,10 +394,12 @@ NSString *const SDLNotificationUserInfoObject = @"com.sdl.notification.keys.noti
 
 #pragma mark VehicleData
 
+// TODO: uncomment the methods below for vehicle data
+
 /**
  *  Delegate method that runs when the app's permissions change on SDL.
  */
-- (void)onOnPermissionsChange:(SDLOnPermissionsChange *)notification {
+/*- (void)onOnPermissionsChange:(SDLOnPermissionsChange *)notification {
     NSLog(@"OnPermissionsChange notification from SDL");
 
     // Check for permission to subscribe to vehicle data before sending the request
@@ -410,45 +411,46 @@ NSString *const SDLNotificationUserInfoObject = @"com.sdl.notification.keys.noti
             }
         }
     }
-}
+}*/
 
 /**
  *  Subscribe to (periodic) vehicle data updates from SDL.
  */
-- (void)subscribeVehicleData {
+/*- (void)subscribeVehicleData {
     NSLog(@"subscribeVehicleData");
     if (!self.isVehicleDataSubscribed) {
         SDLSubscribeVehicleData *subscribe = [[SDLSubscribeVehicleData alloc] init];
         subscribe.correlationID = [self getNextCorrelationId];
 
+#warning TODO: Add the vehicle data items you want to subscribe to
         // Specify which items to subscribe to
         subscribe.speed = @YES;
 
         [self.proxy sendRPC:subscribe];
     }
-}
+}*/
 
 /**
  *  Delegate method that runs when the subscribe vehicle data response is received from SDL.
  */
-- (void)onSubscribeVehicleDataResponse:(SDLSubscribeVehicleDataResponse *)response {
+/*- (void)onSubscribeVehicleDataResponse:(SDLSubscribeVehicleDataResponse *)response {
     NSLog(@"SubscribeVehicleData response from SDL");
 
     if (response && [[SDLResult SUCCESS] isEqualToEnum:response.resultCode]) {
         NSLog(@"Vehicle data subscribed!");
         self.vehicleDataSubscribed = YES;
     }
-}
+}*/
 
 /**
  *  Delegate method that runs when new vehicle data is received from SDL.
  */
-- (void)onOnVehicleData:(SDLOnVehicleData *)notification {
+/*- (void)onOnVehicleData:(SDLOnVehicleData *)notification {
     NSLog(@"OnVehicleData notification from SDL");
 
-    // TODO: Put your vehicle data code here!
+#warning TODO: Put your vehicle data code here!
     NSLog(@"Speed: %@", notification.speed);
-}
+}*/
 
 
 /*

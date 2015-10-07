@@ -74,7 +74,7 @@
 				7C2D5AE11BC30F4C002FE9CE /* AppDelegate.h */,
 				7C2D5AE21BC30F4C002FE9CE /* AppDelegate.m */,
 				7C2D5AF51BC3156D002FE9CE /* Views */,
-				7C2D5AF91BC31CE2002FE9CE /* SDL Managers */,
+				7C2D5AF91BC31CE2002FE9CE /* SDL */,
 				7C2D5AE71BC30F4C002FE9CE /* Main.storyboard */,
 				7C2D5AEA1BC30F4C002FE9CE /* Assets.xcassets */,
 				7C2D5AEC1BC30F4C002FE9CE /* LaunchScreen.storyboard */,
@@ -103,13 +103,13 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
-		7C2D5AF91BC31CE2002FE9CE /* SDL Managers */ = {
+		7C2D5AF91BC31CE2002FE9CE /* SDL */ = {
 			isa = PBXGroup;
 			children = (
 				7C2D5AFA1BC31D19002FE9CE /* FMCProxyManager.h */,
 				7C2D5AFB1BC31D21002FE9CE /* FMCProxyManager.m */,
 			);
-			name = "SDL Managers";
+			name = SDL;
 			sourceTree = "<group>";
 		};
 		8F86A01EAFE52F57966DDE56 /* Frameworks */ = {
