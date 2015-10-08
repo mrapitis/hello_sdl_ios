@@ -11,7 +11,8 @@ This XCode project acts as a reference iOS app using the 4.0.0 SDL SDK.
 * git clone https://github.com/smartdevicelink/hello_sdl_ios
 
 3) At the command line, change to the directory where the sample project is located and run the following command to download the SDL SDK and to setup your XCode workspace:
-```$ pod install```
+
+>```$ pod install```
 
 4) Open the workspace "HelloSDL.xcworkspace" in XCode
 
