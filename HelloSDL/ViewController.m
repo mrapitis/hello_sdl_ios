@@ -2,8 +2,8 @@
 //  ViewController.m
 //  HelloSDL
 //
-//  Created by Ford Developer on 10/5/15.
-//  Copyright © 2015 Ford. All rights reserved.
+//  Created by James Sokoll on 10/7/15.
+//  Copyright © 2015 Ford Motor Company. All rights reserved.
 //
 
 #import "ViewController.h"
@@ -14,12 +14,14 @@
 
 @implementation ViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }

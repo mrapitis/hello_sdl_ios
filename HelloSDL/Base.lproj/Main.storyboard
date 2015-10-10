@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15B30a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="SLm-wX-7fj">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Screen is unlocked" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="IbQ-ct-Rr8">
+                                <rect key="frame" x="8" y="560" width="584" height="32"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Ford_logo_no_background" translatesAutoresizingMaskIntoConstraints="NO" id="pSz-PT-B4f">
+                                <rect key="frame" x="8" y="172" width="584" height="256"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="256" id="ewd-9v-mfO"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello SDL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="VJI-uo-WI7">
+                                <rect key="frame" x="8" y="378" width="584" height="39"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="pSz-PT-B4f" firstAttribute="leading" secondItem="SLm-wX-7fj" secondAttribute="leading" constant="8" id="4yE-KE-CDN"/>
+                            <constraint firstItem="VJI-uo-WI7" firstAttribute="leading" secondItem="SLm-wX-7fj" secondAttribute="leading" constant="8" id="8Om-Eh-Tze"/>
+                            <constraint firstItem="IbQ-ct-Rr8" firstAttribute="leading" secondItem="SLm-wX-7fj" secondAttribute="leading" constant="8" id="8la-eX-iAz"/>
+                            <constraint firstAttribute="trailing" secondItem="VJI-uo-WI7" secondAttribute="trailing" constant="8" id="EWx-IK-Bdu"/>
+                            <constraint firstAttribute="trailing" secondItem="pSz-PT-B4f" secondAttribute="trailing" constant="8" id="Iwz-x3-Wqk"/>
+                            <constraint firstItem="pSz-PT-B4f" firstAttribute="centerY" secondItem="SLm-wX-7fj" secondAttribute="centerY" id="NUb-Kw-I7L"/>
+                            <constraint firstAttribute="bottom" secondItem="IbQ-ct-Rr8" secondAttribute="bottom" constant="8" id="Y0M-i3-WvO"/>
+                            <constraint firstItem="VJI-uo-WI7" firstAttribute="top" secondItem="pSz-PT-B4f" secondAttribute="bottom" constant="-50" id="o4x-ro-tvS"/>
+                            <constraint firstAttribute="trailing" secondItem="IbQ-ct-Rr8" secondAttribute="trailing" constant="8" id="pcF-kY-9f8"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+        <!--LockScreenViewController-->
+        <scene sceneID="j1p-B2-qyr">
+            <objects>
+                <viewController storyboardIdentifier="LockScreenViewController" title="LockScreenViewController" id="sSe-hM-pJc" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="aaP-D5-zFH"/>
+                        <viewControllerLayoutGuide type="bottom" id="oF3-p6-Qph"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="PGQ-Kd-9oQ">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Screen is locked" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="CsN-Pv-eVH">
+                                <rect key="frame" x="8" y="560" width="584" height="32"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Ford_logo_no_background" translatesAutoresizingMaskIntoConstraints="NO" id="55U-nh-za5">
+                                <rect key="frame" x="8" y="172" width="584" height="256"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="256" id="ahM-tB-evv"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello SDL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="DaW-ao-Kvs">
+                                <rect key="frame" x="8" y="378" width="584" height="39"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="DaW-ao-Kvs" firstAttribute="leading" secondItem="PGQ-Kd-9oQ" secondAttribute="leading" constant="8" id="1b9-Nw-0D5"/>
+                            <constraint firstAttribute="trailing" secondItem="CsN-Pv-eVH" secondAttribute="trailing" constant="8" id="2vp-GL-CLh"/>
+                            <constraint firstItem="55U-nh-za5" firstAttribute="centerY" secondItem="PGQ-Kd-9oQ" secondAttribute="centerY" id="Pus-3y-55N"/>
+                            <constraint firstItem="CsN-Pv-eVH" firstAttribute="leading" secondItem="PGQ-Kd-9oQ" secondAttribute="leading" constant="8" id="UD5-42-yVV"/>
+                            <constraint firstAttribute="bottom" secondItem="CsN-Pv-eVH" secondAttribute="bottom" constant="8" id="Uld-J4-UgY"/>
+                            <constraint firstAttribute="trailing" secondItem="55U-nh-za5" secondAttribute="trailing" constant="8" id="fbb-Ug-Djr"/>
+                            <constraint firstItem="DaW-ao-Kvs" firstAttribute="top" secondItem="55U-nh-za5" secondAttribute="bottom" constant="-50" id="gPM-q6-s4d"/>
+                            <constraint firstAttribute="trailing" secondItem="DaW-ao-Kvs" secondAttribute="trailing" constant="8" id="tYD-mD-sRW"/>
+                            <constraint firstItem="55U-nh-za5" firstAttribute="leading" secondItem="PGQ-Kd-9oQ" secondAttribute="leading" constant="8" id="zeB-E9-kqQ"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7dR-Qh-DwG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1217" y="432"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Ford_logo_no_background" width="749" height="375"/>
+    </resources>
+</document>

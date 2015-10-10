@@ -1,9 +1,6 @@
-xcodeproj 'HelloSDL/HelloSDL.xcodeproj'
-
-# Uncomment this line to define a global platform for your project
-# platform :ios, '6.0'
-
 target 'HelloSDL' do
-pod 'SmartDeviceLink-iOS', '4.0.0'
+
+pod 'SmartDeviceLink-iOS', :git => 'https://github.com/smartdevicelink/sdl_ios.git', :commit => '12d7c3e1f3ca689b7173736773b88ca1d0a5ccd4'
+
 end
 
