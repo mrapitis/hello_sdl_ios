@@ -31,7 +31,8 @@
     [self hsdl_registerForLockScreenNotifications];
 
     // Start the proxy
-    [[HSDLProxyManager manager] startProxy];
+    //[[HSDLProxyManager manager] startProxy];
+    // This is done using a button for this TCP/IP sample
 
     return YES;
 }

@@ -33,11 +33,49 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WwI-nO-vA1">
+                                <rect key="frame" x="260" y="408" width="81" height="30"/>
+                                <animations/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="PFv-Of-rce"/>
+                                    <constraint firstAttribute="height" constant="30" id="XRU-FE-nqV"/>
+                                    <constraint firstAttribute="width" constant="81" id="aCL-pd-eke"/>
+                                    <constraint firstAttribute="width" constant="66" id="qvi-hG-buH"/>
+                                </constraints>
+                                <state key="normal" title="Connect"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="PFv-Of-rce"/>
+                                        <exclude reference="qvi-hG-buH"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="connectDidTouchUpInside:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KUJ-Wu-yex"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cpc-TV-CD7">
+                                <rect key="frame" x="260" y="446" width="81" height="30"/>
+                                <animations/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="81" id="8ZN-P9-AOr"/>
+                                    <constraint firstAttribute="height" constant="30" id="tih-Ob-Y8a"/>
+                                </constraints>
+                                <state key="normal" title="Disconnect"/>
+                                <connections>
+                                    <action selector="disconnectDidTouchUpInside:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Bm1-m8-QvZ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="WwI-nO-vA1" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="5Ie-ys-FAQ"/>
+                            <constraint firstItem="WwI-nO-vA1" firstAttribute="top" secondItem="M1X-R1-KlX" secondAttribute="bottom" constant="98" id="6w3-OG-WG8"/>
                             <constraint firstItem="oOo-c6-R9r" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="MmR-36-31K"/>
+                            <constraint firstItem="cpc-TV-CD7" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="TGl-Pm-X0Y"/>
+                            <constraint firstItem="cpc-TV-CD7" firstAttribute="top" secondItem="WwI-nO-vA1" secondAttribute="bottom" constant="8" id="Zjt-17-Yk4"/>
                             <constraint firstItem="M1X-R1-KlX" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="hNe-S1-WS9"/>
                             <constraint firstItem="M1X-R1-KlX" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="nsf-w3-rNT"/>
                             <constraint firstItem="oOo-c6-R9r" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="47" id="v38-JD-UcX"/>
@@ -76,11 +114,26 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UJr-dg-7ts">
+                                <rect key="frame" x="260" y="446" width="81" height="30"/>
+                                <animations/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="5aB-pF-NnH"/>
+                                    <constraint firstAttribute="width" constant="81" id="MU9-jx-ibF"/>
+                                </constraints>
+                                <state key="normal" title="Disconnect"/>
+                                <connections>
+                                    <action selector="disconnectDidTouchUpInside:" destination="JuC-D0-xjA" eventType="touchUpInside" id="8Se-Bl-4Ot"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="UJr-dg-7ts" firstAttribute="top" secondItem="BQ3-BF-6eZ" secondAttribute="bottom" constant="136" id="F4Q-sa-UTj"/>
                             <constraint firstItem="pUv-yZ-yga" firstAttribute="centerX" secondItem="9kI-Dw-iP6" secondAttribute="centerX" id="JSX-PH-jdT"/>
+                            <constraint firstItem="UJr-dg-7ts" firstAttribute="centerX" secondItem="9kI-Dw-iP6" secondAttribute="centerX" id="QHX-K9-c57"/>
                             <constraint firstItem="pUv-yZ-yga" firstAttribute="top" secondItem="kxN-qr-FEx" secondAttribute="bottom" constant="47" id="cQV-GI-0fG"/>
                             <constraint firstItem="BQ3-BF-6eZ" firstAttribute="centerY" secondItem="9kI-Dw-iP6" secondAttribute="centerY" id="hUg-Vz-ZDi"/>
                             <constraint firstItem="BQ3-BF-6eZ" firstAttribute="centerX" secondItem="9kI-Dw-iP6" secondAttribute="centerX" id="n1W-Hx-3Nw"/>
