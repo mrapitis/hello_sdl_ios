@@ -11,6 +11,9 @@
 #import <SmartDeviceLink.h>
 
 #warning TODO: Change these to match your app settings!!
+// TCP/IP (Emulator) configuration
+static NSString *const RemoteIpAddress = @"127.0.0.1";
+static NSString *const RemotePort = @"12345";
 // App configuration
 static NSString *const AppName = @"HelloSDL";
 static NSString *const AppId = @"8675309";
@@ -36,6 +39,7 @@ NSString *const HSDLNotificationUserInfoObject = @"com.sdl.notification.keys.sdl
 @property (nonatomic, assign) NSUInteger correlationID;
 @property (nonatomic, strong) NSNumber *appIconId;
 @property (nonatomic, strong) NSMutableSet *remoteImages;
+@property (nonatomic, assign, getter=isConnected) BOOL connected;
 @property (nonatomic, assign, getter=isGraphicsSupported) BOOL graphicsSupported;
 @property (nonatomic, assign, getter=isFirstHmiFull) BOOL firstHmiFull;
 @property (nonatomic, assign, getter=isFirstHmiNotNone) BOOL firstHmiNotNone;
@@ -64,6 +68,7 @@ NSString *const HSDLNotificationUserInfoObject = @"com.sdl.notification.keys.sdl
 - (instancetype)init {
     if (self = [super init]) {
         _correlationID = 1;
+        _connected = NO;
         _graphicsSupported = NO;
         _firstHmiFull = YES;
         _firstHmiNotNone = YES;
@@ -96,7 +101,7 @@ NSString *const HSDLNotificationUserInfoObject = @"com.sdl.notification.keys.sdl
  */
 - (void)startProxy {
     NSLog(@"startProxy");
-    self.proxy = [SDLProxyFactory buildSDLProxyWithListener:self];
+    self.proxy = [SDLProxyFactory buildSDLProxyWithListener:self tcpIPAddress:RemoteIpAddress tcpPort:RemotePort];
 }
 
 /**
@@ -113,6 +118,8 @@ NSString *const HSDLNotificationUserInfoObject = @"com.sdl.notification.keys.sdl
  */
 - (void)onProxyOpened {
     NSLog(@"SDL Connect");
+    
+    self.connected = YES;
 
     // Build and send RegisterAppInterface request
     SDLRegisterAppInterface *raiRequest = [SDLRPCRequestFactory buildRegisterAppInterfaceWithAppName:AppName languageDesired:[SDLLanguage EN_US] appID:AppId];
@@ -124,6 +131,11 @@ NSString *const HSDLNotificationUserInfoObject = @"com.sdl.notification.keys.sdl
     [self.proxy sendRPC:raiRequest];
 }
 
+- (void)manualDisconnect {
+    if (self.isConnected)
+        [self onProxyClosed];
+}
+
 /**
  *  Delegate method that runs on disconnect from SDL.
  */
@@ -131,6 +143,7 @@ NSString *const HSDLNotificationUserInfoObject = @"com.sdl.notification.keys.sdl
     NSLog(@"SDL Disconnect");
 
     // Reset state variables
+    self.connected = NO;
     self.firstHmiFull = YES;
     self.firstHmiNotNone = YES;
     self.graphicsSupported = NO;
@@ -143,7 +156,6 @@ NSString *const HSDLNotificationUserInfoObject = @"com.sdl.notification.keys.sdl
 
     // Cycle the proxy
     [self disposeProxy];
-    [self startProxy];
 }
 
 /**

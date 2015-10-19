@@ -15,5 +15,6 @@ extern NSString *const HSDLNotificationUserInfoObject;
 + (instancetype)manager;
 - (void)startProxy;
 - (void)disposeProxy;
+- (void)manualDisconnect; // TCP/IP manual disconnect
 
 @end

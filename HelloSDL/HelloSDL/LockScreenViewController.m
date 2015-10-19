@@ -7,6 +7,7 @@
 //
 
 #import "LockScreenViewController.h"
+#import "HSDLProxyManager.h"
 
 @interface LockScreenViewController ()
 
@@ -22,6 +23,11 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)disconnectDidTouchUpInside:(id)sender {
+    // This button/method is only needed when using TCP/IP transport
+    [[HSDLProxyManager manager] manualDisconnect];
 }
 
 @end
