@@ -10,6 +10,7 @@
 #import "HSDLProxyManager.h"
 #import <SmartDeviceLink.h>
 
+
 #warning TODO: Change these to match your app settings!!
 // App configuration
 static NSString *const AppName = @"HelloSDL";
@@ -25,10 +26,12 @@ static NSString *const WelcomeSpeak = @"Welcome to Hello S D L";
 static NSString *const TestCommandName = @"Test Command";
 static const NSUInteger TestCommandID = 1;
 
+
 // Notifications used to show/hide lockscreen in the AppDelegate
 NSString *const HSDLDisconnectNotification = @"com.sdl.notification.sdldisconnect";
 NSString *const HSDLLockScreenStatusNotification = @"com.sdl.notification.sdlchangeLockScreenStatus";
 NSString *const HSDLNotificationUserInfoObject = @"com.sdl.notification.keys.sdlnotificationObject";
+
 
 @interface HSDLProxyManager () <SDLProxyListener>
 
@@ -45,6 +48,7 @@ NSString *const HSDLNotificationUserInfoObject = @"com.sdl.notification.keys.sdl
 
 @implementation HSDLProxyManager
 
+
 #pragma mark Lifecycle
 
 /**
@@ -55,7 +59,7 @@ NSString *const HSDLNotificationUserInfoObject = @"com.sdl.notification.keys.sdl
     static dispatch_once_t onceToken;
 
     dispatch_once(&onceToken, ^{
-      proxyManager = [[self alloc] init];
+        proxyManager = [[self alloc] init];
     });
 
     return proxyManager;
@@ -88,6 +92,7 @@ NSString *const HSDLNotificationUserInfoObject = @"com.sdl.notification.keys.sdl
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:name object:self userInfo:userInfo];
 }
+
 
 #pragma mark Proxy Lifecycle
 
@@ -177,6 +182,7 @@ NSString *const HSDLNotificationUserInfoObject = @"com.sdl.notification.keys.sdl
     return [NSNumber numberWithUnsignedInteger:++self.correlationID];
 }
 
+
 #pragma mark HMI
 
 /**
@@ -228,6 +234,7 @@ NSString *const HSDLNotificationUserInfoObject = @"com.sdl.notification.keys.sdl
     NSLog(@"OnDriverDistraction notification from SDL");
     // Some RPCs (depending on region) cannot be sent when driver distraction is active.
 }
+
 
 #pragma mark AppIcon
 
@@ -326,6 +333,7 @@ NSString *const HSDLNotificationUserInfoObject = @"com.sdl.notification.keys.sdl
     [self.proxy sendRPC:setIcon];
 }
 
+
 #pragma mark Lockscreen
 
 /**
@@ -337,6 +345,7 @@ NSString *const HSDLNotificationUserInfoObject = @"com.sdl.notification.keys.sdl
     // Notify the app delegate
     [self hsdl_postNotification:HSDLLockScreenStatusNotification info:notification];
 }
+
 
 #pragma mark Commands
 
@@ -379,6 +388,7 @@ NSString *const HSDLNotificationUserInfoObject = @"com.sdl.notification.keys.sdl
         [self.proxy sendRPC:speak];
     }
 }
+
 
 #pragma mark VehicleData
 
@@ -440,210 +450,61 @@ NSString *const HSDLNotificationUserInfoObject = @"com.sdl.notification.keys.sdl
     NSLog(@"Speed: %@", notification.speed);
 }*/
 
+
 /*
  
- */
-
-
-#pragma mark Notification callbacks
-
-- (void)onOnAppInterfaceUnregistered:(SDLOnAppInterfaceUnregistered *)notification {
-    NSLog(@"onAppInterfaceUnregistered notification from SDL");
-}
-
-- (void)onOnAudioPassThru:(SDLOnAudioPassThru *)notification {
-    NSLog(@"onAudioPassThru notification from SDL");
-}
-
-- (void)onOnButtonEvent:(SDLOnButtonEvent *)notification {
-    NSLog(@"onButtonEvent notification from SDL");
-}
-
-- (void)onOnButtonPress:(SDLOnButtonPress *)notification {
-    NSLog(@"onButtonPress notification from SDL");
-}
-
-- (void)onOnEncodedSyncPData:(SDLOnEncodedSyncPData *)notification {
-    NSLog(@"onEncodedSyncPData from SDL");
-}
-
-- (void)onOnHashChange:(SDLOnHashChange *)notification {
-    NSLog(@"onHashChange notification from SDL");
-}
-
-- (void)onOnLanguageChange:(SDLOnLanguageChange *)notification {
-    NSLog(@"onLanguageChange notification from SDL");
-}
-
-- (void)onOnSyncPData:(SDLOnSyncPData *)notification {
-    NSLog(@"onSyncPData notification from SDL");
-}
-
-- (void)onOnSystemRequest:(SDLOnSystemRequest *)notification {
-    NSLog(@"onSystemRequest notification from SDL");
-}
-
-- (void)onOnTBTClientState:(SDLOnTBTClientState *)notification {
-    NSLog(@"onTBTClientState notification from SDL");
-}
-
-- (void)onOnTouchEvent:(SDLOnTouchEvent *)notification {
-    NSLog(@"onTouchEvent notification from SDL");
-}
-
-
-#pragma mark Other callbacks
-
-- (void)onAddSubMenuResponse:(SDLAddSubMenuResponse *)response {
-    NSLog(@"AddSubMenu response from SDL with result code: %@ and info: %@", response.resultCode, response.info);
-}
-
-- (void)onAlertManeuverResponse:(SDLAlertManeuverResponse *)request {
-    NSLog(@"AlertManeuver response from SDL with result code: %@ and info: %@", request.resultCode, request.info);
-}
-
-- (void)onAlertResponse:(SDLAlertResponse *)response {
-    NSLog(@"Alert response from SDL with result code: %@ and info: %@", response.resultCode, response.info);
-}
-
-- (void)onChangeRegistrationResponse:(SDLChangeRegistrationResponse *)response {
-    NSLog(@"ChangeRegistration response from SDL with result code: %@ and info: %@", response.resultCode, response.info);
-}
-
-- (void)onCreateInteractionChoiceSetResponse:(SDLCreateInteractionChoiceSetResponse *)response {
-    NSLog(@"CreateInteractionChoiceSet response from SDL with result code: %@ and info: %@", response.resultCode, response.info);
-}
-
-- (void)onDeleteCommandResponse:(SDLDeleteCommandResponse *)response {
-    NSLog(@"DeleteCommand response from SDL with result code: %@ and info: %@", response.resultCode, response.info);
-}
-
-- (void)onDeleteFileResponse:(SDLDeleteFileResponse *)response {
-    NSLog(@"DeleteFile response from SDL with result code: %@ and info: %@", response.resultCode, response.info);
-}
-
-- (void)onDeleteInteractionChoiceSetResponse:(SDLDeleteInteractionChoiceSetResponse *)response {
-    NSLog(@"DeleteInteractionChoiceSet response from SDL with result code: %@ and info: %@", response.resultCode, response.info);
-}
-
-- (void)onDeleteSubMenuResponse:(SDLDeleteSubMenuResponse *)response {
-    NSLog(@"DeleteSubMenu response from SDL with result code: %@ and info: %@", response.resultCode, response.info);
-}
-
-- (void)onDiagnosticMessageResponse:(SDLDiagnosticMessageResponse *)response {
-    NSLog(@"DiagnosticMessage response from SDL with result code: %@ and info: %@", response.resultCode, response.info);
-}
-
-- (void)onDialNumberResponse:(SDLDialNumberResponse *)request {
-    NSLog(@"DialNumber response from SDL with result code: %@ and info: %@", request.resultCode, request.info);
-}
-
-- (void)onEncodedSyncPDataResponse:(SDLEncodedSyncPDataResponse *)response {
-    NSLog(@"EncodedSyncPData response from SDL with result code: %@ and info: %@", response.resultCode, response.info);
-}
-
-- (void)onEndAudioPassThruResponse:(SDLEndAudioPassThruResponse *)response {
-    NSLog(@"EndAudioPassThru response from SDL with result code: %@ and info: %@", response.resultCode, response.info);
-}
-
-- (void)onError:(NSException *)e {
-    NSLog(@"Error response from SDL with name: %@ and reason: %@", e.name, e.reason);
-}
-
-- (void)onGenericResponse:(SDLGenericResponse *)response {
-    NSLog(@"Generic response from SDL with result code: %@ and info: %@", response.resultCode, response.info);
-}
-
-- (void)onGetDTCsResponse:(SDLGetDTCsResponse *)response {
-    NSLog(@"GetDTCs response from SDL with result code: %@ and info: %@", response.resultCode, response.info);
-}
-
-- (void)onGetVehicleDataResponse:(SDLGetVehicleDataResponse *)response {
-    NSLog(@"GetVehicleData response from SDL with result code: %@ and info: %@", response.resultCode, response.info);
-}
-
-- (void)onReceivedLockScreenIcon:(UIImage *)icon {
-    NSLog(@"ReceivedLockScreenIcon notification from SDL");
-}
-
-- (void)onPerformAudioPassThruResponse:(SDLPerformAudioPassThruResponse *)response {
-    NSLog(@"PerformAudioPassThru response from SDL with result code: %@ and info: %@", response.resultCode, response.info);
-}
-
-- (void)onPerformInteractionResponse:(SDLPerformInteractionResponse *)response {
-    NSLog(@"PerformInteraction response from SDL with result code: %@ and info: %@", response.resultCode, response.info);
-}
-
-- (void)onReadDIDResponse:(SDLReadDIDResponse *)response {
-    NSLog(@"ReadDID response from SDL with result code: %@ and info: %@", response.resultCode, response.info);
-}
-
-- (void)onResetGlobalPropertiesResponse:(SDLResetGlobalPropertiesResponse *)response {
-    NSLog(@"ResetGlobalProperties response from SDL with result code: %@ and info: %@", response.resultCode, response.info);
-}
-
-- (void)onScrollableMessageResponse:(SDLScrollableMessageResponse *)response {
-    NSLog(@"ScrollableMessage response from SDL with result code: %@ and info: %@", response.resultCode, response.info);
-}
-
-- (void)onSendLocationResponse:(SDLSendLocationResponse *)request {
-    NSLog(@"SendLocation response from SDL with result code: %@ and info: %@", request.resultCode, request.info);
-}
-
-- (void)onSetAppIconResponse:(SDLSetAppIconResponse *)response {
-    NSLog(@"SetAppIcon response from SDL with result code: %@ and info: %@", response.resultCode, response.info);
-}
-
-- (void)onSetDisplayLayoutResponse:(SDLSetDisplayLayoutResponse *)response {
-    NSLog(@"SetDisplayLayout response from SDL with result code: %@ and info: %@", response.resultCode, response.info);
-}
-
-- (void)onSetGlobalPropertiesResponse:(SDLSetGlobalPropertiesResponse *)response {
-    NSLog(@"SetGlobalProperties response from SDL with result code: %@ and info: %@", response.resultCode, response.info);
-}
-
-- (void)onSetMediaClockTimerResponse:(SDLSetMediaClockTimerResponse *)response {
-    NSLog(@"SetMediaClockTimer response from SDL with result code: %@ and info: %@", response.resultCode, response.info);
-}
-
-- (void)onShowConstantTBTResponse:(SDLShowConstantTBTResponse *)response {
-    NSLog(@"ShowConstantTBT response from SDL with result code: %@ and info: %@", response.resultCode, response.info);
-}
-
-- (void)onShowResponse:(SDLShowResponse *)response {
-    NSLog(@"Show response from SDL with result code: %@ and info: %@", response.resultCode, response.info);
-}
-
-- (void)onSliderResponse:(SDLSliderResponse *)response {
-    NSLog(@"Slider response from SDL with result code: %@ and info: %@", response.resultCode, response.info);
-}
-
-- (void)onSpeakResponse:(SDLSpeakResponse *)response {
-    NSLog(@"Speak response from SDL with result code: %@ and info: %@", response.resultCode, response.info);
-}
-
-- (void)onSubscribeButtonResponse:(SDLSubscribeButtonResponse *)response {
-    NSLog(@"SubscribeButton response from SDL with result code: %@ and info: %@", response.resultCode, response.info);
-}
-
-- (void)onSyncPDataResponse:(SDLSyncPDataResponse *)response {
-    NSLog(@"SyncPData response from SDL with result code: %@ and info: %@", response.resultCode, response.info);
-}
-
-- (void)onUpdateTurnListResponse:(SDLUpdateTurnListResponse *)response {
-    NSLog(@"UpdateTurnList response from SDL with result code: %@ and info: %@", response.resultCode, response.info);
-}
-
-- (void)onUnregisterAppInterfaceResponse:(SDLUnregisterAppInterfaceResponse *)response {
-    NSLog(@"UnregisterAppInterface response from SDL with result code: %@ and info: %@", response.resultCode, response.info);
-}
-
-- (void)onUnsubscribeButtonResponse:(SDLUnsubscribeButtonResponse *)response {
-    NSLog(@"UnsubscribeButton response from SDL with result code: %@ and info: %@", response.resultCode, response.info);
-}
-
-- (void)onUnsubscribeVehicleDataResponse:(SDLUnsubscribeVehicleDataResponse *)response {
-    NSLog(@"UnsubscribeVehicleData response from SDL with result code: %@ and info: %@", response.resultCode, response.info);
-}
+// Notifications
+- (void)onOnAppInterfaceUnregistered:(SDLOnAppInterfaceUnregistered *)notification;
+- (void)onOnAudioPassThru:(SDLOnAudioPassThru *)notification;
+- (void)onOnButtonEvent:(SDLOnButtonEvent *)notification;
+- (void)onOnButtonPress:(SDLOnButtonPress *)notification;
+- (void)onOnEncodedSyncPData:(SDLOnEncodedSyncPData *)notification;
+- (void)onOnHashChange:(SDLOnHashChange *)notification;
+- (void)onOnLanguageChange:(SDLOnLanguageChange *)notification;
+- (void)onOnSyncPData:(SDLOnSyncPData *)notification;
+- (void)onOnSystemRequest:(SDLOnSystemRequest *)notification;
+- (void)onOnTBTClientState:(SDLOnTBTClientState *)notification;
+- (void)onOnTouchEvent:(SDLOnTouchEvent *)notification;
+ 
+// Responses
+- (void)onAddSubMenuResponse:(SDLAddSubMenuResponse *)response;
+- (void)onAlertManeuverResponse:(SDLAlertManeuverResponse *)request;
+- (void)onAlertResponse:(SDLAlertResponse *)response;
+- (void)onChangeRegistrationResponse:(SDLChangeRegistrationResponse *)response;
+- (void)onCreateInteractionChoiceSetResponse:(SDLCreateInteractionChoiceSetResponse *)response;
+- (void)onDeleteCommandResponse:(SDLDeleteCommandResponse *)response;
+- (void)onDeleteFileResponse:(SDLDeleteFileResponse *)response;
+- (void)onDeleteInteractionChoiceSetResponse:(SDLDeleteInteractionChoiceSetResponse *)response;
+- (void)onDeleteSubMenuResponse:(SDLDeleteSubMenuResponse *)response;
+- (void)onDiagnosticMessageResponse:(SDLDiagnosticMessageResponse *)response;
+- (void)onDialNumberResponse:(SDLDialNumberResponse *)request;
+- (void)onEncodedSyncPDataResponse:(SDLEncodedSyncPDataResponse *)response;
+- (void)onEndAudioPassThruResponse:(SDLEndAudioPassThruResponse *)response;
+- (void)onError:(NSException *)e;
+- (void)onGenericResponse:(SDLGenericResponse *)response;
+- (void)onGetDTCsResponse:(SDLGetDTCsResponse *)response;
+- (void)onGetVehicleDataResponse:(SDLGetVehicleDataResponse *)response;
+- (void)onReceivedLockScreenIcon:(UIImage *)icon;
+- (void)onPerformAudioPassThruResponse:(SDLPerformAudioPassThruResponse *)response;
+- (void)onPerformInteractionResponse:(SDLPerformInteractionResponse *)response;
+- (void)onReadDIDResponse:(SDLReadDIDResponse *)response;
+- (void)onResetGlobalPropertiesResponse:(SDLResetGlobalPropertiesResponse *)response;
+- (void)onScrollableMessageResponse:(SDLScrollableMessageResponse *)response;
+- (void)onSendLocationResponse:(SDLSendLocationResponse *)request;
+- (void)onSetAppIconResponse:(SDLSetAppIconResponse *)response;
+- (void)onSetDisplayLayoutResponse:(SDLSetDisplayLayoutResponse *)response;
+- (void)onSetGlobalPropertiesResponse:(SDLSetGlobalPropertiesResponse *)response;
+- (void)onSetMediaClockTimerResponse:(SDLSetMediaClockTimerResponse *)response;
+- (void)onShowConstantTBTResponse:(SDLShowConstantTBTResponse *)response;
+- (void)onShowResponse:(SDLShowResponse *)response;
+- (void)onSliderResponse:(SDLSliderResponse *)response;
+- (void)onSpeakResponse:(SDLSpeakResponse *)response;
+- (void)onSubscribeButtonResponse:(SDLSubscribeButtonResponse *)response;
+- (void)onSyncPDataResponse:(SDLSyncPDataResponse *)response;
+- (void)onUpdateTurnListResponse:(SDLUpdateTurnListResponse *)response;
+- (void)onUnregisterAppInterfaceResponse:(SDLUnregisterAppInterfaceResponse *)response;
+- (void)onUnsubscribeButtonResponse:(SDLUnsubscribeButtonResponse *)response;
+- (void)onUnsubscribeVehicleDataResponse:(SDLUnsubscribeVehicleDataResponse *)response;
+*/
 
 @end
