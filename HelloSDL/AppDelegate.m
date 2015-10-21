@@ -36,81 +36,33 @@ static NSString *const companyLogo = @"Ford_logo_no_background.png";
 
     // Start the proxy with default configuration
 
-    SDLManager *proxyManager = nil;
-    HSDLHMIManager *hmiManager = nil;
-    HSDLVehicleDataManager *vdManager = nil;
+    SDLManager *proxyManager = [SDLManager sharedManager];
+    HSDLHMIManager *hmiManager = [HSDLHMIManager sharedManager];
+    HSDLVehicleDataManager *vdManager = [HSDLVehicleDataManager sharedManager];
 
-    proxyManager = [SDLManager sharedManager];
     SDLLifecycleConfiguration *appConfig = [SDLLifecycleConfiguration defaultConfigurationWithAppName:appName appId:appId];
     SDLLockScreenConfiguration *lockScreenConfig = [SDLLockScreenConfiguration enabledConfigurationWithBackgroundColor:[UIColor blackColor] appIcon:[UIImage imageNamed:companyLogo]];
     SDLConfiguration *appAndLSConfig = [SDLConfiguration configurationWithLifecycle:appConfig lockScreen:lockScreenConfig];
 
     [proxyManager startProxyWithConfiguration:appAndLSConfig];
-    hmiManager = [HSDLHMIManager sharedManager];
-    vdManager = [HSDLVehicleDataManager sharedManager];
 
-    // Register for notifications
-    [self registerForSDLNotifications];
+    //    // Register for notifications
+    //    [self registerForSDLNotifications];
 
     return YES;
 }
 
-- (void)registerForSDLNotifications {
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+//- (void)registerForSDLNotifications {
+//    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+//
+//    [center addObserver:self selector:@selector(didChangeLockScreenStatus:) name:SDLDidChangeLockScreenStatusNotification object:nil];
+//    [center addObserver:self selector:@selector(didDisconnect:) name:SDLDidDisconnectNotification object:nil];
+//}
+//
+//- (void)dealloc {
+//    [[NSNotificationCenter defaultCenter] removeObserver:self];
+//}
 
-    [center addObserver:self selector:@selector(didChangeLockScreenStatus:) name:SDLDidChangeLockScreenStatusNotification object:nil];
-    [center addObserver:self selector:@selector(didDisconnect:) name:SDLDidDisconnectNotification object:nil];
-}
-
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-#pragma mark Manage lockscreen
-- (void)didChangeLockScreenStatus:(NSNotification *)notification {
-    // Delegate method to handle changes in lockscreen status
-
-    SDLOnLockScreenStatus *lockScreenStatus = nil;
-    if (notification && notification.userInfo) {
-        lockScreenStatus = notification.userInfo[SDLNotificationUserInfoNotificationObject];
-    }
-
-    dispatch_async(dispatch_get_main_queue(), ^{
-      if (lockScreenStatus && ![[SDLLockScreenStatus OFF] isEqualToEnum:lockScreenStatus.lockScreenStatus]) {
-          [self lockScreen];
-      } else {
-          [self unlockScreen];
-      }
-    });
-}
-
-- (void)lockScreen {
-    @synchronized(self) {
-        // Display the lock screen if it is not presented already
-        if ([self.window.rootViewController isEqual:self.lockScreenViewController] == NO) {
-            [self.window setRootViewController:self.lockScreenViewController];
-        }
-    }
-}
-
-- (void)unlockScreen {
-    @synchronized(self) {
-        // Display the regular screen if it is not presented already
-        if ([self.window.rootViewController isEqual:self.mainViewController] == NO) {
-            [self.window setRootViewController:self.mainViewController];
-        }
-    }
-}
-
-#pragma mark Proxy notifications
-- (void)didDisconnect:(NSNotification *)notification {
-    // Delegate method to perform actions on disconnect from SYNC
-
-    // Clear the lockscreen
-    dispatch_async(dispatch_get_main_queue(), ^{
-      [self unlockScreen];
-    });
-}
 
 #pragma mark Default methods
 - (void)applicationWillResignActive:(UIApplication *)application {
