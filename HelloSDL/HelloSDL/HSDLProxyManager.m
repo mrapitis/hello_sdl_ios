@@ -150,7 +150,7 @@ NSString *const HSDLNotificationUserInfoObject = @"com.sdl.notification.keys.sdl
  *  Delegate method that runs when the registration response is received from SDL.
  */
 - (void)onRegisterAppInterfaceResponse:(SDLRegisterAppInterfaceResponse *)response {
-    NSLog(@"RegisterAppInterface response from SDL");
+    NSLog(@"RegisterAppInterface response from SDL: %@ with info :%@", response.resultCode, response.info);
 
     if (!response || [response.success isEqual:@0]) {
         NSLog(@"Failed to register with SDL: %@", response);
@@ -250,7 +250,7 @@ NSString *const HSDLNotificationUserInfoObject = @"com.sdl.notification.keys.sdl
  *  Delegate method that runs when the list files response is received from SDL.
  */
 - (void)onListFilesResponse:(SDLListFilesResponse *)response {
-    NSLog(@"ListFiles response from SDL");
+    NSLog(@"ListFiles response from SDL: %@ with info: %@", response.resultCode, response.info);
 
     // If the ListFiles was successful, store the list in a mutable set
     if (response.success) {
@@ -306,7 +306,7 @@ NSString *const HSDLNotificationUserInfoObject = @"com.sdl.notification.keys.sdl
  *  Delegate method that runs when a PutFile is complete.
  */
 - (void)onPutFileResponse:(SDLPutFileResponse *)response {
-    NSLog(@"PutFile response from SDL");
+    NSLog(@"PutFile response from SDL: %@ with info: %@", response.resultCode, response.info);
 
     // On success and matching app icon correlation ID, send a SetAppIcon request
     if (response.success && [response.correlationID isEqual:self.appIconId]) {
@@ -358,7 +358,7 @@ NSString *const HSDLNotificationUserInfoObject = @"com.sdl.notification.keys.sdl
  *  Delegate method that runs when the add command response is received from SDL.
  */
 - (void)onAddCommandResponse:(SDLAddCommandResponse *)response {
-    NSLog(@"AddCommand response from SDL: %@", response);
+    NSLog(@"AddCommand response from SDL: %@ with info: %@", response.resultCode, response.info);
 }
 
 /**
@@ -422,7 +422,7 @@ NSString *const HSDLNotificationUserInfoObject = @"com.sdl.notification.keys.sdl
  *  Delegate method that runs when the subscribe vehicle data response is received from SDL.
  */
 /*- (void)onSubscribeVehicleDataResponse:(SDLSubscribeVehicleDataResponse *)response {
-    NSLog(@"SubscribeVehicleData response from SDL");
+    NSLog(@"SubscribeVehicleData response from SDL: %@ with info: %@", response.resultCode, response.info);
 
     if (response && [[SDLResult SUCCESS] isEqualToEnum:response.resultCode]) {
         NSLog(@"Vehicle data subscribed!");
