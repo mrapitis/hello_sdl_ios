@@ -46,22 +46,44 @@ static NSString *const companyLogo = @"Ford_logo_no_background.png";
 
     [proxyManager startProxyWithConfiguration:appAndLSConfig];
 
-    //    // Register for notifications
-    //    [self registerForSDLNotifications];
+    // Register for notifications
+    [self registerForSDLNotifications];
 
     return YES;
 }
 
-//- (void)registerForSDLNotifications {
-//    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-//
-//    [center addObserver:self selector:@selector(didChangeLockScreenStatus:) name:SDLDidChangeLockScreenStatusNotification object:nil];
-//    [center addObserver:self selector:@selector(didDisconnect:) name:SDLDidDisconnectNotification object:nil];
-//}
-//
-//- (void)dealloc {
-//    [[NSNotificationCenter defaultCenter] removeObserver:self];
-//}
+- (void)registerForSDLNotifications {
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+
+    [center addObserver:self selector:@selector(didChangeLockScreenStatus:) name:SDLDidChangeLockScreenStatusNotification object:nil];
+    [center addObserver:self selector:@selector(didDisconnect:) name:SDLDidDisconnectNotification object:nil];
+    [center addObserver:self selector:@selector(didReceiveFirstFullHMIStatus:) name:SDLDidReceiveFirstFullHMIStatusNotification object:nil];
+    [center addObserver:self selector:@selector(didReceiveFirstNonNoneHMIStatus:) name:SDLDidReceiveFirstNonNoneHMIStatusNotification object:nil];
+    [center addObserver:self selector:@selector(didChangeDriverDistractionState:) name:SDLDidChangeDriverDistractionStateNotification object:nil];
+    [center addObserver:self selector:@selector(didChangeHMIStatus:) name:SDLDidChangeHMIStatusNotification object:nil];
+    [center addObserver:self selector:@selector(didConnect:) name:SDLDidConnectNotification object:nil];
+    [center addObserver:self selector:@selector(didRegister:) name:SDLDidRegisterNotification object:nil];
+    [center addObserver:self selector:@selector(didFailToRegister:) name:SDLDidFailToRegisterNotification object:nil];
+    [center addObserver:self selector:@selector(didReceiveError:) name:SDLDidReceiveErrorNotification object:nil];
+    [center addObserver:self selector:@selector(didUnregister:) name:SDLDidUnregisterNotification object:nil];
+    [center addObserver:self selector:@selector(didReceiveAudioPassThru:) name:SDLDidReceiveAudioPassThruNotification object:nil];
+    [center addObserver:self selector:@selector(didReceiveButtonEvent:) name:SDLDidReceiveButtonEventNotification object:nil];
+    [center addObserver:self selector:@selector(didReceiveButtonPress:) name:SDLDidReceiveButtonPressNotification object:nil];
+    [center addObserver:self selector:@selector(didReceiveCommand:) name:SDLDidReceiveCommandNotification object:nil];
+    [center addObserver:self selector:@selector(didReceiveEncodedData:) name:SDLDidReceiveEncodedDataNotification object:nil];
+    [center addObserver:self selector:@selector(didReceiveNewHash:) name:SDLDidReceiveNewHashNotification object:nil];
+    [center addObserver:self selector:@selector(didChangeLanguage:) name:SDLDidChangeLanguageNotification object:nil];
+    [center addObserver:self selector:@selector(didChangePermissions:) name:SDLDidChangePermissionsNotification object:nil];
+    [center addObserver:self selector:@selector(didReceiveData:) name:SDLDidReceiveDataNotification object:nil];
+    [center addObserver:self selector:@selector(didReceiveSystemRequest:) name:SDLDidReceiveSystemRequestNotification object:nil];
+    [center addObserver:self selector:@selector(didChangeTurnByTurnState:) name:SDLDidChangeTurnByTurnStateNotification object:nil];
+    [center addObserver:self selector:@selector(didReceiveTouchEvent:) name:SDLDidReceiveTouchEventNotification object:nil];
+    [center addObserver:self selector:@selector(didReceiveVehicleData:) name:SDLDidReceiveTouchEventNotification object:nil];
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 
 #pragma mark Default methods
@@ -85,6 +107,105 @@ static NSString *const companyLogo = @"Ford_logo_no_background.png";
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+
+#pragma mark Notification callbacks
+
+- (void)didChangeLockScreenStatus:(NSNotification *)notification {
+    NSLog(@"didChangeLockScreenStatus notification from SDL");
+}
+
+- (void)didDisconnect:(NSNotification *)notification {
+    NSLog(@"didDisconnect notification from SDL");
+}
+
+- (void)didReceiveFirstFullHMIStatus:(NSNotification *)notification {
+    NSLog(@"didReceiveFirstFullHMIStatus notification from SDL");
+}
+
+- (void)didReceiveFirstNonNoneHMIStatus:(NSNotification *)notification {
+    NSLog(@"didReceiveFirstNonNoneHMIStatus notification from SDL");
+}
+
+- (void)didChangeDriverDistractionState:(NSNotification *)notification {
+    NSLog(@"didChangeDriverDistractionState notification from SDL");
+}
+
+- (void)didChangeHMIStatus:(NSNotification *)notification {
+    NSLog(@"didChangeHMIStatus notification from SDL");
+}
+
+- (void)didConnect:(NSNotification *)notification {
+    NSLog(@"didConnect notification from SDL");
+}
+
+- (void)didRegister:(NSNotification *)notification {
+    NSLog(@"didRegister notification from SDL");
+}
+
+- (void)didFailToRegister:(NSNotification *)notification {
+    NSLog(@"didFailToRegister notification from SDL");
+}
+
+- (void)didReceiveError:(NSNotification *)notification {
+    NSLog(@"didReceiveError notification from SDL");
+}
+
+- (void)didUnregister:(NSNotification *)notification {
+    NSLog(@"didUnregister notification from SDL");
+}
+
+- (void)didReceiveAudioPassThru:(NSNotification *)notification {
+    NSLog(@"didReceiveAudioPassThru notification from SDL");
+}
+
+- (void)didReceiveButtonEvent:(NSNotification *)notification {
+    NSLog(@"didReceiveButtonEvent notification from SDL");
+}
+
+- (void)didReceiveButtonPress:(NSNotification *)notification {
+    NSLog(@"didReceiveButtonPress notification from SDL");
+}
+
+- (void)didReceiveCommand:(NSNotification *)notification {
+    NSLog(@"didReceiveCommand notification from SDL");
+}
+
+- (void)didReceiveEncodedData:(NSNotification *)notification {
+    NSLog(@"didReceiveEncodedData notification from SDL");
+}
+
+- (void)didReceiveNewHash:(NSNotification *)notification {
+    NSLog(@"didReceiveNewHash notification from SDL");
+}
+
+- (void)didChangeLanguage:(NSNotification *)notification {
+    NSLog(@"didChangeLanguage notification from SDL");
+}
+
+- (void)didChangePermissions:(NSNotification *)notification {
+    NSLog(@"didChangePermissions notification from SDL");
+}
+
+- (void)didReceiveData:(NSNotification *)notification {
+    NSLog(@"didReceiveData notification from SDL");
+}
+
+- (void)didReceiveSystemRequest:(NSNotification *)notification {
+    NSLog(@"didReceiveSystemRequest notification from SDL");
+}
+
+- (void)didChangeTurnByTurnState:(NSNotification *)notification {
+    NSLog(@"didChangeTurnByTurnState notification from SDL");
+}
+
+- (void)didReceiveTouchEvent:(NSNotification *)notification {
+    NSLog(@"didReceiveTouchEvent notification from SDL");
+}
+
+- (void)didReceiveVehicleData:(NSNotification *)notification {
+    NSLog(@"didReceiveVehicleData notification from SDL");
 }
 
 @end
