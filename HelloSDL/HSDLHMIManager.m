@@ -22,20 +22,18 @@ static const NSUInteger testCommandID = 1;
 @implementation HSDLHMIManager
 
 // Singleton method
-+ (instancetype)sharedManager
-{
++ (instancetype)sharedManager {
     static HSDLHMIManager *hmiManager = nil;
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        hmiManager = [[self alloc] init];
+      hmiManager = [[self alloc] init];
     });
 
     return hmiManager;
 }
 
-- (instancetype)init
-{
+- (instancetype)init {
     if (self = [super init]) {
         _graphics = NO;
         _remoteImages = [[NSMutableSet alloc] init];
@@ -46,8 +44,7 @@ static const NSUInteger testCommandID = 1;
 }
 
 #pragma mark Notification management
-- (void)registerForSDLNotifications
-{
+- (void)registerForSDLNotifications {
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
 
     [center addObserver:self selector:@selector(didRegister:) name:SDLDidRegisterNotification object:nil];
@@ -57,13 +54,11 @@ static const NSUInteger testCommandID = 1;
     [center addObserver:self selector:@selector(didReceiveCommand:) name:SDLDidReceiveCommandNotification object:nil];
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)uploadImages
-{
+- (void)uploadImages {
     // Uploads images to SYNC
     // Called automatically by the didRegister: method
 
@@ -75,43 +70,44 @@ static const NSUInteger testCommandID = 1;
     // Perform a ListFiles RPC to check which files are already present on SYNC
     SDLListFiles *list = [[SDLListFiles alloc] init];
     SDLRequestCompletionHandler listHandler = ^(SDLRPCRequest *rpcRequest, SDLRPCResponse *rpcResponse, NSError *error) {
-        // ListFiles completion handler
-        __strong typeof(self) strongSelf = weakSelf;
-        if (strongSelf) {
-            SDLListFilesResponse *response = (SDLListFilesResponse *)rpcResponse;
+      // ListFiles completion handler
+      __strong typeof(self) strongSelf = weakSelf;
+      if (strongSelf) {
+          SDLListFilesResponse *response = (SDLListFilesResponse *)rpcResponse;
+          NSLog(@"HSDLHMIManager received ListFilesResponse from SDL: %@ with info: %@", response.resultCode, response.info);
 
-            // If the ListFiles was successfull, store the list in a mutable array
-            if (response.success) {
-                for (NSString *filename in response.filenames) {
-                    [strongSelf.remoteImages addObject:filename];
-                }
-            }
+          // If the ListFiles was successfull, store the list in a mutable array
+          if (response.success) {
+              for (NSString *filename in response.filenames) {
+                  [strongSelf.remoteImages addObject:filename];
+              }
+          }
 
-            // Check the mutable array for the AppIcon
-            // If not present, upload the image
-            if (![strongSelf.remoteImages containsObject:iconFile]) {
-                SDLRequestCompletionHandler appIconHandler = ^(SDLRPCRequest *rpcRequest, SDLRPCResponse *rpcResponse, NSError *error) {
-                    if (strongSelf) {
-                        SDLPutFileResponse *response = (SDLPutFileResponse *)rpcResponse;
-                        // On success, send a SetAppIcon request
-                        if (response.success) {
-                            [strongSelf setAppIcon];
-                        }
+          // Check the mutable array for the AppIcon
+          // If not present, upload the image
+          if (![strongSelf.remoteImages containsObject:iconFile]) {
+              SDLRequestCompletionHandler appIconHandler = ^(SDLRPCRequest *rpcRequest, SDLRPCResponse *rpcResponse, NSError *error) {
+                if (strongSelf) {
+                    SDLPutFileResponse *response = (SDLPutFileResponse *)rpcResponse;
+                    NSLog(@"HSDLHMIManager received PutFileResponse from SDL: %@ with info: %@", response.resultCode, response.info);
+                    // On success, send a SetAppIcon request
+                    if (response.success) {
+                        [strongSelf setAppIcon];
                     }
-                };
-                [strongSelf uploadImage:iconFile completionHandler:appIconHandler];
-            }
-            // If the file is already present, send the SetAppIcon request
-            else {
-                [strongSelf setAppIcon];
-            }
-        }
+                }
+              };
+              [strongSelf uploadImage:iconFile completionHandler:appIconHandler];
+          }
+          // If the file is already present, send the SetAppIcon request
+          else {
+              [strongSelf setAppIcon];
+          }
+      }
     };
     [[SDLManager sharedManager] sendRequest:list withCompletionHandler:listHandler];
 }
 
-- (void)uploadImage:(NSString *)imageName completionHandler:(SDLRequestCompletionHandler)handler
-{
+- (void)uploadImage:(NSString *)imageName completionHandler:(SDLRequestCompletionHandler)handler {
     // Upload an image from the App's Assets with the specified name and completion handler
     // Note: Assumes a PNG image type, and persistent storage!!
 
@@ -135,18 +131,23 @@ static const NSUInteger testCommandID = 1;
     }
 }
 
-- (void)setAppIcon
-{
+- (void)setAppIcon {
     // Sends the SetAppIcon RPC with the image name uploaded via uploadImages
     // Called automatically in the PutFile response handler
     [SDLDebugTool logInfo:@"setAppIcon"];
     SDLSetAppIcon *setIcon = [[SDLSetAppIcon alloc] init];
     setIcon.syncFileName = iconFile;
-    [[SDLManager sharedManager] sendRequest:setIcon withCompletionHandler:nil];
+
+    SDLRequestCompletionHandler setAppIconHandler = ^(SDLRPCRequest *rpcRequest, SDLRPCResponse *rpcResponse, NSError *error) {
+      SDLSetAppIconResponse *response = (SDLSetAppIconResponse *)rpcResponse;
+      NSLog(@"HSDLHMIManager received SetAppIconResponse from SDL: %@ with info: %@", response.resultCode, response.info);
+    };
+
+    [[SDLManager sharedManager] sendRequest:setIcon
+                      withCompletionHandler:setAppIconHandler];
 }
 
-- (void)didRegister:(NSNotification *)notification
-{
+- (void)didRegister:(NSNotification *)notification {
     // Notification method to perform actions on successful registration with SYNC
 
     SDLRegisterAppInterfaceResponse *registerResponse = nil;
@@ -166,8 +167,7 @@ static const NSUInteger testCommandID = 1;
     }
 }
 
-- (void)didReceiveFirstFullHMIStatus:(NSNotification *)notification
-{
+- (void)didReceiveFirstFullHMIStatus:(NSNotification *)notification {
     // Notification method to perform actions on the first HMI_FULL status notification from SYNC
 
     SDLOnHMIStatus *status = nil;
@@ -179,14 +179,25 @@ static const NSUInteger testCommandID = 1;
     SDLShow *show = [[SDLShow alloc] init];
     show.mainField1 = @"Welcome to HelloSDL";
     show.alignment = [SDLTextAlignment CENTERED];
-    [[SDLManager sharedManager] sendRequest:show withCompletionHandler:nil];
+
+    SDLRequestCompletionHandler showHandler = ^(SDLRPCRequest *rpcRequest, SDLRPCResponse *rpcResponse, NSError *error) {
+      SDLShowResponse *response = (SDLShowResponse *)rpcResponse;
+      NSLog(@"HSDLHMIManager received ShowResponse from SDL: %@ with info: %@", response.resultCode, response.info);
+    };
+
+    [[SDLManager sharedManager] sendRequest:show withCompletionHandler:showHandler];
 
     SDLSpeak *speak = [SDLRPCRequestFactory buildSpeakWithTTS:@"Welcome to Hello S D L" correlationID:nil];
-    [[SDLManager sharedManager] sendRequest:speak withCompletionHandler:nil];
+
+    SDLRequestCompletionHandler speakHandler = ^(SDLRPCRequest *rpcRequest, SDLRPCResponse *rpcResponse, NSError *error) {
+      SDLSpeakResponse *response = (SDLSpeakResponse *)rpcResponse;
+      NSLog(@"HSDLHMIManager received SpeakResponse from SDL: %@ with info: %@", response.resultCode, response.info);
+    };
+
+    [[SDLManager sharedManager] sendRequest:speak withCompletionHandler:speakHandler];
 }
 
-- (void)didReceiveFirstNonNoneHMIStatus:(NSNotification *)notification
-{
+- (void)didReceiveFirstNonNoneHMIStatus:(NSNotification *)notification {
     // Notification method to perform actions on the first non-HMI_NONE status notification from SYNC
 
     SDLOnHMIStatus *status = nil;
@@ -203,19 +214,16 @@ static const NSUInteger testCommandID = 1;
     command.menuParams = menuParams;
     command.cmdID = @(testCommandID);
 
-    [[SDLManager sharedManager] sendRequest:command withCompletionHandler:nil];
-
     // Command event handler
     // Send AddCommand with response handler
     [[SDLManager sharedManager] sendRequest:command
                       withCompletionHandler:^(SDLRPCRequest *request, SDLRPCResponse *response, NSError *error) {
-                          // Check if command was added successfully
-                          [SDLDebugTool logInfo:[NSString stringWithFormat:@"AddCommand Response: %@", response]];
+                        // Check if command was added successfully
+                        NSLog(@"HSDLHMIManager received AddCommand response from SDL: %@ with info: %@", response.resultCode, response.info);
                       }];
 }
 
-- (void)didDisconnect:(NSNotification *)notification
-{
+- (void)didDisconnect:(NSNotification *)notification {
     // Notification method to perform actions on disconnect from SYNC
 
     // Cleanup state variables
@@ -223,9 +231,7 @@ static const NSUInteger testCommandID = 1;
     [self.remoteImages removeAllObjects];
 }
 
-- (void)didReceiveCommand:(NSNotification *)notification
-{
-
+- (void)didReceiveCommand:(NSNotification *)notification {
     SDLAddCommandResponse *addCommandResponse = nil;
     if (notification && notification.userInfo) {
         addCommandResponse = notification.userInfo[SDLNotificationUserInfoNotificationObject];
@@ -236,10 +242,21 @@ static const NSUInteger testCommandID = 1;
         SDLShow *show = [[SDLShow alloc] init];
         show.mainField1 = @"Test Command";
         show.alignment = [SDLTextAlignment CENTERED];
-        [[SDLManager sharedManager] sendRequest:show withCompletionHandler:nil];
+
+        SDLRequestCompletionHandler showHandler = ^(SDLRPCRequest *rpcRequest, SDLRPCResponse *rpcResponse, NSError *error) {
+          SDLShowResponse *response = (SDLShowResponse *)rpcResponse;
+          NSLog(@"HSDLHMIManager received ShowResponse from SDL: %@ with info: %@", response.resultCode, response.info);
+        };
+
+        [[SDLManager sharedManager] sendRequest:show withCompletionHandler:showHandler];
 
         SDLSpeak *speak = [SDLRPCRequestFactory buildSpeakWithTTS:@"Test Command" correlationID:nil];
-        [[SDLManager sharedManager] sendRequest:speak withCompletionHandler:nil];
+        SDLRequestCompletionHandler speakHandler = ^(SDLRPCRequest *rpcRequest, SDLRPCResponse *rpcResponse, NSError *error) {
+          SDLSpeakResponse *response = (SDLSpeakResponse *)rpcResponse;
+          NSLog(@"HSDLHMIManager received SpeakResponse from SDL: %@ with info: %@", response.resultCode, response.info);
+        };
+
+        [[SDLManager sharedManager] sendRequest:speak withCompletionHandler:speakHandler];
     }
 
     [SDLDebugTool logInfo:@"didReceiveCommand"];

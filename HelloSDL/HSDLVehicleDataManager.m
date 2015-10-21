@@ -19,20 +19,18 @@
 #pragma mark Lifecycle
 
 // Singleton method
-+ (instancetype)sharedManager
-{
++ (instancetype)sharedManager {
     static HSDLVehicleDataManager *vdManager = nil;
     static dispatch_once_t onceToken;
 
     dispatch_once(&onceToken, ^{
-        vdManager = [[self alloc] init];
+      vdManager = [[self alloc] init];
     });
 
     return vdManager;
 }
 
-- (instancetype)init
-{
+- (instancetype)init {
     if (self = [super init]) {
         _vehicleDataSubscribed = NO;
         [self registerForSDLNotifications];
@@ -42,8 +40,7 @@
 
 #pragma mark FMCVehicleDataManager
 
-- (void)subscribeVehicleData
-{
+- (void)subscribeVehicleData {
     // Subscribe to vehicle data updates from SYNC
     [SDLDebugTool logInfo:@"subscribeVehicleData"];
     if (!self.vehicleDataSubscribed) {
@@ -56,19 +53,19 @@
         __weak typeof(self) weakSelf = self;
         [[SDLManager sharedManager] sendRequest:subscribe
                           withCompletionHandler:^(SDLRPCRequest *request, SDLRPCResponse *response, NSError *error) {
-                              typeof(self) strongSelf = weakSelf;
-                              if (response && [[SDLResult SUCCESS] isEqualToEnum:response.resultCode]) {
-                                  if (strongSelf) {
-                                      [SDLDebugTool logInfo:@"Vehicle data subscribed!"];
-                                      strongSelf.vehicleDataSubscribed = YES;
-                                  }
-                              }
+                            typeof(self) strongSelf = weakSelf;
+                            NSLog(@"HSDLVehicleDataManager received SubscribeVehicleDataResponse from SDL: %@ with info: %@", response.resultCode, response.info);
+                            if (response && [[SDLResult SUCCESS] isEqualToEnum:response.resultCode]) {
+                                if (strongSelf) {
+                                    [SDLDebugTool logInfo:@"Vehicle data subscribed!"];
+                                    strongSelf.vehicleDataSubscribed = YES;
+                                }
+                            }
                           }];
     }
 }
 
-- (void)registerForSDLNotifications
-{
+- (void)registerForSDLNotifications {
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
 
     [center addObserver:self selector:@selector(didChangePermissions:) name:SDLDidChangePermissionsNotification object:nil];
@@ -76,15 +73,13 @@
     [center addObserver:self selector:@selector(didReceiveVehicleData:) name:SDLDidReceiveVehicleDataNotification object:nil];
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark SDL Notifications
 
-- (void)didChangePermissions:(NSNotification *)notification
-{
+- (void)didChangePermissions:(NSNotification *)notification {
     // Notification method to handle permission change notifications from SYNC
     SDLOnPermissionsChange *permissions = nil;
     if (notification && notification.userInfo) {
@@ -102,15 +97,13 @@
     }
 }
 
-- (void)didDisconnect:(NSNotification *)notification
-{
+- (void)didDisconnect:(NSNotification *)notification {
     // Notification method to perform actions on disconnect from SYNC
     // Cleanup state variables
     self.vehicleDataSubscribed = NO;
 }
 
-- (void)didReceiveVehicleData:(NSNotification *)notification
-{
+- (void)didReceiveVehicleData:(NSNotification *)notification {
     // Notification method that receives periodic vehicle data from SYNC
     SDLOnVehicleData *data = nil;
     if (notification && notification.userInfo) {
