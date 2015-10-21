@@ -94,25 +94,30 @@
 - (void)didChangeLockScreenStatus:(NSNotification *)notification {
     // Delegate method to handle changes in lockscreen status
 
+    NSLog(@"AppDelegate received didChangeLockScreenStatus notification: %@", notification);
+
     SDLOnLockScreenStatus *lockScreenStatus = nil;
     if (notification && notification.userInfo) {
         lockScreenStatus = notification.userInfo[HSDLNotificationUserInfoObject];
     }
 
     dispatch_async(dispatch_get_main_queue(), ^{
-        if (lockScreenStatus && ![lockScreenStatus.lockScreenStatus isEqualToEnum:[SDLLockScreenStatus OFF]]) {
-            [self hsdl_lockScreen];
-        } else {
-            [self hsdl_unlockScreen];
-        }
+      if (lockScreenStatus && ![lockScreenStatus.lockScreenStatus isEqualToEnum:[SDLLockScreenStatus OFF]]) {
+          [self hsdl_lockScreen];
+      } else {
+          [self hsdl_unlockScreen];
+      }
     });
 }
 
 - (void)proxyDidDisconnect:(NSNotification *)notification {
     // Delegate method to perform actions on disconnect from SYNC
     // Clear the lockscreen
+
+    NSLog(@"AppDelegate received proxyDidDisconnect notification: %@", notification);
+
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self hsdl_unlockScreen];
+      [self hsdl_unlockScreen];
     });
 }
 
