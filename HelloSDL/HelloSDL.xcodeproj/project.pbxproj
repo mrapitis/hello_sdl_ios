@@ -7,124 +7,107 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7C2D5AE01BC30F4C002FE9CE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D5ADF1BC30F4C002FE9CE /* main.m */; };
-		7C2D5AE31BC30F4C002FE9CE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D5AE21BC30F4C002FE9CE /* AppDelegate.m */; };
-		7C2D5AE61BC30F4C002FE9CE /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D5AE51BC30F4C002FE9CE /* ViewController.m */; };
-		7C2D5AE91BC30F4C002FE9CE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C2D5AE71BC30F4C002FE9CE /* Main.storyboard */; };
-		7C2D5AEB1BC30F4C002FE9CE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C2D5AEA1BC30F4C002FE9CE /* Assets.xcassets */; };
-		7C2D5AEE1BC30F4C002FE9CE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C2D5AEC1BC30F4C002FE9CE /* LaunchScreen.storyboard */; };
-		7C2D5AF81BC31598002FE9CE /* LockScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D5AF71BC31598002FE9CE /* LockScreenViewController.m */; settings = {ASSET_TAGS = (); }; };
-		7C2D5AFC1BC31D21002FE9CE /* HSDLProxyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D5AFB1BC31D21002FE9CE /* HSDLProxyManager.m */; settings = {ASSET_TAGS = (); }; };
-		7E266F0A5224E597792833F4 /* libPods-HelloSDL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 61B4B190DB6441D0EA4A01E6 /* libPods-HelloSDL.a */; };
+		6440AFA54894D1EC0A0B0556 /* libPods-HelloSDL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 846F39AF25DAED73776A2CB3 /* libPods-HelloSDL.a */; };
+		7C2044351BE8E03C0029DCAF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2044341BE8E03C0029DCAF /* AppDelegate.swift */; };
+		7C2044371BE8E03C0029DCAF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2044361BE8E03C0029DCAF /* ViewController.swift */; };
+		7C20443A1BE8E03C0029DCAF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C2044381BE8E03C0029DCAF /* Main.storyboard */; };
+		7C20443C1BE8E03C0029DCAF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C20443B1BE8E03C0029DCAF /* Assets.xcassets */; };
+		7C20443F1BE8E03C0029DCAF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C20443D1BE8E03C0029DCAF /* LaunchScreen.storyboard */; };
+		7C2044491BE8E2700029DCAF /* LockScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2044481BE8E2700029DCAF /* LockScreenViewController.swift */; };
+		7C20444B1BE8F09F0029DCAF /* HSDLProxyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C20444A1BE8F09F0029DCAF /* HSDLProxyManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3898FFF53CAB300A49008B38 /* Pods-HelloSDL.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HelloSDL.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-HelloSDL/Pods-HelloSDL.debug.xcconfig"; sourceTree = "<group>"; };
-		61B4B190DB6441D0EA4A01E6 /* libPods-HelloSDL.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HelloSDL.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7C2D5ADB1BC30F4C002FE9CE /* HelloSDL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloSDL.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		7C2D5ADF1BC30F4C002FE9CE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		7C2D5AE11BC30F4C002FE9CE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		7C2D5AE21BC30F4C002FE9CE /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		7C2D5AE41BC30F4C002FE9CE /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		7C2D5AE51BC30F4C002FE9CE /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		7C2D5AE81BC30F4C002FE9CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		7C2D5AEA1BC30F4C002FE9CE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		7C2D5AED1BC30F4C002FE9CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		7C2D5AEF1BC30F4C002FE9CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7C2D5AF61BC31591002FE9CE /* LockScreenViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LockScreenViewController.h; sourceTree = "<group>"; };
-		7C2D5AF71BC31598002FE9CE /* LockScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LockScreenViewController.m; sourceTree = "<group>"; };
-		7C2D5AFA1BC31D19002FE9CE /* HSDLProxyManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSDLProxyManager.h; sourceTree = "<group>"; };
-		7C2D5AFB1BC31D21002FE9CE /* HSDLProxyManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSDLProxyManager.m; sourceTree = "<group>"; };
-		EA6FE6BBC480F182B76FDA7E /* Pods-HelloSDL.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HelloSDL.release.xcconfig"; path = "../Pods/Target Support Files/Pods-HelloSDL/Pods-HelloSDL.release.xcconfig"; sourceTree = "<group>"; };
+		7C2044311BE8E03C0029DCAF /* HelloSDL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloSDL.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7C2044341BE8E03C0029DCAF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		7C2044361BE8E03C0029DCAF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		7C2044391BE8E03C0029DCAF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		7C20443B1BE8E03C0029DCAF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		7C20443E1BE8E03C0029DCAF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		7C2044401BE8E03C0029DCAF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7C2044481BE8E2700029DCAF /* LockScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LockScreenViewController.swift; sourceTree = "<group>"; };
+		7C20444A1BE8F09F0029DCAF /* HSDLProxyManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSDLProxyManager.swift; sourceTree = "<group>"; };
+		7C20444D1BE900860029DCAF /* HelloSDL-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HelloSDL-Bridging-Header.h"; sourceTree = "<group>"; };
+		846F39AF25DAED73776A2CB3 /* libPods-HelloSDL.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HelloSDL.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A5E143473BFECDC802A5BBD2 /* Pods-HelloSDL.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HelloSDL.release.xcconfig"; path = "../Pods/Target Support Files/Pods-HelloSDL/Pods-HelloSDL.release.xcconfig"; sourceTree = "<group>"; };
+		D15FA1793B1E995D181B53FF /* Pods-HelloSDL.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HelloSDL.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-HelloSDL/Pods-HelloSDL.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		7C2D5AD81BC30F4C002FE9CE /* Frameworks */ = {
+		7C20442E1BE8E03C0029DCAF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7E266F0A5224E597792833F4 /* libPods-HelloSDL.a in Frameworks */,
+				6440AFA54894D1EC0A0B0556 /* libPods-HelloSDL.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		7C2D5AD21BC30F4C002FE9CE = {
+		7C2044281BE8E03C0029DCAF = {
 			isa = PBXGroup;
 			children = (
-				7C2D5ADD1BC30F4C002FE9CE /* HelloSDL */,
-				7C2D5ADC1BC30F4C002FE9CE /* Products */,
-				AE6D57E5E2272474265C7F4F /* Pods */,
-				8F86A01EAFE52F57966DDE56 /* Frameworks */,
+				7C2044331BE8E03C0029DCAF /* HelloSDL */,
+				7C2044321BE8E03C0029DCAF /* Products */,
+				B4BED575896A4196EB9E3AB8 /* Pods */,
+				AA8A01F3739665C7E57E4708 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
-		7C2D5ADC1BC30F4C002FE9CE /* Products */ = {
+		7C2044321BE8E03C0029DCAF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				7C2D5ADB1BC30F4C002FE9CE /* HelloSDL.app */,
+				7C2044311BE8E03C0029DCAF /* HelloSDL.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		7C2D5ADD1BC30F4C002FE9CE /* HelloSDL */ = {
+		7C2044331BE8E03C0029DCAF /* HelloSDL */ = {
 			isa = PBXGroup;
 			children = (
-				7C2D5AE11BC30F4C002FE9CE /* AppDelegate.h */,
-				7C2D5AE21BC30F4C002FE9CE /* AppDelegate.m */,
-				7C2D5AF51BC3156D002FE9CE /* Views */,
-				7C2D5AF91BC31CE2002FE9CE /* SDL */,
-				7C2D5AE71BC30F4C002FE9CE /* Main.storyboard */,
-				7C2D5AEA1BC30F4C002FE9CE /* Assets.xcassets */,
-				7C2D5AEC1BC30F4C002FE9CE /* LaunchScreen.storyboard */,
-				7C2D5AEF1BC30F4C002FE9CE /* Info.plist */,
-				7C2D5ADE1BC30F4C002FE9CE /* Supporting Files */,
+				7C2044341BE8E03C0029DCAF /* AppDelegate.swift */,
+				7C2044461BE8E1DF0029DCAF /* Views */,
+				7C2044471BE8E1E50029DCAF /* SDL */,
+				7C2044381BE8E03C0029DCAF /* Main.storyboard */,
+				7C20443B1BE8E03C0029DCAF /* Assets.xcassets */,
+				7C20443D1BE8E03C0029DCAF /* LaunchScreen.storyboard */,
+				7C2044401BE8E03C0029DCAF /* Info.plist */,
 			);
 			path = HelloSDL;
 			sourceTree = "<group>";
 		};
-		7C2D5ADE1BC30F4C002FE9CE /* Supporting Files */ = {
+		7C2044461BE8E1DF0029DCAF /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				7C2D5ADF1BC30F4C002FE9CE /* main.m */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		7C2D5AF51BC3156D002FE9CE /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				7C2D5AE41BC30F4C002FE9CE /* ViewController.h */,
-				7C2D5AE51BC30F4C002FE9CE /* ViewController.m */,
-				7C2D5AF61BC31591002FE9CE /* LockScreenViewController.h */,
-				7C2D5AF71BC31598002FE9CE /* LockScreenViewController.m */,
+				7C2044361BE8E03C0029DCAF /* ViewController.swift */,
+				7C2044481BE8E2700029DCAF /* LockScreenViewController.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
 		};
-		7C2D5AF91BC31CE2002FE9CE /* SDL */ = {
+		7C2044471BE8E1E50029DCAF /* SDL */ = {
 			isa = PBXGroup;
 			children = (
-				7C2D5AFA1BC31D19002FE9CE /* HSDLProxyManager.h */,
-				7C2D5AFB1BC31D21002FE9CE /* HSDLProxyManager.m */,
+				7C20444A1BE8F09F0029DCAF /* HSDLProxyManager.swift */,
+				7C20444D1BE900860029DCAF /* HelloSDL-Bridging-Header.h */,
 			);
 			name = SDL;
 			sourceTree = "<group>";
 		};
-		8F86A01EAFE52F57966DDE56 /* Frameworks */ = {
+		AA8A01F3739665C7E57E4708 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				61B4B190DB6441D0EA4A01E6 /* libPods-HelloSDL.a */,
+				846F39AF25DAED73776A2CB3 /* libPods-HelloSDL.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		AE6D57E5E2272474265C7F4F /* Pods */ = {
+		B4BED575896A4196EB9E3AB8 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				3898FFF53CAB300A49008B38 /* Pods-HelloSDL.debug.xcconfig */,
-				EA6FE6BBC480F182B76FDA7E /* Pods-HelloSDL.release.xcconfig */,
+				D15FA1793B1E995D181B53FF /* Pods-HelloSDL.debug.xcconfig */,
+				A5E143473BFECDC802A5BBD2 /* Pods-HelloSDL.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -132,15 +115,16 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		7C2D5ADA1BC30F4C002FE9CE /* HelloSDL */ = {
+		7C2044301BE8E03C0029DCAF /* HelloSDL */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7C2D5AF21BC30F4C002FE9CE /* Build configuration list for PBXNativeTarget "HelloSDL" */;
+			buildConfigurationList = 7C2044431BE8E03C0029DCAF /* Build configuration list for PBXNativeTarget "HelloSDL" */;
 			buildPhases = (
-				F52FFD3D9E08D9D00B4E16EB /* Check Pods Manifest.lock */,
-				7C2D5AD71BC30F4C002FE9CE /* Sources */,
-				7C2D5AD81BC30F4C002FE9CE /* Frameworks */,
-				7C2D5AD91BC30F4C002FE9CE /* Resources */,
-				A0740FA58A69D01AA7CEA3C1 /* Copy Pods Resources */,
+				AFD391CFBF06604A4FB326B3 /* Check Pods Manifest.lock */,
+				7C20442D1BE8E03C0029DCAF /* Sources */,
+				7C20442E1BE8E03C0029DCAF /* Frameworks */,
+				7C20442F1BE8E03C0029DCAF /* Resources */,
+				64F7A613A0AA6A11531AEBAD /* Embed Pods Frameworks */,
+				D097683AC9CE35F210929E30 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -148,24 +132,30 @@
 			);
 			name = HelloSDL;
 			productName = HelloSDL;
-			productReference = 7C2D5ADB1BC30F4C002FE9CE /* HelloSDL.app */;
+			productReference = 7C2044311BE8E03C0029DCAF /* HelloSDL.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		7C2D5AD31BC30F4C002FE9CE /* Project object */ = {
+		7C2044291BE8E03C0029DCAF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0700;
+				LastSwiftUpdateCheck = 0710;
+				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = Ford;
 				TargetAttributes = {
-					7C2D5ADA1BC30F4C002FE9CE = {
-						CreatedOnToolsVersion = 7.0.1;
+					7C2044301BE8E03C0029DCAF = {
+						CreatedOnToolsVersion = 7.1;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
-			buildConfigurationList = 7C2D5AD61BC30F4C002FE9CE /* Build configuration list for PBXProject "HelloSDL" */;
+			buildConfigurationList = 7C20442C1BE8E03C0029DCAF /* Build configuration list for PBXProject "HelloSDL" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -173,46 +163,46 @@
 				en,
 				Base,
 			);
-			mainGroup = 7C2D5AD21BC30F4C002FE9CE;
-			productRefGroup = 7C2D5ADC1BC30F4C002FE9CE /* Products */;
+			mainGroup = 7C2044281BE8E03C0029DCAF;
+			productRefGroup = 7C2044321BE8E03C0029DCAF /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				7C2D5ADA1BC30F4C002FE9CE /* HelloSDL */,
+				7C2044301BE8E03C0029DCAF /* HelloSDL */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		7C2D5AD91BC30F4C002FE9CE /* Resources */ = {
+		7C20442F1BE8E03C0029DCAF /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7C2D5AEE1BC30F4C002FE9CE /* LaunchScreen.storyboard in Resources */,
-				7C2D5AEB1BC30F4C002FE9CE /* Assets.xcassets in Resources */,
-				7C2D5AE91BC30F4C002FE9CE /* Main.storyboard in Resources */,
+				7C20443F1BE8E03C0029DCAF /* LaunchScreen.storyboard in Resources */,
+				7C20443C1BE8E03C0029DCAF /* Assets.xcassets in Resources */,
+				7C20443A1BE8E03C0029DCAF /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		A0740FA58A69D01AA7CEA3C1 /* Copy Pods Resources */ = {
+		64F7A613A0AA6A11531AEBAD /* Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-HelloSDL/Pods-HelloSDL-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-HelloSDL/Pods-HelloSDL-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		F52FFD3D9E08D9D00B4E16EB /* Check Pods Manifest.lock */ = {
+		AFD391CFBF06604A4FB326B3 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -227,36 +217,50 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		D097683AC9CE35F210929E30 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-HelloSDL/Pods-HelloSDL-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		7C2D5AD71BC30F4C002FE9CE /* Sources */ = {
+		7C20442D1BE8E03C0029DCAF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7C2D5AE61BC30F4C002FE9CE /* ViewController.m in Sources */,
-				7C2D5AFC1BC31D21002FE9CE /* HSDLProxyManager.m in Sources */,
-				7C2D5AF81BC31598002FE9CE /* LockScreenViewController.m in Sources */,
-				7C2D5AE31BC30F4C002FE9CE /* AppDelegate.m in Sources */,
-				7C2D5AE01BC30F4C002FE9CE /* main.m in Sources */,
+				7C2044371BE8E03C0029DCAF /* ViewController.swift in Sources */,
+				7C20444B1BE8F09F0029DCAF /* HSDLProxyManager.swift in Sources */,
+				7C2044491BE8E2700029DCAF /* LockScreenViewController.swift in Sources */,
+				7C2044351BE8E03C0029DCAF /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		7C2D5AE71BC30F4C002FE9CE /* Main.storyboard */ = {
+		7C2044381BE8E03C0029DCAF /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				7C2D5AE81BC30F4C002FE9CE /* Base */,
+				7C2044391BE8E03C0029DCAF /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		7C2D5AEC1BC30F4C002FE9CE /* LaunchScreen.storyboard */ = {
+		7C20443D1BE8E03C0029DCAF /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				7C2D5AED1BC30F4C002FE9CE /* Base */,
+				7C20443E1BE8E03C0029DCAF /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -264,7 +268,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		7C2D5AF01BC30F4C002FE9CE /* Debug */ = {
+		7C2044411BE8E03C0029DCAF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -300,14 +304,16 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "HelloSDL/HelloSDL-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
-		7C2D5AF11BC30F4C002FE9CE /* Release */ = {
+		7C2044421BE8E03C0029DCAF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -337,16 +343,17 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "HelloSDL/HelloSDL-Bridging-Header.h";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
-		7C2D5AF31BC30F4C002FE9CE /* Debug */ = {
+		7C2044441BE8E03C0029DCAF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3898FFF53CAB300A49008B38 /* Pods-HelloSDL.debug.xcconfig */;
+			baseConfigurationReference = D15FA1793B1E995D181B53FF /* Pods-HelloSDL.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = HelloSDL/Info.plist;
@@ -356,9 +363,9 @@
 			};
 			name = Debug;
 		};
-		7C2D5AF41BC30F4C002FE9CE /* Release */ = {
+		7C2044451BE8E03C0029DCAF /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EA6FE6BBC480F182B76FDA7E /* Pods-HelloSDL.release.xcconfig */;
+			baseConfigurationReference = A5E143473BFECDC802A5BBD2 /* Pods-HelloSDL.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = HelloSDL/Info.plist;
@@ -371,25 +378,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		7C2D5AD61BC30F4C002FE9CE /* Build configuration list for PBXProject "HelloSDL" */ = {
+		7C20442C1BE8E03C0029DCAF /* Build configuration list for PBXProject "HelloSDL" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7C2D5AF01BC30F4C002FE9CE /* Debug */,
-				7C2D5AF11BC30F4C002FE9CE /* Release */,
+				7C2044411BE8E03C0029DCAF /* Debug */,
+				7C2044421BE8E03C0029DCAF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7C2D5AF21BC30F4C002FE9CE /* Build configuration list for PBXNativeTarget "HelloSDL" */ = {
+		7C2044431BE8E03C0029DCAF /* Build configuration list for PBXNativeTarget "HelloSDL" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7C2D5AF31BC30F4C002FE9CE /* Debug */,
-				7C2D5AF41BC30F4C002FE9CE /* Release */,
+				7C2044441BE8E03C0029DCAF /* Debug */,
+				7C2044451BE8E03C0029DCAF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 7C2D5AD31BC30F4C002FE9CE /* Project object */;
+	rootObject = 7C2044291BE8E03C0029DCAF /* Project object */;
 }
