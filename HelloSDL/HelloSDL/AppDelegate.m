@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "HSDLProxyManager.h"
-#import <SmartDeviceLink.h>
+@import SmartDeviceLink_iOS;
 
 @interface AppDelegate ()
 
