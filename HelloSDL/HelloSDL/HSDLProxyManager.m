@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "HSDLProxyManager.h"
-#import <SmartDeviceLink.h>
+@import SmartDeviceLink_iOS;
 
 #warning TODO: Change these to match your app settings!!
 // App configuration
