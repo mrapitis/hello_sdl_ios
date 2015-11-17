@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6440AFA54894D1EC0A0B0556 /* libPods-HelloSDL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 846F39AF25DAED73776A2CB3 /* libPods-HelloSDL.a */; };
+		182B4BD2EC39033E8E03777F /* Pods_HelloSDL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D48D3D81677BB0110958EC2 /* Pods_HelloSDL.framework */; };
 		7C2044351BE8E03C0029DCAF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2044341BE8E03C0029DCAF /* AppDelegate.swift */; };
 		7C2044371BE8E03C0029DCAF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2044361BE8E03C0029DCAF /* ViewController.swift */; };
 		7C20443A1BE8E03C0029DCAF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C2044381BE8E03C0029DCAF /* Main.storyboard */; };
@@ -28,7 +28,7 @@
 		7C2044481BE8E2700029DCAF /* LockScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LockScreenViewController.swift; sourceTree = "<group>"; };
 		7C20444A1BE8F09F0029DCAF /* HSDLProxyManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSDLProxyManager.swift; sourceTree = "<group>"; };
 		7C20444D1BE900860029DCAF /* HelloSDL-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HelloSDL-Bridging-Header.h"; sourceTree = "<group>"; };
-		846F39AF25DAED73776A2CB3 /* libPods-HelloSDL.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HelloSDL.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7D48D3D81677BB0110958EC2 /* Pods_HelloSDL.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HelloSDL.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5E143473BFECDC802A5BBD2 /* Pods-HelloSDL.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HelloSDL.release.xcconfig"; path = "../Pods/Target Support Files/Pods-HelloSDL/Pods-HelloSDL.release.xcconfig"; sourceTree = "<group>"; };
 		D15FA1793B1E995D181B53FF /* Pods-HelloSDL.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HelloSDL.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-HelloSDL/Pods-HelloSDL.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -38,7 +38,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6440AFA54894D1EC0A0B0556 /* libPods-HelloSDL.a in Frameworks */,
+				182B4BD2EC39033E8E03777F /* Pods_HelloSDL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,7 +98,7 @@
 		AA8A01F3739665C7E57E4708 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				846F39AF25DAED73776A2CB3 /* libPods-HelloSDL.a */,
+				7D48D3D81677BB0110958EC2 /* Pods_HelloSDL.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

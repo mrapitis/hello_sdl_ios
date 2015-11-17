@@ -6,4 +6,4 @@
 //  Copyright © 2015 Ford. All rights reserved.
 //
 
-#import <SmartDeviceLink-iOS/SmartDeviceLink.h>
+@import SmartDeviceLink_iOS;
