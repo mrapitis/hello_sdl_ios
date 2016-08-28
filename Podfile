@@ -5,6 +5,6 @@ use_frameworks!
 # platform :ios, '6.0'
 
 target 'HelloSDL' do
-pod 'SmartDeviceLink-iOS', '~> 4.0.0'
+pod 'SmartDeviceLink-iOS', '~> 4.2.3'
 end
 
