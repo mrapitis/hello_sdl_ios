@@ -17,7 +17,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Ford_Logo" translatesAutoresizingMaskIntoConstraints="NO" id="oOo-c6-R9r">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sdl_logo" translatesAutoresizingMaskIntoConstraints="NO" id="oOo-c6-R9r">
                                 <rect key="frame" x="180" y="67" width="240" height="128"/>
                                 <animations/>
                                 <constraints>
@@ -60,7 +60,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Ford_Logo" translatesAutoresizingMaskIntoConstraints="NO" id="pUv-yZ-yga">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sdl_logo" translatesAutoresizingMaskIntoConstraints="NO" id="pUv-yZ-yga">
                                 <rect key="frame" x="180" y="67" width="240" height="128"/>
                                 <animations/>
                                 <constraints>
@@ -93,6 +93,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Ford_Logo" width="1280" height="512"/>
+        <image name="sdl_logo" width="222" height="206"/>
     </resources>
 </document>
