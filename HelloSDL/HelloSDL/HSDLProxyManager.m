@@ -11,6 +11,10 @@
 @import SmartDeviceLink_iOS;
 
 #warning TODO: Change these to match your app settings!!
+// TCP/IP (Emulator) configuration
+static NSString *const RemoteIpAddress = @"127.0.0.1";
+static NSString *const RemotePort = @"12345";
+
 // App configuration
 static NSString *const AppName = @"HelloSDL";
 static NSString *const AppId = @"8675309";
@@ -92,11 +96,16 @@ NSString *const HSDLNotificationUserInfoObject = @"com.sdl.notification.keys.sdl
 #pragma mark Proxy Lifecycle
 
 /**
- *  Start listening for SDL connections.
+ *  Start listening for SDL connections. Use only one of the following connection methods.
  */
 - (void)startProxy {
     NSLog(@"startProxy");
+    
+    // If connecting via USB (to a vehicle).
     self.proxy = [SDLProxyFactory buildSDLProxyWithListener:self];
+
+    // If connecting via TCP/IP (to an emulator).
+//    self.proxy = [SDLProxyFactory buildSDLProxyWithListener:self tcpIPAddress:RemoteIpAddress tcpPort:RemotePort];
 }
 
 /**
