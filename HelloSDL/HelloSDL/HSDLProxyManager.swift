@@ -308,7 +308,7 @@ class HSDLProxyManager : NSObject, SDLProxyListener {
     /**
     Delegate method that runs when lockscreen status changes.
     */
-    @objc func onOnLockScreenNotification(notification: SDLLockScreenStatus?) {
+    @objc func onOnLockScreenNotification(notification: SDLOnLockScreenStatus?) {
         print("OnLockScreen notification from SDL")
         
         // Notify the app delegate
