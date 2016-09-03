@@ -16,6 +16,10 @@ let HSDLNotificationUserInfoObject = "com.sdl.notification.keys.sdlnotificationO
 
 class HSDLProxyManager : NSObject, SDLProxyListener {
 // TODO: Change these to match your app settings!!
+    // TCP/IP (Emulator) configuration
+    let RemoteIpAddress = "127.0.0.1"
+    let RemotePort = "12345"
+    
     // App configuration
     let AppName = "HelloSDL"
     let AppId = "8675309"
@@ -70,7 +74,12 @@ class HSDLProxyManager : NSObject, SDLProxyListener {
     */
     func startProxy() {
         print("startProxy")
+        
+        // If connecting via USB (to a vehicle).
         self.proxy = SDLProxyFactory.buildSDLProxyWithListener(self)
+        
+        // If connecting via TCP/IP (to an emulator).
+//        self.proxy = SDLProxyFactory.buildSDLProxyWithListener(self, tcpIPAddress: RemoteIpAddress, tcpPort: RemotePort)
     }
     
     /**
