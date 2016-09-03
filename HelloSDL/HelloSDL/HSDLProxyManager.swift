@@ -145,7 +145,8 @@ class HSDLProxyManager : NSObject, SDLProxyListener {
      - returns: The next correlation ID.
      */
     func hsdl_getNextCorrelationId() -> UInt {
-        return ++self.correlationID
+        self.correlationID += 1
+        return self.correlationID
     }
     
 
