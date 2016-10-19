@@ -56,14 +56,14 @@ class HSDLProxyManager : NSObject, SDLProxyListener {
      - parameter name: The name of the SDL notification
      - parameter info: The data associated with the notification
      */
-    func hsdl_postNotification(name: String, info: AnyObject?) {
+    func hsdl_postNotification(named name: String, info: AnyObject?) {
         var userInfo: Dictionary<String, AnyObject>?
-        let notificationCenter = NSNotificationCenter.defaultCenter()
+        let notificationCenter = NotificationCenter.default
 
         if info != nil {
             userInfo = [HSDLNotificationUserInfoObject: info!]
         }
-        notificationCenter.postNotificationName(name, object: self, userInfo: userInfo)
+        notificationCenter.post(name: Notification.Name(rawValue: name), object: self, userInfo: userInfo)
     }
 
 
@@ -76,10 +76,10 @@ class HSDLProxyManager : NSObject, SDLProxyListener {
         print("startProxy")
         
         // If connecting via USB (to a vehicle).
-        self.proxy = SDLProxyFactory.buildSDLProxyWithListener(self)
+        self.proxy = SDLProxyFactory.buildSDLProxy(with: self)
         
         // If connecting via TCP/IP (to an emulator).
-//        self.proxy = SDLProxyFactory.buildSDLProxyWithListener(self, tcpIPAddress: RemoteIpAddress, tcpPort: RemotePort)
+//        self.proxy = SDLProxyFactory.buildSDLProxy(with: self, tcpIPAddress: RemoteIpAddress, tcpPort: RemotePort)
     }
     
     /**
@@ -98,11 +98,11 @@ class HSDLProxyManager : NSObject, SDLProxyListener {
         print("SDL Connect")
         
         // Build and send RegisterAppInterface request
-        let raiRequest = SDLRPCRequestFactory.buildRegisterAppInterfaceWithAppName(self.AppName, languageDesired: SDLLanguage.EN_US(), appID: self.AppId)
-        raiRequest.isMediaApplication = self.AppIsMediaApp
-        raiRequest.ngnMediaScreenAppName = self.ShortAppName
-        raiRequest.vrSynonyms = [self.AppVrSynonym]
-        raiRequest.ttsName = [SDLTTSChunkFactory.buildTTSChunkForString(self.AppName, type: SDLSpeechCapabilities.TEXT())]
+        let raiRequest = SDLRPCRequestFactory.buildRegisterAppInterface(withAppName: self.AppName, languageDesired: SDLLanguage.en_US(), appID: self.AppId)
+        raiRequest?.isMediaApplication = self.AppIsMediaApp as NSNumber!
+        raiRequest?.ngnMediaScreenAppName = self.ShortAppName
+        raiRequest?.vrSynonyms = [self.AppVrSynonym]
+        raiRequest?.ttsName = [SDLTTSChunkFactory.buildTTSChunk(for: self.AppName, type: SDLSpeechCapabilities.text())]
         self.proxy?.sendRPC(raiRequest)
     }
     
@@ -121,7 +121,7 @@ class HSDLProxyManager : NSObject, SDLProxyListener {
         self.appIconID = nil
         
         // Notify the app delegate to clear the lockscreen
-        self.hsdl_postNotification(HSDLDisconnectNotification, info: nil)
+        self.hsdl_postNotification(named: HSDLDisconnectNotification, info: nil)
         
         // Cycle the proxy
         self.disposeProxy()
@@ -131,7 +131,7 @@ class HSDLProxyManager : NSObject, SDLProxyListener {
     /**
      Delegate method that runs when the registration response is received from SDL.
      */
-    @objc func onRegisterAppInterfaceResponse(response: SDLRegisterAppInterfaceResponse?) {
+    @objc func onRegisterAppInterfaceResponse(_ response: SDLRegisterAppInterfaceResponse?) {
         print("RegisterAppInterface response from SDL: \(response?.resultCode) with info: \(response?.info)")
         
         if response?.success == 1 {
@@ -164,11 +164,11 @@ class HSDLProxyManager : NSObject, SDLProxyListener {
     /**
     Delegate method that runs when the app's HMI state on SDL changes.
     */
-    @objc func onOnHMIStatus(notification: SDLOnHMIStatus?) {
+    @objc func on(_ notification: SDLOnHMIStatus?) {
         print("HMIStatus notification from SDL")
         
         // Send welcome message on first HMI FULL
-        if notification?.hmiLevel == SDLHMILevel.FULL() {
+        if notification?.hmiLevel == SDLHMILevel.full() {
             if self.firstHmiFull {
                 self.firstHmiFull = false
                 self.hsdl_performWelcomeMessage()
@@ -178,7 +178,7 @@ class HSDLProxyManager : NSObject, SDLProxyListener {
         }
         
         // Send AddCommands in first non-HMI NONE state (i.e., FULL, LIMITED, BACKGROUND)
-        if notification?.hmiLevel != SDLHMILevel.NONE() {
+        if notification?.hmiLevel != SDLHMILevel.none() {
             if self.firstHmiNotNone {
                 self.firstHmiNotNone = false
                 self.hsdl_addCommands()
@@ -195,19 +195,19 @@ class HSDLProxyManager : NSObject, SDLProxyListener {
     func hsdl_performWelcomeMessage() {
         print("Send welcome message")
         let show = SDLShow()
-        show.mainField1 = WelcomeShow
-        show.alignment = SDLTextAlignment.CENTERED()
-        show.correlationID = self.hsdl_getNextCorrelationId()
+        show?.mainField1 = WelcomeShow
+        show?.alignment = SDLTextAlignment.centered()
+        show?.correlationID = self.hsdl_getNextCorrelationId() as NSNumber!
         self.proxy?.sendRPC(show)
         
-        let speak = SDLRPCRequestFactory.buildSpeakWithTTS(WelcomeSpeak, correlationID: self.hsdl_getNextCorrelationId())
+        let speak = SDLRPCRequestFactory.buildSpeak(withTTS: WelcomeSpeak, correlationID: self.hsdl_getNextCorrelationId() as NSNumber!)
         self.proxy?.sendRPC(speak)
     }
     
     /**
      Delegate method that runs when driver distraction mode changes.
      */
-    @objc func onOnDriverDistraction(notification: SDLOnDriverDistraction?) {
+    @objc func on(_ notification: SDLOnDriverDistraction?) {
         print("OnDriverDistraction notification from SDL")
         
         // Some RPCs (depending on region) cannot be sent when driver distraction is active.
@@ -227,14 +227,14 @@ class HSDLProxyManager : NSObject, SDLProxyListener {
         
         // Perform a ListFiles RPC to check which files are already present on SDL
         let list = SDLListFiles()
-        list.correlationID = self.hsdl_getNextCorrelationId()
+        list?.correlationID = self.hsdl_getNextCorrelationId() as NSNumber!
         self.proxy?.sendRPC(list)
     }
     
     /**
      Delegate method that runs when the list files response is received from SDL.
      */
-    @objc func onListFilesResponse(response: SDLListFilesResponse?) {
+    @objc func onListFilesResponse(_ response: SDLListFilesResponse?) {
         print("ListFiles response from SDL: \(response?.resultCode) with info: \(response?.info)")
 
         // If the ListFiles was successful, store the list in a mutable set
@@ -268,21 +268,21 @@ class HSDLProxyManager : NSObject, SDLProxyListener {
      - parameter imageName: The name of the image in the Assets catalog.
      - parameter corrId:    The correlation ID used in the request.
      */
-    func hsdl_uploadImage(imageName: String, corrId : UInt) {
+    func hsdl_uploadImage(_ imageName: String, corrId : UInt) {
         print("hsdl_uploadImage: \(imageName)")
         let pngImage = UIImage(named: imageName)
         if pngImage != nil {
             let pngData = UIImagePNGRepresentation(pngImage!)
-            if pngData != nil {
-                let putFile = SDLPutFile()
+            if pngData != nil,
+                let putFile = SDLPutFile() {
                 putFile.syncFileName = imageName
-                putFile.fileType = SDLFileType.GRAPHIC_PNG()
+                putFile.fileType = SDLFileType.graphic_PNG()
                 putFile.persistentFile = false
                 putFile.systemFile = false
                 putFile.offset = 0
-                putFile.length = pngData!.length
+                putFile.length = pngData!.count as NSNumber!
                 putFile.bulkData = pngData
-                putFile.correlationID = corrId
+                putFile.correlationID = corrId as NSNumber!
                 self.proxy?.sendRPC(putFile)
             }
         }
@@ -292,9 +292,9 @@ class HSDLProxyManager : NSObject, SDLProxyListener {
     /**
      Delegate method that runs when a PutFile is complete.
      */
-    @objc func onPutFileResponse(response: SDLPutFileResponse?) {
+    @objc func onPutFileResponse(_ response: SDLPutFileResponse?) {
         print("PutFile response from SDL: \(response?.resultCode) with info: \(response?.info)")
-        if response?.success == true && response?.correlationID == self.appIconID {
+        if response?.success == true && response?.correlationID.uintValue == self.appIconID {
             self.hsdl_setAppIcon()
         }
     }
@@ -306,8 +306,8 @@ class HSDLProxyManager : NSObject, SDLProxyListener {
     func hsdl_setAppIcon() {
         print("hsdl_setAppIcon")
         let setIcon = SDLSetAppIcon()
-        setIcon.syncFileName = IconFile
-        setIcon.correlationID = self.hsdl_getNextCorrelationId()
+        setIcon?.syncFileName = IconFile
+        setIcon?.correlationID = self.hsdl_getNextCorrelationId() as NSNumber!
         self.proxy?.sendRPC(setIcon)
     }
     
@@ -317,11 +317,11 @@ class HSDLProxyManager : NSObject, SDLProxyListener {
     /**
     Delegate method that runs when lockscreen status changes.
     */
-    @objc func onOnLockScreenNotification(notification: SDLOnLockScreenStatus?) {
+    @objc func on(onLockScreenNotification notification: SDLOnLockScreenStatus?) {
         print("OnLockScreen notification from SDL")
         
         // Notify the app delegate
-        self.hsdl_postNotification(HSDLLockScreenStatusNotification, info: notification)
+        self.hsdl_postNotification(named: HSDLLockScreenStatusNotification, info: notification)
     }
 
 
@@ -333,36 +333,36 @@ class HSDLProxyManager : NSObject, SDLProxyListener {
     func hsdl_addCommands() {
         print("hsdl_addCommands")
         let menuParams = SDLMenuParams()
-        menuParams.menuName = TestCommandName
+        menuParams?.menuName = TestCommandName
         let command = SDLAddCommand()
-        command.vrCommands = [TestCommandName]
-        command.menuParams = menuParams
-        command.cmdID = TestCommandID
+        command?.vrCommands = [TestCommandName]
+        command?.menuParams = menuParams
+        command?.cmdID = TestCommandID as NSNumber!
         self.proxy?.sendRPC(command)
     }
     
     /**
      Delegate method that runs when the add command response is received from SDL.
      */
-    @objc func onAddCommandResponse(response: SDLAddCommandResponse?) {
+    @objc func onAddCommandResponse(_ response: SDLAddCommandResponse?) {
         print("AddCommand response from SDL: \(response?.resultCode) with info: \(response?.info)")
     }
 
     /**
      Delegate method that runs when a command is triggered on SDL.
      */
-    @objc func onOnCommand(notification: SDLOnCommand?) {
+    @objc func on(_ notification: SDLOnCommand?) {
         print("OnCommand notification from SDL")
 
         // Handle sample command when triggered
-        if notification?.cmdID == TestCommandID {
+        if notification?.cmdID.uintValue == TestCommandID {
             let show = SDLShow()
-            show.mainField1 = "Test Command"
-            show.alignment = SDLTextAlignment.CENTERED()
-            show.correlationID = self.hsdl_getNextCorrelationId()
+            show?.mainField1 = "Test Command"
+            show?.alignment = SDLTextAlignment.centered()
+            show?.correlationID = self.hsdl_getNextCorrelationId() as NSNumber!
             self.proxy?.sendRPC(show)
             
-            let speak = SDLRPCRequestFactory.buildSpeakWithTTS("Test Command", correlationID: self.hsdl_getNextCorrelationId())
+            let speak = SDLRPCRequestFactory.buildSpeak(withTTS: "Test Command", correlationID: self.hsdl_getNextCorrelationId() as NSNumber!)
             self.proxy?.sendRPC(speak)
         }
     }
@@ -375,14 +375,14 @@ class HSDLProxyManager : NSObject, SDLProxyListener {
     /**
     Delegate method that runs when the app's permissions change on SDL.
     */
-    @objc func onOnPermissionsChange(notification: SDLOnPermissionsChange?) {
+    @objc func on(_ notification: SDLOnPermissionsChange?) {
         print("OnPermissionsChange notification from SDL")
 
         // Check for permission to subscribe to vehicle data before sending the request
         if let permissions = notification?.permissionItem {
             if let permissionArray = NSArray(array:permissions) as? [SDLPermissionItem] {
                 for item in permissionArray {
-                    if item.rpcName == "SubscribeVehicleData" && item.hmiPermissions?.allowed.count > 0 {
+                    if let hmiPermissions = item.hmiPermissions, hmiPermissions.allowed.count > 0, item.rpcName == "SubscribeVehicleData" {
                         self.hsdl_subscribeVehicleData()
                     }
                 }
@@ -397,11 +397,11 @@ class HSDLProxyManager : NSObject, SDLProxyListener {
         print("hsdl_subscribeVehicleData")
         if !self.vehicleDataSubscribed {
             let subscribe = SDLSubscribeVehicleData()
-            subscribe.correlationID = self.hsdl_getNextCorrelationId()
+            subscribe?.correlationID = self.hsdl_getNextCorrelationId() as NSNumber!
             
 // TODO: Add the vehicle data items you want to subscribe to
             // Specify which items to subscribe to
-            subscribe.speed = true
+            subscribe?.speed = true
             
             self.proxy?.sendRPC(subscribe)
         }
@@ -410,9 +410,9 @@ class HSDLProxyManager : NSObject, SDLProxyListener {
     /**
      Delegate method that runs when the subscribe vehicle data response is received from SDL.
      */
-    @objc func onSubscribeVehicleDataResponse(response: SDLSubscribeVehicleDataResponse?) {
+    @objc func onSubscribeVehicleDataResponse(_ response: SDLSubscribeVehicleDataResponse?) {
         print("SubscribeVehicleData response from SDL: \(response?.resultCode) with info: \(response?.info)")
-        if response?.resultCode == SDLResult.SUCCESS() {
+        if response?.resultCode == SDLResult.success() {
             print("Vehicle data subscribed!")
             self.vehicleDataSubscribed = true
         }
@@ -421,7 +421,7 @@ class HSDLProxyManager : NSObject, SDLProxyListener {
     /**
      Delegate method that runs when new vehicle data is received from SDL.
      */
-    @objc func onOnVehicleData(notification: SDLOnVehicleData?) {
+    @objc func on(_ notification: SDLOnVehicleData?) {
         print("OnVehicleData notification from SDL")
 
 // TODO: Put your vehicle data code here!
@@ -431,202 +431,202 @@ class HSDLProxyManager : NSObject, SDLProxyListener {
 
 // MARK: Notification callbacks
     
-    @objc func onOnAppInterfaceUnregistered(notification: SDLOnAppInterfaceUnregistered?) {
+    @objc func on(_ notification: SDLOnAppInterfaceUnregistered?) {
         print("onAppInterfaceUnregistered notification from SDL: \(notification)")
     }
     
-    @objc func onOnAudioPassThru(notification: SDLOnAudioPassThru?) {
+    @objc func on(_ notification: SDLOnAudioPassThru?) {
         print("onAudioPassThru notification from SDL: \(notification)")
     }
     
-    @objc func onOnButtonEvent(notification: SDLOnButtonEvent?) {
+    @objc func on(_ notification: SDLOnButtonEvent?) {
         print("onButtonEvent notification from SDL: \(notification)")
     }
     
-    @objc func onOnButtonPress(notification: SDLOnButtonPress?) {
+    @objc func on(_ notification: SDLOnButtonPress?) {
         print("onButtonPress notification from SDL: \(notification)")
     }
     
-    @objc func onOnEncodedSyncPData(notification: SDLOnEncodedSyncPData?) {
+    @objc func on(_ notification: SDLOnEncodedSyncPData?) {
         print("onEncodedSyncPData notification from SDL: \(notification)")
     }
     
-    @objc func onOnHashChange(notification: SDLOnHashChange?) {
+    @objc func on(_ notification: SDLOnHashChange?) {
         print("onHashChange notification from SDL: \(notification)")
     }
     
-    @objc func onOnLanguageChange(notification: SDLOnLanguageChange?) {
+    @objc func on(_ notification: SDLOnLanguageChange?) {
         print("onLanguageChange notification from SDL: \(notification)")
     }
     
-    @objc func onOnSyncPData(notification: SDLOnSyncPData?) {
+    @objc func on(_ notification: SDLOnSyncPData?) {
         print("onSyncPData notification from SDL: \(notification)")
     }
     
-    @objc func onOnSystemRequest(notification: SDLOnSystemRequest?) {
+    @objc func on(_ notification: SDLOnSystemRequest?) {
         print("onSystemRequest notification from SDL: \(notification)")
     }
     
-    @objc func onOnTBTClientState(notification: SDLOnTBTClientState?) {
+    @objc func on(_ notification: SDLOnTBTClientState?) {
         print("onTBTClientState notification from SDL: \(notification)")
     }
     
-    @objc func onOnTouchEvent(notification: SDLOnTouchEvent?) {
+    @objc func on(_ notification: SDLOnTouchEvent?) {
         print("onTouchEvent notification from SDL: \(notification)")
     }
     
-    @objc func onReceivedLockScreenIcon(icon: UIImage?) {
+    @objc func onReceivedLockScreenIcon(_ icon: UIImage?) {
         print("ReceivedLockScreenIcon notification from SDL")
     }
     
     
 // MARK: Other callbacks
     
-    @objc func onAddSubMenuResponse(response: SDLAddSubMenuResponse?) {
+    @objc func onAddSubMenuResponse(_ response: SDLAddSubMenuResponse?) {
         print("AddSubMenuResponse response from SDL with result code: \(response?.resultCode) and info: \(response?.info)")
     }
     
-    @objc func onAlertManeuverResponse(request: SDLAlertManeuverResponse?) {
+    @objc func onAlertManeuverResponse(_ request: SDLAlertManeuverResponse?) {
         print("AlertManeuverResponse response from SDL with result code: \(request?.resultCode) and info: \(request?.info)")
     }
     
-    @objc func onAlertResponse(response: SDLAlertResponse?) {
+    @objc func onAlertResponse(_ response: SDLAlertResponse?) {
         print("AlertResponse response from SDL with result code: \(response?.resultCode) and info: \(response?.info)")
     }
     
-    @objc func onChangeRegistrationResponse(response: SDLChangeRegistrationResponse?) {
+    @objc func onChangeRegistrationResponse(_ response: SDLChangeRegistrationResponse?) {
         print("ChangeRegistrationResponse response from SDL with result code: \(response?.resultCode) and info: \(response?.info)")
     }
     
-    @objc func onCreateInteractionChoiceSetResponse(response: SDLCreateInteractionChoiceSetResponse?) {
+    @objc func onCreateInteractionChoiceSetResponse(_ response: SDLCreateInteractionChoiceSetResponse?) {
         print("CreateInteractionChoiceSetResponse response from SDL with result code: \(response?.resultCode) and info: \(response?.info)")
     }
     
-    @objc func onDeleteCommandResponse(response: SDLDeleteCommandResponse?) {
+    @objc func onDeleteCommandResponse(_ response: SDLDeleteCommandResponse?) {
         print("DeleteCommandResponse response from SDL with result code: \(response?.resultCode) and info: \(response?.info)")
     }
     
-    @objc func onDeleteFileResponse(response: SDLDeleteFileResponse?) {
+    @objc func onDeleteFileResponse(_ response: SDLDeleteFileResponse?) {
         print("DeleteFileResponse response from SDL with result code: \(response?.resultCode) and info: \(response?.info)")
     }
     
-    @objc func onDeleteInteractionChoiceSetResponse(response: SDLDeleteInteractionChoiceSetResponse?) {
+    @objc func onDeleteInteractionChoiceSetResponse(_ response: SDLDeleteInteractionChoiceSetResponse?) {
         print("DeleteInteractionChoiceSetResponse response from SDL with result code: \(response?.resultCode) and info: \(response?.info)")
     }
     
-    @objc func onDeleteSubMenuResponse(response: SDLDeleteSubMenuResponse?) {
+    @objc func onDeleteSubMenuResponse(_ response: SDLDeleteSubMenuResponse?) {
         print("DeleteSubMenuResponse response from SDL with result code: \(response?.resultCode) and info: \(response?.info)")
     }
     
-    @objc func onDiagnosticMessageResponse(response: SDLDiagnosticMessageResponse?) {
+    @objc func onDiagnosticMessageResponse(_ response: SDLDiagnosticMessageResponse?) {
         print("DiagnosticMessageResponse response from SDL with result code: \(response?.resultCode) and info: \(response?.info)")
     }
     
-    @objc func onDialNumberResponse(request: SDLDialNumberResponse?) {
+    @objc func onDialNumberResponse(_ request: SDLDialNumberResponse?) {
         print("DialNumberResponse response from SDL with result code: \(request?.resultCode) and info: \(request?.info)")
     }
     
-    @objc func onEncodedSyncPDataResponse(response: SDLEncodedSyncPDataResponse?) {
+    @objc func onEncodedSyncPDataResponse(_ response: SDLEncodedSyncPDataResponse?) {
         print("EncodedSyncPDataResponse response from SDL with result code: \(response?.resultCode) and info: \(response?.info)")
     }
     
-    @objc func onEndAudioPassThruResponse(response: SDLEndAudioPassThruResponse?) {
+    @objc func onEndAudioPassThruResponse(_ response: SDLEndAudioPassThruResponse?) {
         print("EndAudioPassThruResponse response from SDL with result code: \(response?.resultCode) and info: \(response?.info)")
     }
     
-    @objc func onError(e: NSException?) {
+    @objc func onError(_ e: NSException?) {
         print("Error response from SDL with error: \(e)")
     }
     
-    @objc func onGenericResponse(response: SDLGenericResponse?) {
+    @objc func onGenericResponse(_ response: SDLGenericResponse?) {
         print("GenericResponse response from SDL with result code: \(response?.resultCode) and info: \(response?.info)")
     }
     
-    @objc func onGetDTCsResponse(response: SDLGetDTCsResponse?) {
+    @objc func onGetDTCsResponse(_ response: SDLGetDTCsResponse?) {
         print("GetDTCsResponse response from SDL with result code: \(response?.resultCode) and info: \(response?.info)")
     }
     
-    @objc func onGetVehicleDataResponse(response: SDLGetVehicleDataResponse?) {
+    @objc func onGetVehicleDataResponse(_ response: SDLGetVehicleDataResponse?) {
         print("GetVehicleDataResponse response from SDL with result code: \(response?.resultCode) and info: \(response?.info)")
     }
     
-    @objc func onPerformAudioPassThruResponse(response: SDLPerformAudioPassThruResponse?) {
+    @objc func onPerformAudioPassThruResponse(_ response: SDLPerformAudioPassThruResponse?) {
         print("PerformAudioPassThruResponse response from SDL with result code: \(response?.resultCode) and info: \(response?.info)")
     }
     
-    @objc func onPerformInteractionResponse(response: SDLPerformInteractionResponse?) {
+    @objc func onPerformInteractionResponse(_ response: SDLPerformInteractionResponse?) {
         print("PerformInteractionResponse response from SDL with result code: \(response?.resultCode) and info: \(response?.info)")
     }
     
-    @objc func onReadDIDResponse(response: SDLReadDIDResponse?) {
+    @objc func onReadDIDResponse(_ response: SDLReadDIDResponse?) {
         print("ReadDIDResponse response from SDL with result code: \(response?.resultCode) and info: \(response?.info)")
     }
     
-    @objc func onResetGlobalPropertiesResponse(response: SDLResetGlobalPropertiesResponse?) {
+    @objc func onResetGlobalPropertiesResponse(_ response: SDLResetGlobalPropertiesResponse?) {
         print("ResetGlobalPropertiesResponse response from SDL with result code: \(response?.resultCode) and info: \(response?.info)")
     }
     
-    @objc func onScrollableMessageResponse(response: SDLScrollableMessageResponse?) {
+    @objc func onScrollableMessageResponse(_ response: SDLScrollableMessageResponse?) {
         print("ScrollableMessageResponse response from SDL with result code: \(response?.resultCode) and info: \(response?.info)")
     }
     
-    @objc func onSendLocationResponse(request: SDLSendLocationResponse?) {
+    @objc func onSendLocationResponse(_ request: SDLSendLocationResponse?) {
         print("SendLocationResponse response from SDL with result code: \(request?.resultCode) and info: \(request?.info)")
     }
     
-    @objc func onSetAppIconResponse(response: SDLSetAppIconResponse?) {
+    @objc func onSetAppIconResponse(_ response: SDLSetAppIconResponse?) {
         print("SetAppIconResponse response from SDL with result code: \(response?.resultCode) and info: \(response?.info)")
     }
     
-    @objc func onSetDisplayLayoutResponse(response: SDLSetDisplayLayoutResponse?) {
+    @objc func onSetDisplayLayoutResponse(_ response: SDLSetDisplayLayoutResponse?) {
         print("SetDisplayLayoutResponse response from SDL with result code: \(response?.resultCode) and info: \(response?.info)")
     }
     
-    @objc func onSetGlobalPropertiesResponse(response: SDLSetGlobalPropertiesResponse?) {
+    @objc func onSetGlobalPropertiesResponse(_ response: SDLSetGlobalPropertiesResponse?) {
         print("SetGlobalPropertiesResponse response from SDL with result code: \(response?.resultCode) and info: \(response?.info)")
     }
     
-    @objc func onSetMediaClockTimerResponse(response: SDLSetMediaClockTimerResponse?) {
+    @objc func onSetMediaClockTimerResponse(_ response: SDLSetMediaClockTimerResponse?) {
         print("SetMediaClockTimerResponse response from SDL with result code: \(response?.resultCode) and info: \(response?.info)")
     }
     
-    @objc func onShowConstantTBTResponse(response: SDLShowConstantTBTResponse?) {
+    @objc func onShowConstantTBTResponse(_ response: SDLShowConstantTBTResponse?) {
         print("ShowConstantTBTResponse response from SDL with result code: \(response?.resultCode) and info: \(response?.info)")
     }
     
-    @objc func onShowResponse(response: SDLShowResponse?) {
+    @objc func onShowResponse(_ response: SDLShowResponse?) {
         print("ShowResponse response from SDL with result code: \(response?.resultCode) and info: \(response?.info)")
     }
     
-    @objc func onSliderResponse(response: SDLSliderResponse?) {
+    @objc func onSliderResponse(_ response: SDLSliderResponse?) {
         print("SliderResponse response from SDL with result code: \(response?.resultCode) and info: \(response?.info)")
     }
     
-    @objc func onSpeakResponse(response: SDLSpeakResponse?) {
+    @objc func onSpeakResponse(_ response: SDLSpeakResponse?) {
         print("SpeakResponse response from SDL with result code: \(response?.resultCode) and info: \(response?.info)")
     }
     
-    @objc func onSubscribeButtonResponse(response: SDLSubscribeButtonResponse?) {
+    @objc func onSubscribeButtonResponse(_ response: SDLSubscribeButtonResponse?) {
         print("SubscribeButtonResponse response from SDL with result code: \(response?.resultCode) and info: \(response?.info)")
     }
     
-    @objc func onSyncPDataResponse(response: SDLSyncPDataResponse?) {
+    @objc func onSyncPDataResponse(_ response: SDLSyncPDataResponse?) {
         print("SyncPDataResponse response from SDL with result code: \(response?.resultCode) and info: \(response?.info)")
     }
     
-    @objc func onUpdateTurnListResponse(response: SDLUpdateTurnListResponse?) {
+    @objc func onUpdateTurnListResponse(_ response: SDLUpdateTurnListResponse?) {
         print("UpdateTurnListResponse response from SDL with result code: \(response?.resultCode) and info: \(response?.info)")
     }
     
-    @objc func onUnregisterAppInterfaceResponse(response: SDLUnregisterAppInterfaceResponse?) {
+    @objc func onUnregisterAppInterfaceResponse(_ response: SDLUnregisterAppInterfaceResponse?) {
         print("UnregisterAppInterfaceResponse response from SDL with result code: \(response?.resultCode) and info: \(response?.info)")
     }
     
-    @objc func onUnsubscribeButtonResponse(response: SDLUnsubscribeButtonResponse?) {
+    @objc func onUnsubscribeButtonResponse(_ response: SDLUnsubscribeButtonResponse?) {
         print("UnsubscribeButtonResponse response from SDL with result code: \(response?.resultCode) and info: \(response?.info)")
     }
     
-    @objc func onUnsubscribeVehicleDataResponse(response: SDLUnsubscribeVehicleDataResponse?) {
+    @objc func onUnsubscribeVehicleDataResponse(_ response: SDLUnsubscribeVehicleDataResponse?) {
         print("UnsubscribeVehicleDataResponse response from SDL with result code: \(response?.resultCode) and info: \(response?.info)")
     }
 }
