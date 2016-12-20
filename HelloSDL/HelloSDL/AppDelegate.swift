@@ -12,22 +12,12 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var mainViewController: UIViewController?
-    var lockScreenViewController: UIViewController?
-    let lockQueue = DispatchQueue(label: "com.ford.HelloSDL.vclock", attributes: [])
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        // Store references to the 2 view controllers
-        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-        self.lockScreenViewController = storyBoard.instantiateViewController(withIdentifier: "LockScreenViewController")
-        self.mainViewController = self.window?.rootViewController
-        
-        self.hsdl_registerForLockScreenNotifications()
-        
         // Start the proxy
-        HSDLProxyManager.manager.startProxy()
+        HSDLProxyManager.manager.start()
         
         return true
     }
@@ -54,49 +44,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-    func hsdl_lockScreen() {
-        // Display the lock screen if it is not presented already.
-        self.lockQueue.sync {
-            if self.window?.rootViewController !== self.lockScreenViewController {
-                self.window?.rootViewController = self.lockScreenViewController
-            }
-        }
-    }
-    
-    func hsdl_unlockScreen() {
-        // Display the regular screen if it is not presented already.
-        self.lockQueue.sync {
-            if self.window?.rootViewController !== self.mainViewController {
-                self.window?.rootViewController = self.mainViewController
-            }
-        }
-    }
-    
-    func hsdl_registerForLockScreenNotifications() {
-        let notificationCenter = NotificationCenter.default
-        let mainQueue = OperationQueue.main
-        
-        notificationCenter.addObserver(forName: NSNotification.Name(rawValue: HSDLLockScreenStatusNotification), object: nil, queue: mainQueue) { notification in
-            // Block to handle changes in lockscreen status
-            print("AppDelegate received LockScreenStatus notification: \(notification)")
-            if let lockScreenStatusNotification = notification.userInfo?[HSDLNotificationUserInfoObject] as? SDLOnLockScreenStatus,
-                lockScreenStatusNotification.lockScreenStatus.isEqual(to: SDLLockScreenStatus.off()) == false {
-                    self.hsdl_lockScreen()
-            } else {
-                self.hsdl_unlockScreen()
-            }
-        }
-        
-        notificationCenter.addObserver(forName: NSNotification.Name(rawValue: HSDLDisconnectNotification), object: nil, queue: mainQueue) { notification in
-            // Block to perform actions on disconnect from SYNC
-            // Clear the lockscreen
-            print("AppDelegate received proxy Disconnect notification: \(notification)")
-            self.hsdl_unlockScreen()
-        }
-    }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
 }
 

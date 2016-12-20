@@ -13,8 +13,8 @@
 		7C20443A1BE8E03C0029DCAF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C2044381BE8E03C0029DCAF /* Main.storyboard */; };
 		7C20443C1BE8E03C0029DCAF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C20443B1BE8E03C0029DCAF /* Assets.xcassets */; };
 		7C20443F1BE8E03C0029DCAF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C20443D1BE8E03C0029DCAF /* LaunchScreen.storyboard */; };
-		7C2044491BE8E2700029DCAF /* LockScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2044481BE8E2700029DCAF /* LockScreenViewController.swift */; };
 		7C20444B1BE8F09F0029DCAF /* HSDLProxyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C20444A1BE8F09F0029DCAF /* HSDLProxyManager.swift */; };
+		DA3468D31E09BF5D008CD32A /* SmartDeviceLink.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DA3468D21E09BF5D008CD32A /* SmartDeviceLink.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,12 +25,12 @@
 		7C20443B1BE8E03C0029DCAF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7C20443E1BE8E03C0029DCAF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7C2044401BE8E03C0029DCAF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7C2044481BE8E2700029DCAF /* LockScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LockScreenViewController.swift; sourceTree = "<group>"; };
 		7C20444A1BE8F09F0029DCAF /* HSDLProxyManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSDLProxyManager.swift; sourceTree = "<group>"; };
 		7C20444D1BE900860029DCAF /* HelloSDL-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HelloSDL-Bridging-Header.h"; sourceTree = "<group>"; };
 		7D48D3D81677BB0110958EC2 /* Pods_HelloSDL.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HelloSDL.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5E143473BFECDC802A5BBD2 /* Pods-HelloSDL.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HelloSDL.release.xcconfig"; path = "../Pods/Target Support Files/Pods-HelloSDL/Pods-HelloSDL.release.xcconfig"; sourceTree = "<group>"; };
 		D15FA1793B1E995D181B53FF /* Pods-HelloSDL.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HelloSDL.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-HelloSDL/Pods-HelloSDL.debug.xcconfig"; sourceTree = "<group>"; };
+		DA3468D21E09BF5D008CD32A /* SmartDeviceLink.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SmartDeviceLink.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,7 +81,6 @@
 			isa = PBXGroup;
 			children = (
 				7C2044361BE8E03C0029DCAF /* ViewController.swift */,
-				7C2044481BE8E2700029DCAF /* LockScreenViewController.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -98,6 +97,7 @@
 		AA8A01F3739665C7E57E4708 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DA3468D21E09BF5D008CD32A /* SmartDeviceLink.bundle */,
 				7D48D3D81677BB0110958EC2 /* Pods_HelloSDL.framework */,
 			);
 			name = Frameworks;
@@ -119,12 +119,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7C2044431BE8E03C0029DCAF /* Build configuration list for PBXNativeTarget "HelloSDL" */;
 			buildPhases = (
-				AFD391CFBF06604A4FB326B3 /* Check Pods Manifest.lock */,
+				AFD391CFBF06604A4FB326B3 /* [CP] Check Pods Manifest.lock */,
 				7C20442D1BE8E03C0029DCAF /* Sources */,
 				7C20442E1BE8E03C0029DCAF /* Frameworks */,
 				7C20442F1BE8E03C0029DCAF /* Resources */,
-				64F7A613A0AA6A11531AEBAD /* Embed Pods Frameworks */,
-				D097683AC9CE35F210929E30 /* Copy Pods Resources */,
+				64F7A613A0AA6A11531AEBAD /* [CP] Embed Pods Frameworks */,
+				D097683AC9CE35F210929E30 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -182,20 +182,21 @@
 				7C20443F1BE8E03C0029DCAF /* LaunchScreen.storyboard in Resources */,
 				7C20443C1BE8E03C0029DCAF /* Assets.xcassets in Resources */,
 				7C20443A1BE8E03C0029DCAF /* Main.storyboard in Resources */,
+				DA3468D31E09BF5D008CD32A /* SmartDeviceLink.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		64F7A613A0AA6A11531AEBAD /* Embed Pods Frameworks */ = {
+		64F7A613A0AA6A11531AEBAD /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -203,29 +204,29 @@
 			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-HelloSDL/Pods-HelloSDL-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		AFD391CFBF06604A4FB326B3 /* Check Pods Manifest.lock */ = {
+		AFD391CFBF06604A4FB326B3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		D097683AC9CE35F210929E30 /* Copy Pods Resources */ = {
+		D097683AC9CE35F210929E30 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -242,7 +243,6 @@
 			files = (
 				7C2044371BE8E03C0029DCAF /* ViewController.swift in Sources */,
 				7C20444B1BE8F09F0029DCAF /* HSDLProxyManager.swift in Sources */,
-				7C2044491BE8E2700029DCAF /* LockScreenViewController.swift in Sources */,
 				7C2044351BE8E03C0029DCAF /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -20,6 +23,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sdl_logo" translatesAutoresizingMaskIntoConstraints="NO" id="Een-om-7Dn">
+                                <rect key="frame" x="67.5" y="67" width="240" height="99"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="240" id="cbB-bJ-RvU"/>
                                     <constraint firstAttribute="width" secondItem="Een-om-7Dn" secondAttribute="height" multiplier="15:8" constant="54.375" id="h3G-OM-bDk"/>
@@ -27,6 +31,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unlocked" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ahh-gP-eMB">
+                                <rect key="frame" x="151.5" y="323.5" width="72.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -44,44 +49,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="385" y="389"/>
-        </scene>
-        <!--Lock Screen View Controller-->
-        <scene sceneID="b15-4K-jbB">
-            <objects>
-                <viewController storyboardIdentifier="LockScreenViewController" id="d6P-Xf-fZx" customClass="LockScreenViewController" customModule="HelloSDL" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="vCK-EL-bZb"/>
-                        <viewControllerLayoutGuide type="bottom" id="xw3-mW-Jjl"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="xVo-rW-T8D">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sdl_logo" translatesAutoresizingMaskIntoConstraints="NO" id="AMf-rF-Hkz">
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="AMf-rF-Hkz" secondAttribute="height" multiplier="15:8" constant="54.375" id="D9b-3h-Ju6"/>
-                                    <constraint firstAttribute="height" constant="99" id="O14-IV-Mt0"/>
-                                    <constraint firstAttribute="width" constant="240" id="XFK-1b-eR2"/>
-                                </constraints>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Locked" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z7a-DC-vfL">
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="Z7a-DC-vfL" firstAttribute="centerX" secondItem="xVo-rW-T8D" secondAttribute="centerX" id="9v5-DD-2Sn"/>
-                            <constraint firstItem="AMf-rF-Hkz" firstAttribute="centerX" secondItem="xVo-rW-T8D" secondAttribute="centerX" id="DlE-Zf-CWg"/>
-                            <constraint firstItem="AMf-rF-Hkz" firstAttribute="top" secondItem="vCK-EL-bZb" secondAttribute="bottom" constant="47" id="I7k-eJ-des"/>
-                            <constraint firstItem="Z7a-DC-vfL" firstAttribute="centerY" secondItem="xVo-rW-T8D" secondAttribute="centerY" id="tBi-Yn-KAC"/>
-                        </constraints>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="9jQ-Zh-gTO" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1099" y="389"/>
         </scene>
     </scenes>
     <resources>
