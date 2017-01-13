@@ -2,18 +2,21 @@
 //  HSDLProxyManager.h
 //  HelloSDL
 //
-//  Created by Ford Developer on 10/5/15.
-//  Copyright © 2015 Ford. All rights reserved.
 //
 
-extern NSString *const HSDLDisconnectNotification;
-extern NSString *const HSDLLockScreenStatusNotification;
-extern NSString *const HSDLNotificationUserInfoObject;
+#import <SmartDeviceLink/SmartDeviceLink.h>
 
 @interface HSDLProxyManager : NSObject
+
+@property (strong, nonatomic) NSMutableArray *finalVehicleDataArray;
+@property (nonatomic, strong) NSMutableDictionary *requestBuffer;
 
 + (instancetype)manager;
 - (void)startProxy;
 - (void)disposeProxy;
+- (NSNumber *)hsdl_getNextCorrelationId;
+- (void)sendAndPostRPCMessage:(SDLRPCRequest *)rpcMsg;
+- (void)postToConsoleLog:(id)object;
+
 
 @end

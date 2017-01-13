@@ -7,26 +7,56 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1EC17B981E23AB26003434B0 /* RPCListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EC17B971E23AB26003434B0 /* RPCListTableViewController.m */; };
+		1EC17B9B1E23B15F003434B0 /* GetVehicleDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EC17B9A1E23B15F003434B0 /* GetVehicleDataViewController.m */; };
+		1EC17B9E1E23B168003434B0 /* SubscribeVehicleDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EC17B9D1E23B168003434B0 /* SubscribeVehicleDataViewController.m */; };
+		1EC17BA11E23B16E003434B0 /* UnsubscribeVehicleDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EC17BA01E23B16E003434B0 /* UnsubscribeVehicleDataViewController.m */; };
+		1EC17BAA1E24A3E9003434B0 /* HSDLConsoleController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EC17BA91E24A3E9003434B0 /* HSDLConsoleController.m */; };
+		1EC17BAE1E24AD55003434B0 /* SDLDebugTool+ObjectLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EC17BAD1E24AD55003434B0 /* SDLDebugTool+ObjectLogging.m */; };
+		1EC17BB81E24E277003434B0 /* SmartDeviceLink.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EC17BB71E24E277003434B0 /* SmartDeviceLink.framework */; };
+		1EC17BB91E24E281003434B0 /* SmartDeviceLink.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EC17BB71E24E277003434B0 /* SmartDeviceLink.framework */; };
+		1EC17BBA1E24E281003434B0 /* SmartDeviceLink.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1EC17BB71E24E277003434B0 /* SmartDeviceLink.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7C2D5AE01BC30F4C002FE9CE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D5ADF1BC30F4C002FE9CE /* main.m */; };
 		7C2D5AE31BC30F4C002FE9CE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D5AE21BC30F4C002FE9CE /* AppDelegate.m */; };
-		7C2D5AE61BC30F4C002FE9CE /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D5AE51BC30F4C002FE9CE /* ViewController.m */; };
 		7C2D5AE91BC30F4C002FE9CE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C2D5AE71BC30F4C002FE9CE /* Main.storyboard */; };
 		7C2D5AEB1BC30F4C002FE9CE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C2D5AEA1BC30F4C002FE9CE /* Assets.xcassets */; };
 		7C2D5AEE1BC30F4C002FE9CE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C2D5AEC1BC30F4C002FE9CE /* LaunchScreen.storyboard */; };
 		7C2D5AF81BC31598002FE9CE /* LockScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D5AF71BC31598002FE9CE /* LockScreenViewController.m */; };
 		7C2D5AFC1BC31D21002FE9CE /* HSDLProxyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D5AFB1BC31D21002FE9CE /* HSDLProxyManager.m */; };
-		8A7C7C80D460922944D23A54 /* Pods_HelloSDL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 074A37D1F9B20833116BBEF5 /* Pods_HelloSDL.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		1EC17BBB1E24E281003434B0 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				1EC17BBA1E24E281003434B0 /* SmartDeviceLink.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		074A37D1F9B20833116BBEF5 /* Pods_HelloSDL.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HelloSDL.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3898FFF53CAB300A49008B38 /* Pods-HelloSDL.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HelloSDL.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-HelloSDL/Pods-HelloSDL.debug.xcconfig"; sourceTree = "<group>"; };
+		1EC17B961E23AB26003434B0 /* RPCListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPCListTableViewController.h; sourceTree = "<group>"; };
+		1EC17B971E23AB26003434B0 /* RPCListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPCListTableViewController.m; sourceTree = "<group>"; };
+		1EC17B991E23B15F003434B0 /* GetVehicleDataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetVehicleDataViewController.h; sourceTree = "<group>"; };
+		1EC17B9A1E23B15F003434B0 /* GetVehicleDataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetVehicleDataViewController.m; sourceTree = "<group>"; };
+		1EC17B9C1E23B168003434B0 /* SubscribeVehicleDataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscribeVehicleDataViewController.h; sourceTree = "<group>"; };
+		1EC17B9D1E23B168003434B0 /* SubscribeVehicleDataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscribeVehicleDataViewController.m; sourceTree = "<group>"; };
+		1EC17B9F1E23B16E003434B0 /* UnsubscribeVehicleDataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnsubscribeVehicleDataViewController.h; sourceTree = "<group>"; };
+		1EC17BA01E23B16E003434B0 /* UnsubscribeVehicleDataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnsubscribeVehicleDataViewController.m; sourceTree = "<group>"; };
+		1EC17BA81E24A3E9003434B0 /* HSDLConsoleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSDLConsoleController.h; sourceTree = "<group>"; };
+		1EC17BA91E24A3E9003434B0 /* HSDLConsoleController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSDLConsoleController.m; sourceTree = "<group>"; };
+		1EC17BAC1E24AD55003434B0 /* SDLDebugTool+ObjectLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SDLDebugTool+ObjectLogging.h"; sourceTree = "<group>"; };
+		1EC17BAD1E24AD55003434B0 /* SDLDebugTool+ObjectLogging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SDLDebugTool+ObjectLogging.m"; sourceTree = "<group>"; };
+		1EC17BB71E24E277003434B0 /* SmartDeviceLink.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SmartDeviceLink.framework; sourceTree = "<group>"; };
 		7C2D5ADB1BC30F4C002FE9CE /* HelloSDL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloSDL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C2D5ADF1BC30F4C002FE9CE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7C2D5AE11BC30F4C002FE9CE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		7C2D5AE21BC30F4C002FE9CE /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		7C2D5AE41BC30F4C002FE9CE /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		7C2D5AE51BC30F4C002FE9CE /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		7C2D5AE81BC30F4C002FE9CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7C2D5AEA1BC30F4C002FE9CE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7C2D5AED1BC30F4C002FE9CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -35,7 +65,6 @@
 		7C2D5AF71BC31598002FE9CE /* LockScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LockScreenViewController.m; sourceTree = "<group>"; };
 		7C2D5AFA1BC31D19002FE9CE /* HSDLProxyManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSDLProxyManager.h; sourceTree = "<group>"; };
 		7C2D5AFB1BC31D21002FE9CE /* HSDLProxyManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSDLProxyManager.m; sourceTree = "<group>"; };
-		EA6FE6BBC480F182B76FDA7E /* Pods-HelloSDL.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HelloSDL.release.xcconfig"; path = "../Pods/Target Support Files/Pods-HelloSDL/Pods-HelloSDL.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,19 +72,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8A7C7C80D460922944D23A54 /* Pods_HelloSDL.framework in Frameworks */,
+				1EC17BB91E24E281003434B0 /* SmartDeviceLink.framework in Frameworks */,
+				1EC17BB81E24E277003434B0 /* SmartDeviceLink.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1EC17BAB1E24AD49003434B0 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				1EC17BAC1E24AD55003434B0 /* SDLDebugTool+ObjectLogging.h */,
+				1EC17BAD1E24AD55003434B0 /* SDLDebugTool+ObjectLogging.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
 		7C2D5AD21BC30F4C002FE9CE = {
 			isa = PBXGroup;
 			children = (
 				7C2D5ADD1BC30F4C002FE9CE /* HelloSDL */,
 				7C2D5ADC1BC30F4C002FE9CE /* Products */,
-				AE6D57E5E2272474265C7F4F /* Pods */,
 				8F86A01EAFE52F57966DDE56 /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -71,6 +109,7 @@
 		7C2D5ADD1BC30F4C002FE9CE /* HelloSDL */ = {
 			isa = PBXGroup;
 			children = (
+				1EC17BAB1E24AD49003434B0 /* Categories */,
 				7C2D5AE11BC30F4C002FE9CE /* AppDelegate.h */,
 				7C2D5AE21BC30F4C002FE9CE /* AppDelegate.m */,
 				7C2D5AF51BC3156D002FE9CE /* Views */,
@@ -95,10 +134,18 @@
 		7C2D5AF51BC3156D002FE9CE /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				7C2D5AE41BC30F4C002FE9CE /* ViewController.h */,
-				7C2D5AE51BC30F4C002FE9CE /* ViewController.m */,
+				1EC17B991E23B15F003434B0 /* GetVehicleDataViewController.h */,
+				1EC17B9A1E23B15F003434B0 /* GetVehicleDataViewController.m */,
+				1EC17BA81E24A3E9003434B0 /* HSDLConsoleController.h */,
+				1EC17BA91E24A3E9003434B0 /* HSDLConsoleController.m */,
 				7C2D5AF61BC31591002FE9CE /* LockScreenViewController.h */,
 				7C2D5AF71BC31598002FE9CE /* LockScreenViewController.m */,
+				1EC17B961E23AB26003434B0 /* RPCListTableViewController.h */,
+				1EC17B971E23AB26003434B0 /* RPCListTableViewController.m */,
+				1EC17B9C1E23B168003434B0 /* SubscribeVehicleDataViewController.h */,
+				1EC17B9D1E23B168003434B0 /* SubscribeVehicleDataViewController.m */,
+				1EC17B9F1E23B16E003434B0 /* UnsubscribeVehicleDataViewController.h */,
+				1EC17BA01E23B16E003434B0 /* UnsubscribeVehicleDataViewController.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -115,18 +162,9 @@
 		8F86A01EAFE52F57966DDE56 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				074A37D1F9B20833116BBEF5 /* Pods_HelloSDL.framework */,
+				1EC17BB71E24E277003434B0 /* SmartDeviceLink.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		AE6D57E5E2272474265C7F4F /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				3898FFF53CAB300A49008B38 /* Pods-HelloSDL.debug.xcconfig */,
-				EA6FE6BBC480F182B76FDA7E /* Pods-HelloSDL.release.xcconfig */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -136,12 +174,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7C2D5AF21BC30F4C002FE9CE /* Build configuration list for PBXNativeTarget "HelloSDL" */;
 			buildPhases = (
-				F52FFD3D9E08D9D00B4E16EB /* Check Pods Manifest.lock */,
 				7C2D5AD71BC30F4C002FE9CE /* Sources */,
 				7C2D5AD81BC30F4C002FE9CE /* Frameworks */,
 				7C2D5AD91BC30F4C002FE9CE /* Resources */,
-				A0740FA58A69D01AA7CEA3C1 /* Copy Pods Resources */,
-				7E162C4F74E86FF662138698 /* Embed Pods Frameworks */,
+				1EC17BBB1E24E281003434B0 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -163,6 +199,7 @@
 				TargetAttributes = {
 					7C2D5ADA1BC30F4C002FE9CE = {
 						CreatedOnToolsVersion = 7.0.1;
+						DevelopmentTeam = 3T2LPETG46;
 					};
 				};
 			};
@@ -197,64 +234,21 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		7E162C4F74E86FF662138698 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-HelloSDL/Pods-HelloSDL-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A0740FA58A69D01AA7CEA3C1 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-HelloSDL/Pods-HelloSDL-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F52FFD3D9E08D9D00B4E16EB /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		7C2D5AD71BC30F4C002FE9CE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7C2D5AE61BC30F4C002FE9CE /* ViewController.m in Sources */,
+				1EC17B981E23AB26003434B0 /* RPCListTableViewController.m in Sources */,
+				1EC17B9E1E23B168003434B0 /* SubscribeVehicleDataViewController.m in Sources */,
 				7C2D5AFC1BC31D21002FE9CE /* HSDLProxyManager.m in Sources */,
+				1EC17BAA1E24A3E9003434B0 /* HSDLConsoleController.m in Sources */,
 				7C2D5AF81BC31598002FE9CE /* LockScreenViewController.m in Sources */,
 				7C2D5AE31BC30F4C002FE9CE /* AppDelegate.m in Sources */,
 				7C2D5AE01BC30F4C002FE9CE /* main.m in Sources */,
+				1EC17B9B1E23B15F003434B0 /* GetVehicleDataViewController.m in Sources */,
+				1EC17BAE1E24AD55003434B0 /* SDLDebugTool+ObjectLogging.m in Sources */,
+				1EC17BA11E23B16E003434B0 /* UnsubscribeVehicleDataViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -362,24 +356,34 @@
 		};
 		7C2D5AF31BC30F4C002FE9CE /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3898FFF53CAB300A49008B38 /* Pods-HelloSDL.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 3T2LPETG46;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = HelloSDL/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ford.HelloSDL;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.infosys.-ford.HelloSDL";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
 		7C2D5AF41BC30F4C002FE9CE /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EA6FE6BBC480F182B76FDA7E /* Pods-HelloSDL.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 3T2LPETG46;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = HelloSDL/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ford.HelloSDL;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.infosys.-ford.HelloSDL";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

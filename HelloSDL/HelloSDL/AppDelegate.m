@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 #import "HSDLProxyManager.h"
-@import SmartDeviceLink_iOS;
 
 @interface AppDelegate ()
 
@@ -21,16 +20,19 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
-    // Store references to the 2 view controllers
-    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    UIViewController *lockvc = [sb instantiateViewControllerWithIdentifier:@"LockScreenViewController"];
-    self.lockScreenViewController = lockvc;
-    self.mainViewController = self.window.rootViewController;
-
-    [self hsdl_registerForLockScreenNotifications];
-
-    // Start the proxy
+    if ([self.window.rootViewController isKindOfClass:[UITabBarController class]]) {
+        UITabBarController* tabBarController = (UITabBarController*)self.window.rootViewController;
+        [tabBarController setSelectedIndex:1];
+        for (UIViewController* viewController in tabBarController.viewControllers) {
+            if ([viewController isKindOfClass:[UINavigationController class]]) {
+                UINavigationController* navigationController = (UINavigationController*)viewController;
+                for (UIViewController* childViewController in navigationController.viewControllers) {
+                    [childViewController view];
+                }
+            }
+        }
+    }
+    [self.window makeKeyAndVisible];
     [[HSDLProxyManager manager] startProxy];
 
     return YES;
@@ -76,12 +78,12 @@
     }
 }
 
-- (void)hsdl_registerForLockScreenNotifications {
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-
-    [center addObserver:self selector:@selector(didChangeLockScreenStatus:) name:HSDLLockScreenStatusNotification object:nil];
-    [center addObserver:self selector:@selector(proxyDidDisconnect:) name:HSDLDisconnectNotification object:nil];
-}
+//- (void)hsdl_registerForLockScreenNotifications {
+//    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+//
+//    [center addObserver:self selector:@selector(didChangeLockScreenStatus:) name:HSDLLockScreenStatusNotification object:nil];
+//    [center addObserver:self selector:@selector(proxyDidDisconnect:) name:HSDLDisconnectNotification object:nil];
+//}
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -97,7 +99,7 @@
 
     SDLOnLockScreenStatus *lockScreenStatus = nil;
     if (notification && notification.userInfo) {
-        lockScreenStatus = notification.userInfo[HSDLNotificationUserInfoObject];
+//        lockScreenStatus = notification.userInfo[HSDLNotificationUserInfoObject];
     }
 
     dispatch_async(dispatch_get_main_queue(), ^{
