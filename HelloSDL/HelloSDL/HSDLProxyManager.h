@@ -6,14 +6,10 @@
 //  Copyright © 2015 Ford. All rights reserved.
 //
 
-extern NSString *const HSDLDisconnectNotification;
-extern NSString *const HSDLLockScreenStatusNotification;
-extern NSString *const HSDLNotificationUserInfoObject;
-
 @interface HSDLProxyManager : NSObject
 
-+ (instancetype)manager;
-- (void)startProxy;
-- (void)disposeProxy;
++ (instancetype)sharedManager;
+- (void)start;
+- (void)stop;
 
 @end

@@ -82,3 +82,5 @@ xcuserdata
 
 Pods
 HelloSDL.xcworkspace
+HelloSDL/SmartDeviceLink.bundle/*
+
