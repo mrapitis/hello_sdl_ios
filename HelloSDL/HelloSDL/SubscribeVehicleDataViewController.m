@@ -45,10 +45,10 @@
     else if ([chosenVehicleData isEqualToString:@"FuelLevel Array"]) {
         req.fuelLevelArray = [NSNumber numberWithBool:true];
     }
-    else if ([chosenVehicleData isEqualToString:@"FuelLevel_State"]) {
+    else if ([chosenVehicleData isEqualToString:@"FuelLevelState"]) {
         req.fuelLevel_State = [NSNumber numberWithBool:true];
     }
-    else if ([chosenVehicleData isEqualToString:@"FuelLevel_State Array"]) {
+    else if ([chosenVehicleData isEqualToString:@"FuelLevelState Array"]) {
         req.fuelLevel_StateArray = [NSNumber numberWithBool:true];
     }
     else if ([chosenVehicleData isEqualToString:@"InstantFuelConsuption"]) {
