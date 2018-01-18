@@ -66,12 +66,12 @@ static const NSUInteger TestCommandID = 1;
         _vehicleDataSubscribed = NO;
         
         // If connecting via USB (to a vehicle).
-//        _lifecycleConfiguration = [SDLLifecycleConfiguration defaultConfigurationWithAppName:AppName appId:AppId];
+        _lifecycleConfiguration = [SDLLifecycleConfiguration defaultConfigurationWithAppName:AppName appId:AppId];
         
         // If connecting via TCP/IP (to an emulator).
-        _lifecycleConfiguration = [SDLLifecycleConfiguration debugConfigurationWithAppName:AppName appId:AppId ipAddress:RemoteIpAddress port:RemotePort];
-        
-        _lifecycleConfiguration.appType = AppIsMediaApp ? [SDLAppHMIType MEDIA] : [SDLAppHMIType DEFAULT];
+//        _lifecycleConfiguration = [SDLLifecycleConfiguration debugConfigurationWithAppName:AppName appId:AppId ipAddress:RemoteIpAddress port:RemotePort];
+
+        _lifecycleConfiguration.appType = AppIsMediaApp ? SDLAppHMITypeMedia : SDLAppHMITypeDefault;
         _lifecycleConfiguration.shortAppName = ShortAppName;
         _lifecycleConfiguration.voiceRecognitionCommandNames = @[AppVrSynonym];
         _lifecycleConfiguration.ttsName = [SDLTTSChunk textChunksFromString:AppName];
@@ -82,7 +82,7 @@ static const NSUInteger TestCommandID = 1;
         }
         
         // SDLConfiguration contains the lifecycle and lockscreen configurations
-        SDLConfiguration *configuration = [SDLConfiguration configurationWithLifecycle:_lifecycleConfiguration lockScreen:[SDLLockScreenConfiguration enabledConfiguration]];
+        SDLConfiguration *configuration = [SDLConfiguration configurationWithLifecycle:_lifecycleConfiguration lockScreen:[SDLLockScreenConfiguration enabledConfiguration] logging:nil];
         
         _manager = [[SDLManager alloc] initWithConfiguration:configuration delegate:self];
         
@@ -119,11 +119,11 @@ static const NSUInteger TestCommandID = 1;
 
 
 #pragma mark - SDLManagerDelegate
-- (void)hmiLevel:(SDLHMILevel *)oldLevel didChangeToLevel:(SDLHMILevel *)newLevel {
+- (void)hmiLevel:(SDLHMILevel)oldLevel didChangeToLevel:(SDLHMILevel)newLevel {
     NSLog(@"HMIStatus notification from SDL");
     
     // Send AddCommands in first non-HMI NONE state (i.e., FULL, LIMITED, BACKGROUND)
-    if (![newLevel isEqualToEnum:[SDLHMILevel NONE]] && self.isFirstHmiNotNone == YES) {
+    if (![newLevel isEqualToEnum:SDLHMILevelNone] && self.isFirstHmiNotNone == YES) {
         _firstHmiNotNone = NO;
         [self sdl_addCommands];
         
@@ -132,8 +132,8 @@ static const NSUInteger TestCommandID = 1;
     }
     
     // Send welcome message on first HMI FULL
-    if ([newLevel isEqualToEnum:[SDLHMILevel FULL]]) {
-        if ([oldLevel isEqualToEnum:[SDLHMILevel NONE]]) {
+    if ([newLevel isEqualToEnum:SDLHMILevelFull]) {
+        if ([oldLevel isEqualToEnum:SDLHMILevelNone]) {
             [self sdl_performWelcomeMessage];
             return;
         }
@@ -217,7 +217,7 @@ static const NSUInteger TestCommandID = 1;
     subscribe.speed = @YES;
     
     [self.manager sendRequest:subscribe withResponseHandler:^(__kindof SDLRPCRequest * _Nullable request, __kindof SDLRPCResponse * _Nullable response, NSError * _Nullable error) {
-        if ([response.resultCode isEqualToEnum:[SDLResult SUCCESS]]) {
+        if ([response.resultCode isEqualToEnum:SDLResultSuccess]) {
             NSLog(@"Vehicle Data Subscribed!");
             _vehicleDataSubscribed = YES;
         }
@@ -231,7 +231,7 @@ static const NSUInteger TestCommandID = 1;
  */
 - (void)sdl_performWelcomeMessage {
     NSLog(@"Send welcome message");
-    SDLShow *show = [[SDLShow alloc] initWithMainField1:WelcomeShow mainField2:nil alignment:[SDLTextAlignment CENTERED]];
+    SDLShow *show = [[SDLShow alloc] initWithMainField1:WelcomeShow mainField2:nil alignment:SDLTextAlignmentCenter];
     [self.manager sendRequest:show];
     
     SDLSpeak *speak = [[SDLSpeak alloc] initWithTTS:WelcomeSpeak];
@@ -256,7 +256,7 @@ static const NSUInteger TestCommandID = 1;
         SDLOnCommand* onCommand = (SDLOnCommand *)notification;
         
         if (onCommand.cmdID.unsignedIntegerValue == TestCommandID) {
-            SDLShow *show = [[SDLShow alloc] initWithMainField1:@"Test Command" mainField2:nil alignment:[SDLTextAlignment CENTERED]];
+            SDLShow *show = [[SDLShow alloc] initWithMainField1:@"Test Command" mainField2:nil alignment:SDLTextAlignmentCenter];
             [strongSelf.manager sendRequest:show];
             
             SDLSpeak* speak = [[SDLSpeak alloc] initWithTTS:@"Test Command"];
@@ -265,7 +265,7 @@ static const NSUInteger TestCommandID = 1;
     }];
     
     [self.manager sendRequest:command withResponseHandler:^(__kindof SDLRPCRequest * _Nullable request, __kindof SDLRPCResponse * _Nullable response, NSError * _Nullable error) {
-        NSLog(@"AddCommand response from SDL: %@ with info: %@", response.resultCode.value, response.info);
+        NSLog(@"AddCommand response from SDL: %@ with info: %@", response.resultCode, response.info);
     }];
 }
 

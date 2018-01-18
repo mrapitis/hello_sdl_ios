@@ -5,6 +5,6 @@ use_frameworks!
 # platform :ios, '6.0'
 
 target 'HelloSDL' do
-pod 'SmartDeviceLink-iOS', '~> 4.5.2'
+pod 'SmartDeviceLink-iOS', :git => 'https://github.com/smartdevicelink/sdl_ios.git', :tag => '5.1.0'
 end
 
