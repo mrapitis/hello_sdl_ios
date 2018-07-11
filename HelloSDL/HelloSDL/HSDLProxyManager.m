@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "HSDLProxyManager.h"
-@import SmartDeviceLink_iOS;
+
 
 #warning TODO: Change these to match your app settings!!
 // TCP/IP (Emulator) configuration
@@ -33,7 +33,7 @@ static const NSUInteger TestCommandID = 1;
 
 @interface HSDLProxyManager () <SDLManagerDelegate>
 
-@property (nonatomic, strong) SDLManager *manager;
+
 @property (nonatomic, strong) SDLLifecycleConfiguration *lifecycleConfiguration;
 @property (nonatomic, assign, getter=isGraphicsSupported) BOOL graphicsSupported;
 @property (nonatomic, assign, getter=isFirstHmiNotNone) BOOL firstHmiNotNone;

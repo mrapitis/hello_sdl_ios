@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E33195220F606910070C035 /* Button-Normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 1E33195120F606910070C035 /* Button-Normal.png */; };
+		1E33195520F60CDA0070C035 /* TestScreenManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E33195420F60CDA0070C035 /* TestScreenManagerViewController.m */; };
 		7C2D5AE01BC30F4C002FE9CE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D5ADF1BC30F4C002FE9CE /* main.m */; };
 		7C2D5AE31BC30F4C002FE9CE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D5AE21BC30F4C002FE9CE /* AppDelegate.m */; };
 		7C2D5AE61BC30F4C002FE9CE /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D5AE51BC30F4C002FE9CE /* ViewController.m */; };
@@ -19,6 +21,9 @@
 
 /* Begin PBXFileReference section */
 		074A37D1F9B20833116BBEF5 /* Pods_HelloSDL.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HelloSDL.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1E33195120F606910070C035 /* Button-Normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Button-Normal.png"; sourceTree = "<group>"; };
+		1E33195320F60CDA0070C035 /* TestScreenManagerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestScreenManagerViewController.h; sourceTree = "<group>"; };
+		1E33195420F60CDA0070C035 /* TestScreenManagerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestScreenManagerViewController.m; sourceTree = "<group>"; };
 		3898FFF53CAB300A49008B38 /* Pods-HelloSDL.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HelloSDL.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-HelloSDL/Pods-HelloSDL.debug.xcconfig"; sourceTree = "<group>"; };
 		7C2D5ADB1BC30F4C002FE9CE /* HelloSDL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloSDL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C2D5ADF1BC30F4C002FE9CE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -47,6 +52,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1E33195020F606790070C035 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				1E33195120F606910070C035 /* Button-Normal.png */,
+			);
+			name = images;
+			sourceTree = "<group>";
+		};
 		7C2D5AD21BC30F4C002FE9CE = {
 			isa = PBXGroup;
 			children = (
@@ -68,6 +81,7 @@
 		7C2D5ADD1BC30F4C002FE9CE /* HelloSDL */ = {
 			isa = PBXGroup;
 			children = (
+				1E33195020F606790070C035 /* images */,
 				7C2D5AE11BC30F4C002FE9CE /* AppDelegate.h */,
 				7C2D5AE21BC30F4C002FE9CE /* AppDelegate.m */,
 				7C2D5AF51BC3156D002FE9CE /* Views */,
@@ -94,6 +108,8 @@
 			children = (
 				7C2D5AE41BC30F4C002FE9CE /* ViewController.h */,
 				7C2D5AE51BC30F4C002FE9CE /* ViewController.m */,
+				1E33195320F60CDA0070C035 /* TestScreenManagerViewController.h */,
+				1E33195420F60CDA0070C035 /* TestScreenManagerViewController.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -186,6 +202,7 @@
 			files = (
 				7C2D5AEE1BC30F4C002FE9CE /* LaunchScreen.storyboard in Resources */,
 				7C2D5AEB1BC30F4C002FE9CE /* Assets.xcassets in Resources */,
+				1E33195220F606910070C035 /* Button-Normal.png in Resources */,
 				7C2D5AE91BC30F4C002FE9CE /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -257,6 +274,7 @@
 				7C2D5AFC1BC31D21002FE9CE /* HSDLProxyManager.m in Sources */,
 				7C2D5AE31BC30F4C002FE9CE /* AppDelegate.m in Sources */,
 				7C2D5AE01BC30F4C002FE9CE /* main.m in Sources */,
+				1E33195520F60CDA0070C035 /* TestScreenManagerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
