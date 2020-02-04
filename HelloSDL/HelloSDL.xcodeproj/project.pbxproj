@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		24C09B5523E96D3500CD1365 /* SmartDeviceLink.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24C09B5223E96D2E00CD1365 /* SmartDeviceLink.framework */; };
+		24C09B5623E96D3500CD1365 /* SmartDeviceLink.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 24C09B5223E96D2E00CD1365 /* SmartDeviceLink.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7C2D5AE01BC30F4C002FE9CE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D5ADF1BC30F4C002FE9CE /* main.m */; };
 		7C2D5AE31BC30F4C002FE9CE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D5AE21BC30F4C002FE9CE /* AppDelegate.m */; };
 		7C2D5AE61BC30F4C002FE9CE /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D5AE51BC30F4C002FE9CE /* ViewController.m */; };
@@ -14,12 +16,48 @@
 		7C2D5AEB1BC30F4C002FE9CE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7C2D5AEA1BC30F4C002FE9CE /* Assets.xcassets */; };
 		7C2D5AEE1BC30F4C002FE9CE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C2D5AEC1BC30F4C002FE9CE /* LaunchScreen.storyboard */; };
 		7C2D5AFC1BC31D21002FE9CE /* HSDLProxyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D5AFB1BC31D21002FE9CE /* HSDLProxyManager.m */; };
-		8A7C7C80D460922944D23A54 /* Pods_HelloSDL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 074A37D1F9B20833116BBEF5 /* Pods_HelloSDL.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		24C09B4F23E96D2E00CD1365 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 24C09B4923E96D2E00CD1365 /* SmartDeviceLink-iOS.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5D4019AF1A76EC350006B0C2;
+			remoteInfo = "SmartDeviceLink-Example";
+		};
+		24C09B5123E96D2E00CD1365 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 24C09B4923E96D2E00CD1365 /* SmartDeviceLink-iOS.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5D61FA1C1A84237100846EE7;
+			remoteInfo = SmartDeviceLink;
+		};
+		24C09B5323E96D2E00CD1365 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 24C09B4923E96D2E00CD1365 /* SmartDeviceLink-iOS.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5D61FA261A84237100846EE7;
+			remoteInfo = SmartDeviceLinkTests;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		24C09B5723E96D3500CD1365 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				24C09B5623E96D3500CD1365 /* SmartDeviceLink.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		074A37D1F9B20833116BBEF5 /* Pods_HelloSDL.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HelloSDL.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3898FFF53CAB300A49008B38 /* Pods-HelloSDL.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HelloSDL.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-HelloSDL/Pods-HelloSDL.debug.xcconfig"; sourceTree = "<group>"; };
+		24C09B4923E96D2E00CD1365 /* SmartDeviceLink-iOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "SmartDeviceLink-iOS.xcodeproj"; path = "Framework/External/sdlmobile_ios_library_public/SmartDeviceLink-iOS.xcodeproj"; sourceTree = "<group>"; };
 		7C2D5ADB1BC30F4C002FE9CE /* HelloSDL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloSDL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C2D5ADF1BC30F4C002FE9CE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7C2D5AE11BC30F4C002FE9CE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -32,7 +70,6 @@
 		7C2D5AEF1BC30F4C002FE9CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7C2D5AFA1BC31D19002FE9CE /* HSDLProxyManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HSDLProxyManager.h; sourceTree = "<group>"; };
 		7C2D5AFB1BC31D21002FE9CE /* HSDLProxyManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSDLProxyManager.m; sourceTree = "<group>"; };
-		EA6FE6BBC480F182B76FDA7E /* Pods-HelloSDL.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HelloSDL.release.xcconfig"; path = "../Pods/Target Support Files/Pods-HelloSDL/Pods-HelloSDL.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,19 +77,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8A7C7C80D460922944D23A54 /* Pods_HelloSDL.framework in Frameworks */,
+				24C09B5523E96D3500CD1365 /* SmartDeviceLink.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		24C09B4A23E96D2E00CD1365 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				24C09B5023E96D2E00CD1365 /* SDL Example.app */,
+				24C09B5223E96D2E00CD1365 /* SmartDeviceLink.framework */,
+				24C09B5423E96D2E00CD1365 /* SmartDeviceLinkTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		7C2D5AD21BC30F4C002FE9CE = {
 			isa = PBXGroup;
 			children = (
 				7C2D5ADD1BC30F4C002FE9CE /* HelloSDL */,
 				7C2D5ADC1BC30F4C002FE9CE /* Products */,
-				AE6D57E5E2272474265C7F4F /* Pods */,
 				8F86A01EAFE52F57966DDE56 /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -110,18 +156,9 @@
 		8F86A01EAFE52F57966DDE56 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				074A37D1F9B20833116BBEF5 /* Pods_HelloSDL.framework */,
+				24C09B4923E96D2E00CD1365 /* SmartDeviceLink-iOS.xcodeproj */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		AE6D57E5E2272474265C7F4F /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				3898FFF53CAB300A49008B38 /* Pods-HelloSDL.debug.xcconfig */,
-				EA6FE6BBC480F182B76FDA7E /* Pods-HelloSDL.release.xcconfig */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -131,12 +168,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7C2D5AF21BC30F4C002FE9CE /* Build configuration list for PBXNativeTarget "HelloSDL" */;
 			buildPhases = (
-				F52FFD3D9E08D9D00B4E16EB /* [CP] Check Pods Manifest.lock */,
 				7C2D5AD71BC30F4C002FE9CE /* Sources */,
 				7C2D5AD81BC30F4C002FE9CE /* Frameworks */,
 				7C2D5AD91BC30F4C002FE9CE /* Resources */,
-				A0740FA58A69D01AA7CEA3C1 /* [CP] Copy Pods Resources */,
-				7E162C4F74E86FF662138698 /* [CP] Embed Pods Frameworks */,
+				24C09B5723E96D3500CD1365 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -166,18 +201,49 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
 			mainGroup = 7C2D5AD21BC30F4C002FE9CE;
 			productRefGroup = 7C2D5ADC1BC30F4C002FE9CE /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 24C09B4A23E96D2E00CD1365 /* Products */;
+					ProjectRef = 24C09B4923E96D2E00CD1365 /* SmartDeviceLink-iOS.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				7C2D5ADA1BC30F4C002FE9CE /* HelloSDL */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		24C09B5023E96D2E00CD1365 /* SDL Example.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "SDL Example.app";
+			remoteRef = 24C09B4F23E96D2E00CD1365 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		24C09B5223E96D2E00CD1365 /* SmartDeviceLink.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SmartDeviceLink.framework;
+			remoteRef = 24C09B5123E96D2E00CD1365 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		24C09B5423E96D2E00CD1365 /* SmartDeviceLinkTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = SmartDeviceLinkTests.xctest;
+			remoteRef = 24C09B5323E96D2E00CD1365 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		7C2D5AD91BC30F4C002FE9CE /* Resources */ = {
@@ -191,62 +257,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		7E162C4F74E86FF662138698 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/../Pods/Target Support Files/Pods-HelloSDL/Pods-HelloSDL-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/BiSON/BiSON.framework",
-				"${BUILT_PRODUCTS_DIR}/SmartDeviceLink-iOS/SmartDeviceLink_iOS.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BiSON.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SmartDeviceLink_iOS.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-HelloSDL/Pods-HelloSDL-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A0740FA58A69D01AA7CEA3C1 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-HelloSDL/Pods-HelloSDL-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F52FFD3D9E08D9D00B4E16EB /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-HelloSDL-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		7C2D5AD71BC30F4C002FE9CE /* Sources */ = {
@@ -364,7 +374,6 @@
 		};
 		7C2D5AF31BC30F4C002FE9CE /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3898FFF53CAB300A49008B38 /* Pods-HelloSDL.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = HelloSDL/Info.plist;
@@ -376,7 +385,6 @@
 		};
 		7C2D5AF41BC30F4C002FE9CE /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EA6FE6BBC480F182B76FDA7E /* Pods-HelloSDL.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = HelloSDL/Info.plist;
