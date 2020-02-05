@@ -6,9 +6,14 @@
 //  Copyright © 2015 Ford. All rights reserved.
 //
 
+
+typedef void (^HSDLHMIStatusHandler)(__kindof NSString *hmiStatus);
+
+#import <SmartDeviceLink/SmartDeviceLink.h>
+
 @interface HSDLProxyManager : NSObject
 
-+ (instancetype)sharedManager;
+- (instancetype)initWithLifeCycleConfiguration:(SDLLifecycleConfiguration *)lifecycleConfig  withHMIStatusHandler:(HSDLHMIStatusHandler) hmiHandler;
 - (void)start;
 - (void)stop;
 

@@ -8,20 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "HSDLProxyManager.h"
-#import <SmartDeviceLink/SmartDeviceLink.h>;
 
-#warning TODO: Change these to match your app settings!!
-// TCP/IP (Emulator) configuration
-static NSString *const RemoteIpAddress = @"127.0.0.1";
-static UInt16 const RemotePort = 12345;
-
-// App configuration
-static NSString *const AppName = @"HelloSDL";
-static NSString *const AppId = @"8675309";
-static const BOOL AppIsMediaApp = NO;
-static NSString *const ShortAppName = @"Hello";
-static NSString *const AppVrSynonym = @"Hello S D L";
 static NSString *const IconFile = @"sdl_icon.png";
+static NSString *const lockScreenKey = @"lockScreenEnabled";
 
 // Welcome message
 static NSString *const WelcomeShow = @"Welcome to HelloSDL";
@@ -34,7 +23,7 @@ static const NSUInteger TestCommandID = 1;
 @interface HSDLProxyManager () <SDLManagerDelegate>
 
 @property (nonatomic, strong) SDLManager *manager;
-@property (nonatomic, strong) SDLLifecycleConfiguration *lifecycleConfiguration;
+@property (strong, nonatomic) HSDLHMIStatusHandler hmiHandler;
 @property (nonatomic, assign, getter=isGraphicsSupported) BOOL graphicsSupported;
 @property (nonatomic, assign, getter=isFirstHmiNotNone) BOOL firstHmiNotNone;
 @property (nonatomic, assign, getter=isVehicleDataSubscribed) BOOL vehicleDataSubscribed;
@@ -45,53 +34,66 @@ static const NSUInteger TestCommandID = 1;
 
 #pragma mark Lifecycle
 
-/**
- *  Singleton method.
- */
-+ (instancetype)sharedManager {
-    static HSDLProxyManager *proxyManager = nil;
-    static dispatch_once_t onceToken;
 
-    dispatch_once(&onceToken, ^{
-      proxyManager = [[self alloc] init];
-    });
 
-    return proxyManager;
-}
-
-- (instancetype)init {
+- (instancetype)initWithLifeCycleConfiguration:(SDLLifecycleConfiguration *)lifecycleConfig  withHMIStatusHandler:(HSDLHMIStatusHandler) hmiHandler{
     if (self = [super init]) {
         _graphicsSupported = NO;
         _firstHmiNotNone = YES;
         _vehicleDataSubscribed = NO;
-        
-        // If connecting via USB (to a vehicle).
-        _lifecycleConfiguration = [SDLLifecycleConfiguration defaultConfigurationWithAppName:AppName appId:AppId];
-        
-        // If connecting via TCP/IP (to an emulator).
-//        _lifecycleConfiguration = [SDLLifecycleConfiguration debugConfigurationWithAppName:AppName appId:AppId ipAddress:RemoteIpAddress port:RemotePort];
 
-        _lifecycleConfiguration.appType = AppIsMediaApp ? SDLAppHMIType.MEDIA : SDLAppHMIType.DEFAULT;
-        _lifecycleConfiguration.shortAppName = ShortAppName;
-        _lifecycleConfiguration.voiceRecognitionCommandNames = @[AppVrSynonym];
+        // SDLConfiguration contains the lifecycle and lockscreen configurations
         SDLTTSChunk *ttsChunk = [[SDLTTSChunk alloc] init];
         ttsChunk.text  = @"AppName";
         ttsChunk.type = SDLSpeechCapabilities.TEXT;
-        _lifecycleConfiguration.ttsName = @[ttsChunk];
+        lifecycleConfig.ttsName = @[ttsChunk];
 
         UIImage* appIcon = [UIImage imageNamed:IconFile];
         if (appIcon) {
-            _lifecycleConfiguration.appIcon = [SDLArtwork artworkWithImage:appIcon name:IconFile asImageFormat:SDLArtworkImageFormatPNG];
+            lifecycleConfig.appIcon = [SDLArtwork artworkWithImage:appIcon name:IconFile asImageFormat:SDLArtworkImageFormatPNG];
         }
-        
-        // SDLConfiguration contains the lifecycle and lockscreen configurations
-        SDLConfiguration *configuration = [SDLConfiguration configurationWithLifecycle:_lifecycleConfiguration lockScreen:[SDLLockScreenConfiguration enabledConfiguration]];
+
+        SDLLockScreenConfiguration *lockScreenConfig;
+        if ([[self _numberForKey:lockScreenKey
+        withDefaultValue:@(NO)] boolValue]) {
+            lockScreenConfig = [SDLLockScreenConfiguration enabledConfiguration];
+        } else {
+            lockScreenConfig = [SDLLockScreenConfiguration disabledConfiguration];
+        }
+
+        SDLConfiguration *configuration = [SDLConfiguration configurationWithLifecycle:lifecycleConfig lockScreen:lockScreenConfig];
         
         _manager = [[SDLManager alloc] initWithConfiguration:configuration delegate:self];
         
         [self sdl_addRPCObservers];
+        self.hmiHandler = hmiHandler;
     }
     return self;
+}
+
+
+- (NSNumber*)_numberForKey:(NSString*)key withDefaultValue:(NSNumber*)defaultValue {
+    NSNumber* numberObject = [[NSUserDefaults standardUserDefaults] objectForKey:key];
+    if ([numberObject isKindOfClass:[NSString class]]) {
+        NSString* numberString = (NSString*)numberObject;
+        numberObject = [self.numberFormatter numberFromString:numberString];
+    }
+    if (!numberObject) {
+        numberObject = defaultValue;
+        [[NSUserDefaults standardUserDefaults] setObject:numberObject
+                              forKey:key];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    return numberObject;
+}
+
+- (NSNumberFormatter*)numberFormatter {
+    static NSNumberFormatter* numberFormatter = nil;
+    if (!numberFormatter) {
+        numberFormatter = [[NSNumberFormatter alloc] init];
+        numberFormatter.formatterBehavior = NSNumberFormatterDecimalStyle;
+    }
+    return numberFormatter;
 }
 
 #pragma mark Proxy Lifecycle
@@ -108,6 +110,7 @@ static const NSUInteger TestCommandID = 1;
         }
         
         NSLog(@"Successfully connected!");
+        self.hmiHandler(self.manager.hmiLevel.value);
         [self sdl_addPermissionManagerObservers];
     }];
 }
@@ -124,7 +127,7 @@ static const NSUInteger TestCommandID = 1;
 #pragma mark - SDLManagerDelegate
 - (void)hmiLevel:(SDLHMILevel*)oldLevel didChangeToLevel:(SDLHMILevel *)newLevel {
     NSLog(@"HMIStatus notification from SDL");
-    
+    self.hmiHandler(newLevel.value);
     // Send AddCommands in first non-HMI NONE state (i.e., FULL, LIMITED, BACKGROUND)
     if (![newLevel isEqualToEnum:SDLHMILevel.NONE] && self.isFirstHmiNotNone == YES) {
         _firstHmiNotNone = NO;

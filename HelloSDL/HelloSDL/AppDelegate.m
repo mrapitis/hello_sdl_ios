@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "HSDLProxyManager.h"
 
 @interface AppDelegate ()
 
@@ -18,7 +17,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Start the proxy
-    [[HSDLProxyManager sharedManager] start];
 
     return YES;
 }

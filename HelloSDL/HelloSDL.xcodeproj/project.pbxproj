@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		24C09B5523E96D3500CD1365 /* SmartDeviceLink.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24C09B5223E96D2E00CD1365 /* SmartDeviceLink.framework */; };
 		24C09B5623E96D3500CD1365 /* SmartDeviceLink.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 24C09B5223E96D2E00CD1365 /* SmartDeviceLink.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		24C09B5923E9769B00CD1365 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 24C09B5823E9769B00CD1365 /* Settings.bundle */; };
+		24C09B5D23E9888800CD1365 /* Button-Normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 24C09B5C23E9888800CD1365 /* Button-Normal.png */; };
 		7C2D5AE01BC30F4C002FE9CE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D5ADF1BC30F4C002FE9CE /* main.m */; };
 		7C2D5AE31BC30F4C002FE9CE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D5AE21BC30F4C002FE9CE /* AppDelegate.m */; };
 		7C2D5AE61BC30F4C002FE9CE /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C2D5AE51BC30F4C002FE9CE /* ViewController.m */; };
@@ -58,6 +60,8 @@
 
 /* Begin PBXFileReference section */
 		24C09B4923E96D2E00CD1365 /* SmartDeviceLink-iOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "SmartDeviceLink-iOS.xcodeproj"; path = "Framework/External/sdlmobile_ios_library_public/SmartDeviceLink-iOS.xcodeproj"; sourceTree = "<group>"; };
+		24C09B5823E9769B00CD1365 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		24C09B5C23E9888800CD1365 /* Button-Normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Button-Normal.png"; sourceTree = "<group>"; };
 		7C2D5ADB1BC30F4C002FE9CE /* HelloSDL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloSDL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C2D5ADF1BC30F4C002FE9CE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7C2D5AE11BC30F4C002FE9CE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -122,6 +126,7 @@
 				7C2D5AEA1BC30F4C002FE9CE /* Assets.xcassets */,
 				7C2D5AEC1BC30F4C002FE9CE /* LaunchScreen.storyboard */,
 				7C2D5AEF1BC30F4C002FE9CE /* Info.plist */,
+				24C09B5823E9769B00CD1365 /* Settings.bundle */,
 				7C2D5ADE1BC30F4C002FE9CE /* Supporting Files */,
 			);
 			path = HelloSDL;
@@ -130,6 +135,7 @@
 		7C2D5ADE1BC30F4C002FE9CE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				24C09B5C23E9888800CD1365 /* Button-Normal.png */,
 				7C2D5ADF1BC30F4C002FE9CE /* main.m */,
 			);
 			name = "Supporting Files";
@@ -250,8 +256,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24C09B5923E9769B00CD1365 /* Settings.bundle in Resources */,
 				7C2D5AEE1BC30F4C002FE9CE /* LaunchScreen.storyboard in Resources */,
 				7C2D5AEB1BC30F4C002FE9CE /* Assets.xcassets in Resources */,
+				24C09B5D23E9888800CD1365 /* Button-Normal.png in Resources */,
 				7C2D5AE91BC30F4C002FE9CE /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
