@@ -108,11 +108,12 @@ static const NSUInteger TestCommandID = 1;
             NSLog(@"There was an error! %@", error.localizedDescription);
             return;
         }
-        
+
         NSLog(@"Successfully connected!");
         self.hmiHandler(self.manager.hmiLevel.value);
         [self sdl_addPermissionManagerObservers];
     }];
+
 }
 
 /**
@@ -153,6 +154,8 @@ static const NSUInteger TestCommandID = 1;
     _firstHmiNotNone = YES;
     _vehicleDataSubscribed = NO;
     _graphicsSupported = NO;
+
+    self.hmiHandler(self.manager.hmiLevel.value);
 }
 
 #pragma mark - Observers
