@@ -34,6 +34,7 @@ static const NSUInteger TestCommandID = 1;
 @interface HSDLProxyManager () <SDLManagerDelegate>
 
 @property (nonatomic, strong) SDLManager *manager;
+@property (strong, nonatomic) HSDLConnectionResponseHandler responseHandler;
 @property (nonatomic, strong) SDLLifecycleConfiguration *lifecycleConfiguration;
 @property (nonatomic, assign, getter=isGraphicsSupported) BOOL graphicsSupported;
 @property (nonatomic, assign, getter=isFirstHmiNotNone) BOOL firstHmiNotNone;
@@ -64,7 +65,7 @@ static const NSUInteger TestCommandID = 1;
         _graphicsSupported = NO;
         _firstHmiNotNone = YES;
         _vehicleDataSubscribed = NO;
-        
+        _isConnected = NO;
         // If connecting via USB (to a vehicle).
         _lifecycleConfiguration = [SDLLifecycleConfiguration defaultConfigurationWithAppName:AppName appId:AppId];
         
@@ -85,7 +86,7 @@ static const NSUInteger TestCommandID = 1;
         }
         
         // SDLConfiguration contains the lifecycle and lockscreen configurations
-        SDLConfiguration *configuration = [SDLConfiguration configurationWithLifecycle:_lifecycleConfiguration lockScreen:[SDLLockScreenConfiguration enabledConfiguration]];
+        SDLConfiguration *configuration = [SDLConfiguration configurationWithLifecycle:_lifecycleConfiguration lockScreen:[SDLLockScreenConfiguration disabledConfiguration]];
         
         _manager = [[SDLManager alloc] initWithConfiguration:configuration delegate:self];
         
@@ -99,15 +100,17 @@ static const NSUInteger TestCommandID = 1;
 /**
  *  Start listening for SDL connections. Use only one of the following connection methods.
  */
-- (void)start {
+- (void)startWithResponseHandler:(HSDLConnectionResponseHandler)handler {
     NSLog(@"starting proxy manager");
     [self.manager startWithReadyHandler:^(BOOL success, NSError * _Nullable error) {
         if (!success) {
             NSLog(@"There was an error! %@", error.localizedDescription);
             return;
         }
-        
         NSLog(@"Successfully connected!");
+        _isConnected = YES;
+        _responseHandler = handler;
+        _responseHandler(_isConnected);
         [self sdl_addPermissionManagerObservers];
     }];
 }
@@ -148,8 +151,10 @@ static const NSUInteger TestCommandID = 1;
 - (void)managerDidDisconnect {
     NSLog(@"Manager did disconnect");
     _firstHmiNotNone = YES;
+    _isConnected = NO;
     _vehicleDataSubscribed = NO;
     _graphicsSupported = NO;
+    _responseHandler(_isConnected);
 }
 
 #pragma mark - Observers

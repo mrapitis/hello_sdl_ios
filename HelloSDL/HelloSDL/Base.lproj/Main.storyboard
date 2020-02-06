@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -22,7 +20,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sdl_logo" translatesAutoresizingMaskIntoConstraints="NO" id="oOo-c6-R9r">
-                                <rect key="frame" x="67.5" y="67" width="240" height="128"/>
+                                <rect key="frame" x="67.5" y="47" width="240" height="128"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="240" id="Fqr-AL-qtc"/>
                                     <constraint firstAttribute="width" secondItem="oOo-c6-R9r" secondAttribute="height" multiplier="15:8" id="YXW-t3-4pE"/>
@@ -35,19 +33,34 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="APn-4Y-Wch">
+                                <rect key="frame" x="151" y="394" width="73" height="30"/>
+                                <color key="backgroundColor" systemColor="tertiaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Start"/>
+                                <connections>
+                                    <action selector="toggleStartAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vBi-RW-FCb"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="APn-4Y-Wch" firstAttribute="trailing" secondItem="M1X-R1-KlX" secondAttribute="trailing" id="DIP-FA-Xyo"/>
+                            <constraint firstItem="APn-4Y-Wch" firstAttribute="leading" secondItem="M1X-R1-KlX" secondAttribute="leading" id="Jkg-4M-uZO"/>
                             <constraint firstItem="oOo-c6-R9r" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="MmR-36-31K"/>
+                            <constraint firstItem="APn-4Y-Wch" firstAttribute="top" secondItem="M1X-R1-KlX" secondAttribute="bottom" constant="50" id="fYp-pD-Di9"/>
                             <constraint firstItem="M1X-R1-KlX" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="hNe-S1-WS9"/>
                             <constraint firstItem="M1X-R1-KlX" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="nsf-w3-rNT"/>
                             <constraint firstItem="oOo-c6-R9r" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="47" id="v38-JD-UcX"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="lockLabel" destination="M1X-R1-KlX" id="66M-rU-CCC"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="522" y="389"/>
+            <point key="canvasLocation" x="520.79999999999995" y="388.15592203898052"/>
         </scene>
     </scenes>
     <resources>
