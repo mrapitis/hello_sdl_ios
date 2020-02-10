@@ -20,7 +20,7 @@ static NSString *const WelcomeSpeak = @"Welcome to Hello S D L";
 static NSString *const TestCommandName = @"Test Command";
 static const NSUInteger TestCommandID = 1;
 
-@interface HSDLProxyManager () <SDLManagerDelegate>
+@interface HSDLProxyManager () <SDLManagerDelegate,SDLNotificationDelegate>
 
 @property (nonatomic, strong) SDLManager *manager;
 @property (strong, nonatomic) HSDLHMIStatusHandler hmiHandler;
@@ -36,7 +36,7 @@ static const NSUInteger TestCommandID = 1;
 
 
 
-- (instancetype)initWithLifeCycleConfiguration:(SDLLifecycleConfiguration *)lifecycleConfig  withHMIStatusHandler:(HSDLHMIStatusHandler) hmiHandler{
+- (instancetype)initWithLifeCycleConfiguration:(SDLLifecycleConfiguration *)lifecycleConfig  withHMIStatusHandler:(HSDLHMIStatusHandler) hmiHandler {
     if (self = [super init]) {
         _graphicsSupported = NO;
         _firstHmiNotNone = YES;
@@ -44,8 +44,8 @@ static const NSUInteger TestCommandID = 1;
 
         // SDLConfiguration contains the lifecycle and lockscreen configurations
         SDLTTSChunk *ttsChunk = [[SDLTTSChunk alloc] init];
-        ttsChunk.text  = @"AppName";
-        ttsChunk.type = SDLSpeechCapabilities.TEXT;
+        ttsChunk.text  = lifecycleConfig.appName;
+        ttsChunk.type = SDLSpeechCapabilitiesText;
         lifecycleConfig.ttsName = @[ttsChunk];
 
         UIImage* appIcon = [UIImage imageNamed:IconFile];
@@ -61,7 +61,10 @@ static const NSUInteger TestCommandID = 1;
             lockScreenConfig = [SDLLockScreenConfiguration disabledConfiguration];
         }
 
-        SDLConfiguration *configuration = [SDLConfiguration configurationWithLifecycle:lifecycleConfig lockScreen:lockScreenConfig];
+        SDLLogConfiguration *logConfig = [SDLLogConfiguration defaultConfiguration];
+        logConfig.disableAssertions = YES;
+
+        SDLConfiguration *configuration = [SDLConfiguration configurationWithLifecycle:lifecycleConfig lockScreen:lockScreenConfig logging:logConfig fileManager:nil];
         
         _manager = [[SDLManager alloc] initWithConfiguration:configuration delegate:self];
         
@@ -110,7 +113,7 @@ static const NSUInteger TestCommandID = 1;
         }
 
         NSLog(@"Successfully connected!");
-        self.hmiHandler(self.manager.hmiLevel.value);
+        self.hmiHandler(self.manager.hmiLevel);
         [self sdl_addPermissionManagerObservers];
     }];
 
@@ -126,11 +129,11 @@ static const NSUInteger TestCommandID = 1;
 
 
 #pragma mark - SDLManagerDelegate
-- (void)hmiLevel:(SDLHMILevel*)oldLevel didChangeToLevel:(SDLHMILevel *)newLevel {
+- (void)hmiLevel:(SDLHMILevel)oldLevel didChangeToLevel:(SDLHMILevel)newLevel {
     NSLog(@"HMIStatus notification from SDL");
-    self.hmiHandler(newLevel.value);
+    self.hmiHandler(newLevel);
     // Send AddCommands in first non-HMI NONE state (i.e., FULL, LIMITED, BACKGROUND)
-    if (![newLevel isEqualToEnum:SDLHMILevel.NONE] && self.isFirstHmiNotNone == YES) {
+    if (![newLevel isEqualToEnum:SDLHMILevelNone] && self.isFirstHmiNotNone == YES) {
         _firstHmiNotNone = NO;
         [self sdl_addCommands];
         
@@ -139,8 +142,8 @@ static const NSUInteger TestCommandID = 1;
     }
     
     // Send welcome message on first HMI FULL
-    if ([newLevel isEqualToEnum:SDLHMILevel.FULL]) {
-        if ([oldLevel isEqualToEnum:SDLHMILevel.NONE]) {
+    if ([newLevel isEqualToEnum:SDLHMILevelFull]) {
+        if ([oldLevel isEqualToEnum:SDLHMILevelNone]) {
             [self sdl_performWelcomeMessage];
             return;
         }
@@ -155,7 +158,7 @@ static const NSUInteger TestCommandID = 1;
     _vehicleDataSubscribed = NO;
     _graphicsSupported = NO;
 
-    self.hmiHandler(self.manager.hmiLevel.value);
+    self.hmiHandler(@"");
 }
 
 #pragma mark - Observers
@@ -171,7 +174,7 @@ static const NSUInteger TestCommandID = 1;
     // Adding Permission Manager Observers
     // Since we do not want to remove the observer, we will not store the UUID it returns
     __weak typeof(self) weakSelf = self;
-    [self.manager.permissionManager addObserverForRPCs:@[@"SubscribeVehicleData"] groupType:SDLPermissionGroupTypeAllAllowed withHandler:^(NSDictionary<SDLPermissionRPCName *,NSNumber<SDLBool> *> * _Nonnull change, SDLPermissionGroupStatus status) {
+    [self.manager.permissionManager addObserverForRPCs:@[@"SubscribeVehicleData"] groupType:SDLPermissionGroupTypeAllAllowed withHandler:^(NSDictionary<SDLPermissionRPCName,NSNumber<SDLBool> *> * _Nonnull change, SDLPermissionGroupStatus status) {
             if (status != SDLPermissionGroupStatusAllowed) {
                 return;
             }
@@ -226,7 +229,7 @@ static const NSUInteger TestCommandID = 1;
     subscribe.speed = @YES;
     
     [self.manager sendRequest:subscribe withResponseHandler:^(__kindof SDLRPCRequest * _Nullable request, __kindof SDLRPCResponse * _Nullable response, NSError * _Nullable error) {
-        if ([response.resultCode isEqualToEnum:SDLResult.SUCCESS]) {
+        if ([response.resultCode isEqualToEnum:SDLResultSuccess]) {
             NSLog(@"Vehicle Data Subscribed!");
             _vehicleDataSubscribed = YES;
         }
@@ -242,7 +245,7 @@ static const NSUInteger TestCommandID = 1;
     NSLog(@"Send welcome message");
     SDLShow *show = [[SDLShow alloc] init];
     show.mainField1 = WelcomeShow;
-    show.alignment = SDLTextAlignment.CENTERED;
+    show.alignment = SDLTextAlignmentCenter;
     [self.manager sendRequest:show];
 
     SDLSpeak *speak = [[SDLSpeak alloc] initWithName:WelcomeSpeak];
@@ -269,7 +272,7 @@ static const NSUInteger TestCommandID = 1;
         if (onCommand.cmdID.unsignedIntegerValue == TestCommandID) {
             SDLShow *show = [[SDLShow alloc] init];
             show.mainField1 = @"Test Command";
-            show.alignment = SDLTextAlignment.CENTERED;
+            show.alignment = SDLTextAlignmentCenter;
             [strongSelf.manager sendRequest:show];
 
             SDLSpeak* speak = [[SDLSpeak alloc] initWithName:@"Test Command"];
@@ -287,5 +290,14 @@ static const NSUInteger TestCommandID = 1;
     }];
 }
 
+
+- (void)sendRPCNotificationObject:(nonnull SDLRPCNotificationNotification *)notification {
+    if ([notification.notification isKindOfClass:SDLOnHMIStatus.class]) {
+        SDLOnHMIStatus *hmiStatus = (SDLOnHMIStatus *)notification.notification;
+        self.hmiHandler(hmiStatus.hmiLevel);
+    } if ([notification.notification isKindOfClass:SDLOnAppInterfaceUnregistered.class]) {
+        self.hmiHandler(@"stop");
+    }
+}
 
 @end

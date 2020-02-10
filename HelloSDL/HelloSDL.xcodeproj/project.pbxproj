@@ -21,6 +21,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		248D6EF123F1802700AA7E67 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 24C09B4923E96D2E00CD1365 /* SmartDeviceLink-iOS.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 88295697207CF68800EF056C;
+			remoteInfo = "SmartDeviceLink-Example-Swift";
+		};
+		248D6EF323F1802700AA7E67 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 24C09B4923E96D2E00CD1365 /* SmartDeviceLink-iOS.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 88802FEF20853AE600E9EBC6;
+			remoteInfo = SmartDeviceLinkSwift;
+		};
 		24C09B4F23E96D2E00CD1365 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 24C09B4923E96D2E00CD1365 /* SmartDeviceLink-iOS.xcodeproj */;
@@ -91,9 +105,11 @@
 		24C09B4A23E96D2E00CD1365 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				24C09B5023E96D2E00CD1365 /* SDL Example.app */,
 				24C09B5223E96D2E00CD1365 /* SmartDeviceLink.framework */,
 				24C09B5423E96D2E00CD1365 /* SmartDeviceLinkTests.xctest */,
+				24C09B5023E96D2E00CD1365 /* SDL Example.app */,
+				248D6EF223F1802700AA7E67 /* SDL Example Swift.app */,
+				248D6EF423F1802700AA7E67 /* SmartDeviceLinkSwift.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -228,6 +244,20 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		248D6EF223F1802700AA7E67 /* SDL Example Swift.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "SDL Example Swift.app";
+			remoteRef = 248D6EF123F1802700AA7E67 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		248D6EF423F1802700AA7E67 /* SmartDeviceLinkSwift.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SmartDeviceLinkSwift.framework;
+			remoteRef = 248D6EF323F1802700AA7E67 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		24C09B5023E96D2E00CD1365 /* SDL Example.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;

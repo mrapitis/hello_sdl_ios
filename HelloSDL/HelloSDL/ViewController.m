@@ -79,7 +79,7 @@ static UInt16 const RemotePort = 12345;
 //    If connecting via TCP/IP (to an emulator).
 //    SDLLifecycleConfiguration *lifecycleConfiguration = [SDLLifecycleConfiguration debugConfigurationWithAppName:AppName appId:AppId ipAddress:RemoteIpAddress port:RemotePort];
 
-             lifecycleConfiguration.appType = AppIsMediaApp ? SDLAppHMIType.MEDIA : SDLAppHMIType.DEFAULT;
+             lifecycleConfiguration.appType = AppIsMediaApp ? SDLAppHMITypeMedia : SDLAppHMITypeDefault;
              lifecycleConfiguration.shortAppName = shortAppName;
              lifecycleConfiguration.voiceRecognitionCommandNames = @[vrSynonym];
 
@@ -89,30 +89,28 @@ static UInt16 const RemotePort = 12345;
 
 
 - (void)updateLableWithTag:(int)tag andHMIStatus:(NSString *)hmiStatus {
-    if (tag == 1) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            UIButton *btn = (UIButton *)[self.view viewWithTag:tag];
-            if ([self.hmiStatusLabel.text isEqualToString:@"Not Connected"]|| ![btn.titleLabel.text isEqualToString:@"Stop"]) {
-                [self.hmiStatusLabel setText:hmiStatus];
-                [btn setTitle:@"Stop" forState:UIControlStateNormal];
-            } else {
-                [self.hmiStatusLabel setText:@"Not Connected"];
-                [btn setTitle:@"Connect" forState:UIControlStateNormal];
-            }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSString *hmi = hmiStatus;
 
-        });
-    } else {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            UIButton *btn = (UIButton *)[self.view viewWithTag:tag];
-            if ([self.hmiStatus1Label.text isEqualToString:@"Not Connected"]|| ![btn.titleLabel.text isEqualToString:@"Stop"]) {
+        UIButton *btn = (UIButton *)[self.view viewWithTag:tag];
+        if ([hmi isEqualToString:@"Stop"] || !hmi.length) {
+            [btn setTitle:@"Connect" forState:UIControlStateNormal];
+            hmi = @"Not Connected";
+        } else {
+            if (![btn.titleLabel.text isEqualToString:@"Stop"]) {
                 [btn setTitle:@"Stop" forState:UIControlStateNormal];
-                [self.hmiStatus1Label setText:hmiStatus];
-            } else {
-                [self.hmiStatus1Label setText:@"Not Connected"];
-                [btn setTitle:@"Connect" forState:UIControlStateNormal];
             }
-        });
-    }
+        }
+
+        if (tag == 1) {
+            [self.hmiStatusLabel setText:hmi];
+        } else {
+            [self.hmiStatus1Label setText:hmi];
+        }
+
+    });
+
+
 }
 
 

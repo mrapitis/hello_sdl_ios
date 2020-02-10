@@ -1,4 +1,4 @@
 [submodule "HelloSDL/Framework/External/sdlmobile_ios_library_public"]
 	path = HelloSDL/Framework/External/sdlmobile_ios_library_public
 	url = https://gitlab.com/applink-sdl/sdlmobile_ios_library_public.git
-	branch = github/develop
+	branch = github/multi_instance

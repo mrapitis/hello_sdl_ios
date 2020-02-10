@@ -13,7 +13,7 @@ typedef void (^HSDLHMIStatusHandler)(__kindof NSString *hmiStatus);
 
 @interface HSDLProxyManager : NSObject
 
-- (instancetype)initWithLifeCycleConfiguration:(SDLLifecycleConfiguration *)lifecycleConfig  withHMIStatusHandler:(HSDLHMIStatusHandler) hmiHandler;
+- (instancetype)initWithLifeCycleConfiguration:(SDLLifecycleConfiguration *)lifecycleConfig  withHMIStatusHandler:(HSDLHMIStatusHandler)hmiHandler;
 - (void)start;
 - (void)stop;
 
