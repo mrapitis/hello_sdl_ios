@@ -66,10 +66,10 @@ static const NSUInteger TestCommandID = 1;
         _vehicleDataSubscribed = NO;
         
         // If connecting via USB (to a vehicle).
-        _lifecycleConfiguration = [SDLLifecycleConfiguration defaultConfigurationWithAppName:AppName appId:AppId];
+        _lifecycleConfiguration = [SDLLifecycleConfiguration defaultConfigurationWithAppName:AppName fullAppId:AppId];
         
         // If connecting via TCP/IP (to an emulator).
-//        _lifecycleConfiguration = [SDLLifecycleConfiguration debugConfigurationWithAppName:AppName appId:AppId ipAddress:RemoteIpAddress port:RemotePort];
+//        _lifecycleConfiguration = [SDLLifecycleConfiguration debugConfigurationWithAppName:AppName fullAppId:AppId ipAddress:RemoteIpAddress port:RemotePort];
 
         _lifecycleConfiguration.appType = AppIsMediaApp ? SDLAppHMITypeMedia : SDLAppHMITypeDefault;
         _lifecycleConfiguration.shortAppName = ShortAppName;
@@ -88,7 +88,7 @@ static const NSUInteger TestCommandID = 1;
         logConfig.disableAssertions = YES;
         
         // SDLConfiguration contains the lifecycle and lockscreen configurations
-        SDLConfiguration *configuration = [SDLConfiguration configurationWithLifecycle:_lifecycleConfiguration lockScreen:[SDLLockScreenConfiguration enabledConfiguration] logging:logConfig fileManager:nil];
+        SDLConfiguration *configuration = [[SDLConfiguration alloc] initWithLifecycle:_lifecycleConfiguration lockScreen:[SDLLockScreenConfiguration enabledConfiguration] logging:logConfig fileManager:nil encryption:nil];
         
         _manager = [[SDLManager alloc] initWithConfiguration:configuration delegate:self];
         
@@ -168,15 +168,15 @@ static const NSUInteger TestCommandID = 1;
     // Adding Permission Manager Observers
     // Since we do not want to remove the observer, we will not store the UUID it returns
     __weak typeof(self) weakSelf = self;
-    [self.manager.permissionManager addObserverForRPCs:@[@"SubscribeVehicleData"] groupType:SDLPermissionGroupTypeAllAllowed withHandler:^(NSDictionary<SDLPermissionRPCName,NSNumber<SDLBool> *> * _Nonnull change, SDLPermissionGroupStatus status) {
-            if (status != SDLPermissionGroupStatusAllowed) {
-                return;
-            }
+    [self.manager.permissionManager subscribeToRPCPermissions:@[[[SDLPermissionElement alloc] initWithRPCName:SDLRPCFunctionNameSubscribeVehicleData parameterPermissions:nil]] groupType:SDLPermissionGroupTypeAllAllowed withHandler:^(NSDictionary<SDLRPCFunctionName,SDLRPCPermissionStatus *> * _Nonnull updatedPermissionStatuses, SDLPermissionGroupStatus status) {
+        if (status != SDLPermissionGroupStatusAllowed) {
+            return;
+        }
 
-            typeof(weakSelf) strongSelf = weakSelf;
-            if (strongSelf.isVehicleDataSubscribed == NO) {
-                [strongSelf sdl_subscribeVehicleData];
-            }
+        typeof(weakSelf) strongSelf = weakSelf;
+        if (strongSelf.isVehicleDataSubscribed == NO) {
+            [strongSelf sdl_subscribeVehicleData];
+        }
     }];
 }
 
